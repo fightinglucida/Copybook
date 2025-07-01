@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {{ partial "meta" . }}
+    <link rel="stylesheet" href="/css/main.css">
     {{ with resources.Get "css/main.css" }}
-      {{ $css := . | resources.ExecuteAsTemplate "css/main.css" . | resources.PostCSS | resources.Minify | resources.Fingerprint "sha512" }}
+      {{ $css := . | resources.Minify | resources.Fingerprint "sha512" }}
       <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
     {{ end }}
     <link

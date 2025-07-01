@@ -38,11 +38,3 @@ canonifyURLs = true
   [[build.cachebusters]]
     source = 'layouts/.*'
     target = 'css'
-
-
-[params.tailwind]
-  enabled = true
-  config = "tailwind.config.js"
-  source = "css/main.css"
-  target = "css/main.css"
-  minify = true

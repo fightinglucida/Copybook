@@ -33,6 +33,16 @@ canonifyURLs = true
 [mediaTypes]
   [mediaTypes."text/css"]
     suffixes = ["css"]
+    mediaType = "text/css"
+
+[outputFormats]
+  [outputFormats.CSS]
+    mediaType = "text/css"
+    isPlainText = true
+    isHTML = false
+    isRSS = false
+    isSitemap = false
+    notAlternative = true
 
 [build]
   [[build.cachebusters]]

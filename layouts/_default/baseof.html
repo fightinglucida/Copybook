@@ -8,7 +8,7 @@
     {{- if hugo.IsProduction -}}
       {{- $css = $css | minify | fingerprint -}}
     {{- end -}}
-    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
     <link
       rel="preconnect"
       href="https://RMNJ9XLDDW-dsn.algolia.net"

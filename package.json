@@ -9,8 +9,5 @@
   "dependencies": {
     "@tailwindcss/cli": "^4.0.0",
     "tailwindcss": "^4.0.0"
-  },
-  "devDependencies": {
-    "hugo": "^0.120.0"
   }
 }

@@ -1,0 +1,45 @@
+<div class="overflow-hidden w-full flex flex-col justify-between dark:bg-stone-800 border border-stone-200 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 rounded-lg">
+  <a
+    href="{{.Permalink}}"
+    id="{{ .File.UniqueID }}-content"
+    class="select-all p-5 rounded-t-lg flex-1 focus:outline-hidden focus:bg-stone-100 dark:focus:bg-stone-900"
+  >
+    {{.Content}}
+  </a>
+  <div class="flex justify-between items-center w-full px-5 py-4 text-xs select-none rounded-b-lg">
+    {{ with .Params.categories }}
+      <a class="font-medium text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition" href="{{ "/categories/" }}{{ . | urlize }}">{{ . | title }}</a>
+    {{ end }}
+    <button
+      class="flex items-center font-medium space-x-1 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition"
+      onclick="copy('{{ .File.UniqueID }}')"
+    >
+      <svg
+        viewBox="0 0 256 256"
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-4 w-4"
+      >
+        <polyline
+          points="168 168 216 168 216 40 88 40 88 88"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="20"
+        ></polyline>
+        <rect
+          x="40"
+          y="88"
+          width="128"
+          height="128"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="20"
+        ></rect>
+      </svg>
+      <span id="{{ .File.UniqueID }}-copy">Copy</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#" lang="{{ .Language }}">
+  <head itemscope itemtype="https://schema.org/WebPage">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{ partial "meta" . }}
+    {{ with resources.Get "css/main.css" }}
+      {{ $opts := dict "minify" true }}
+      {{ with . | css.TailwindCSS $opts }}
+        {{ if hugo.IsDevelopment }}
+          <link rel="stylesheet" href="{{ .RelPermalink }}">
+        {{ else }}
+          {{ with . | fingerprint }}
+            <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    <link
+      rel="preconnect"
+      href="https://RMNJ9XLDDW-dsn.algolia.net"
+      crossorigin
+    />
+    <script>
+      var copy = function (elem) {
+        const copyRect = document.getElementById(elem + "-copy");
+        copyRect.innerHTML = "Copied!";
+        navigator.clipboard.writeText(
+          document.getElementById(elem + "-content").innerText
+        );
+        setTimeout(function () {
+          copyRect.innerHTML = "Copy";
+        }, 1000);
+      };
+    </script>
+  </head>
+  <body
+    class="antialiased text-stone-900 bg-white dark:bg-stone-900 dark:text-slate-100 text-sm"
+  >
+    {{ partial "aside" . }}
+    <main class="p-5 md:ml-60">{{ block "main" . }}{{ end }}</main>
+    <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
+    <script type="text/javascript">
+      docsearch({
+        appId: "RMNJ9XLDDW",
+        apiKey: "9dfa2e64c920fb36da60161e201a46c3",
+        indexName: "copybook",
+        container: "#docsearch",
+        placeholder: "Search and filter...",
+        getMissingResultsUrl({ query }) {
+          return (
+            "https://github.com/praveenjuge/copybook/issues/new?title=" + query
+          );
+        },
+      });
+    </script>
+  </body>
+</html>

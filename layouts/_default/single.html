@@ -1,0 +1,57 @@
+{{ define "main" }}
+
+<div class="max-w-2xl mx-auto space-y-8">
+  <div class="flex justify-between items-center">
+    <div class="flex space-x-4">
+      <a
+        href="javascript:history.back()"
+        class="text-stone-800 dark:text-stone-200 hover:text-stone-900 dark:hover:text-white transition font-medium border border-stone-200 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 rounded-full px-4 py-2"
+      >
+        ← Go back
+      </a>
+    </div>
+    <a     
+      class="text-stone-800 dark:text-stone-200 hover:text-stone-900 dark:hover:text-white transition font-medium border border-stone-200 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 rounded-full px-4 py-2" 
+      href=https://github.com/praveenjuge/copybook/blob/main/content/{{ .File.Path }}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Edit on GitHub ↗
+    </a>
+  </div>
+
+  <div
+    class="bg-stone-50 dark:bg-stone-800 border border-stone-100 dark:border-stone-800 rounded-lg p-10 block text-base font-semibold text-center select-all"
+  >
+    {{ .Content }}
+  </div>
+
+  <div class="divide-y divide-stone-200 dark:divide-stone-800">
+    {{ with .Params.categories }}
+      <div class="flex justify-between items-center py-3.5">
+        <p class="text-stone-500">Category</p>
+        <a class="font-medium" href="{{ "/categories/" }}{{ . | urlize }}">{{ . | title }}</a>
+      </div>
+    {{ end }}
+
+    <div class="flex justify-between items-center py-3.5">
+      <p class="text-stone-500">Tags</p>
+      <div>
+        {{ range $key, $value := .Params.tags }}
+          <a class="font-medium" href="{{ "/tags/" }}{{ $value | urlize }}">#{{ $value }}</a>{{ if ne $key (sub (len $.Params.tags) 1) }}, {{ else }}{{ end }}
+        {{ end }}
+      </div>
+    </div>
+
+    {{ with .Params.mood }}
+      <div class="flex justify-between items-center py-3.5">
+        <p class="text-stone-500">Mood</p>
+        <a class="font-medium" href="{{ "/mood/" }}{{ . | urlize }}">{{ . | title }}</a>
+      </div>
+    {{ end }}
+
+  </div>
+
+</div>
+
+{{ end }}

@@ -1,0 +1,36 @@
+baseURL = "https://copybook.me/"
+languageCode = "en-us"
+title = "Copy Book"
+
+enableRobotsTXT = true
+enableEmoji = true
+enableGitInfo = true
+canonifyURLs = true
+
+[pagination]
+  pagerSize = 75
+
+[outputs]
+  home = ['HTML', 'RSS', 'JSON']
+
+[taxonomies]
+  tag = 'tags'
+  mood = 'mood'
+  category = 'categories'
+
+[params]
+  description = "Copy book is a collection of texts that are commonly used around the web."
+  og_image = "/images/og.jpg"
+  sitename = "Copy Book"
+
+[params.author]
+  name = "Praveen Juge"
+  github = "praveenjuge"
+  twitter = "praveenjuge"
+  dribbble = "praveenjuge"
+  behance = "praveenjuge"
+
+[build]
+  [[build.cachebusters]]
+    source = 'layouts/.*'
+    target = 'css'

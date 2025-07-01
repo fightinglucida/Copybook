@@ -5,7 +5,7 @@ title = "Copy Book"
 enableRobotsTXT = true
 enableEmoji = true
 enableGitInfo = true
-canonifyURLs = true
+canonifyURLs = false
 
 [pagination]
   pagerSize = 75

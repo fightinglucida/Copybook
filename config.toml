@@ -1,4 +1,4 @@
-baseURL = "https://copybook.me/"
+baseURL = "https://copybook-3w6.pages.dev/"
 languageCode = "en-us"
 title = "Copy Book"
 
@@ -29,6 +29,10 @@ canonifyURLs = true
   twitter = "praveenjuge"
   dribbble = "praveenjuge"
   behance = "praveenjuge"
+
+[mediaTypes]
+  [mediaTypes."text/css"]
+    suffixes = ["css"]
 
 [build]
   [[build.cachebusters]]

@@ -38,3 +38,20 @@ canonifyURLs = true
   [[build.cachebusters]]
     source = 'layouts/.*'
     target = 'css'
+
+[params]
+  description = "Copy book is a collection of texts that are commonly used around the web."
+  og_image = "/images/og.jpg"
+  sitename = "Copy Book"
+
+[params.tailwind]
+  enabled = true
+  config = "tailwind.config.js"
+  source = "css/main.css"
+  target = "css/main.css"
+  minify = true
+
+[params]
+  description = "Copy book is a collection of texts that are commonly used around the web."
+  og_image = "/images/og.jpg"
+  sitename = "Copy Book"

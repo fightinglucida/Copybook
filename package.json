@@ -1,6 +1,16 @@
 {
+  "name": "copybook",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "hugo",
+    "serve": "hugo server -D"
+  },
   "dependencies": {
     "@tailwindcss/cli": "^4.0.0",
     "tailwindcss": "^4.0.0"
+  },
+  "devDependencies": {
+    "hugo": "^0.120.0"
   }
 }

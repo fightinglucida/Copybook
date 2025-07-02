@@ -1,6 +1,6 @@
 baseURL = "https://copybook-3w6.pages.dev/"
-languageCode = "en-us"
-title = "Copy Book"
+languageCode = "zh-CN"
+title = "Skill Get Now"
 
 enableRobotsTXT = true
 enableEmoji = true
@@ -8,7 +8,7 @@ enableGitInfo = true
 canonifyURLs = false
 
 [pagination]
-  pagerSize = 75
+  pagerSize = 18
 
 [outputs]
   home = ['HTML', 'RSS', 'JSON']
@@ -19,12 +19,12 @@ canonifyURLs = false
   category = 'categories'
 
 [params]
-  description = "Copy book is a collection of texts that are commonly used around the web."
+  description = "技能之书 ▪ 永久免费的通识技能学习资源站，每天持续更新"
   og_image = "/images/og.jpg"
-  sitename = "Copy Book"
+  sitename = "技能之书"
 
 [params.author]
-  name = "Praveen Juge"
+  name = "Lucida"
   github = "praveenjuge"
   twitter = "praveenjuge"
   dribbble = "praveenjuge"

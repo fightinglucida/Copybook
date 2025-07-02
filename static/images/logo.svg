@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<svg width="115" height="23" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g class="layer">
+  <title>Layer 1</title>
+  <use id="svg_5" transform="translate(0.0459114 0.0456007) scale(1.00391 1.00391) translate(-0.0459114 -0.0456007) matrix(0.101378 0 0 0.101378 -1.48279 -1.4826)" xlink:href="#svg_4"/>
+  <text fill="#000000" font-family="Times" font-size="24" font-weight="bold" id="svg_6" stroke-width="0" text-anchor="middle" x="71.28" xml:space="preserve" y="19.38">SkillGet</text>
+ </g>
+ <defs>
+  <symbol class="icon" height="256" id="svg_4" version="1.1" viewBox="0 0 1024 1024" width="256" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+   <path d="m510.55,63.82c-246.72,0 -446.71,199.99 -446.71,446.7s199.99,446.71 446.71,446.71s446.71,-199.99 446.71,-446.7s-200,-446.71 -446.71,-446.71zm244.11,378.06l-354.45,354.43c-4.03,4.02 -9.39,6.11 -14.77,6.11c-3.85,0 -7.75,-1.06 -11.19,-3.23c-8.26,-5.26 -11.74,-15.54 -8.41,-24.71l73.23,-201.33l-157.88,0c-8.42,0 -16.03,-5.09 -19.26,-12.89c-3.24,-7.79 -1.44,-16.8 4.52,-22.76l312.76,-312.76c6.54,-6.59 16.63,-7.99 24.77,-3.52c8.13,4.46 12.32,13.76 10.32,22.81l-36.05,162.32l161.65,0c8.42,0 16.05,5.04 19.27,12.82c3.23,7.8 1.43,16.74 -4.51,22.71z" fill="#000000"/>
+  </symbol>
+ </defs>
+</svg>

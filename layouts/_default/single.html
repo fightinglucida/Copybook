@@ -29,13 +29,13 @@
   <div class="divide-y divide-stone-200 dark:divide-stone-800">
     {{ with .Params.categories }}
       <div class="flex justify-between items-center py-3.5">
-        <p class="text-stone-500">Category</p>
+        <p class="text-stone-500">分类</p>
         <a class="font-medium" href="{{ "/categories/" }}{{ . | urlize }}">{{ . | title }}</a>
       </div>
     {{ end }}
 
     <div class="flex justify-between items-center py-3.5">
-      <p class="text-stone-500">Tags</p>
+      <p class="text-stone-500">标签</p>
       <div>
         {{ range $key, $value := .Params.tags }}
           <a class="font-medium" href="{{ "/tags/" }}{{ $value | urlize }}">#{{ $value }}</a>{{ if ne $key (sub (len $.Params.tags) 1) }}, {{ else }}{{ end }}
@@ -45,7 +45,7 @@
 
     {{ with .Params.mood }}
       <div class="flex justify-between items-center py-3.5">
-        <p class="text-stone-500">Mood</p>
+        <p class="text-stone-500">推荐指数</p>
         <a class="font-medium" href="{{ "/mood/" }}{{ . | urlize }}">{{ . | title }}</a>
       </div>
     {{ end }}

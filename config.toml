@@ -48,6 +48,10 @@ canonifyURLs = false
     source = 'layouts/.*'
     target = 'css'
 
+[services]
+  [services.googleAnalytics]
+    ID = "G-EQHN4D94EN"
+
 [resources]
   [resources.transforms]
     [resources.transforms.PostCSS]

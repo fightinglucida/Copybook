@@ -12,9 +12,10 @@
     {{ else }}
       <span></span>
     {{ end }}
+    {{ if .Params.link }}
     <button
       class="flex items-center font-medium space-x-1 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition"
-      onclick="copy('{{ .File.UniqueID }}')"
+      onclick="copyToClipboard('{{ .Params.link }}', '{{ .File.UniqueID }}-copy')"
     >
       <svg
         viewBox="0 0 256 256"
@@ -43,5 +44,6 @@
       </svg>
       <span id="{{ .File.UniqueID }}-copy">复制</span>
     </button>
+    {{ end }}
   </div>
 </div>

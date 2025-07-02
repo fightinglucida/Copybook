@@ -1,4 +1,4 @@
 ---
-title: "Collection of texts that are commonly used around the web. | Copy Book"
-description: "Copy book is a collection of texts that are commonly used around the web."
+title: "技能之书"
+description: "技能之书"
 ---

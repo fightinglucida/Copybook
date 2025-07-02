@@ -21,9 +21,13 @@
   </div>
 
   <div
-    class="bg-stone-50 dark:bg-stone-800 border border-stone-100 dark:border-stone-800 rounded-lg p-10 block text-base font-semibold text-center select-all"
+    class="bg-stone-50 dark:bg-stone-800 border border-stone-100 dark:border-stone-800 rounded-lg p-10 block select-all"
   >
-    {{ .Content }}
+    <h2 class="text-xl font-bold mb-4">{{ .Title }}</h2>
+    <hr class="my-6 dark:border-stone-700">
+    <div class="prose dark:prose-invert max-w-none [&_p]:my-4">
+      {{ .Content }}
+    </div>
   </div>
 
   <div class="divide-y divide-stone-200 dark:divide-stone-800">

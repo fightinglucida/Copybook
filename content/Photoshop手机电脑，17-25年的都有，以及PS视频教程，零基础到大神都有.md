@@ -1,6 +1,6 @@
 ---
 title: Photoshop手机电脑，17-25年的都有，以及PS视频教程，零基础到大神都有
-category: 软件工具
+categories: 软件工具
 mood: empty
 tags:
   - 软件

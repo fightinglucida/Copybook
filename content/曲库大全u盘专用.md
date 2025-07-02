@@ -1,6 +1,6 @@
 ---
 title: 曲库大全u盘专用
-category: 音乐资源
+categories: 音乐资源
 mood: empty
 tags:
   - 音乐

@@ -1,6 +1,6 @@
 ---
 title: 花了很大力气收集到的~《进击的巨人》全季4K典藏版 4K超高码率 + OVA 内嵌简日特效字幕 814G
-category: 影视资源
+categories: 影视资源
 mood: empty
 tags:
   - 影视

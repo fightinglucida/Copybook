@@ -1,6 +1,6 @@
 ---
 title: 热门短剧1TB，爱看短剧的宝子们有福了！
-category: 影视资源
+categories: 影视资源
 mood: empty
 tags:
   - 影视

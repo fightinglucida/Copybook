@@ -1,6 +1,6 @@
 ---
 title: keep运动健身教程会员+付费课程合集 1TB
-category: 学习资料
+categories: 学习资料
 mood: empty
 tags:
   - 学习

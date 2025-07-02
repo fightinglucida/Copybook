@@ -1,6 +1,6 @@
 ---
 title: 花了299，在同行那里买回来的deepseek教程（清华大学版本）
-category: 副业项目
+categories: 副业项目
 mood: empty
 tags:
   - 其他

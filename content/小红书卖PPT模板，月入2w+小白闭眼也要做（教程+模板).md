@@ -1,6 +1,6 @@
 ---
 title: 小红书卖PPT模板，月入2w+小白闭眼也要做（教程+模板)
-category: 副业项目
+categories: 副业项目
 mood: empty
 tags:
   - 其他

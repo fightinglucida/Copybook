@@ -1,6 +1,6 @@
 ---
 title: 【剪映】免vip版、破译版、电脑版、手机版，应有尽有
-category: 软件工具
+categories: 软件工具
 mood: empty
 tags:
   - 软件

@@ -1,6 +1,6 @@
 ---
 title: B站UP主小姐姐美少女全套写真图集 2.7G
-category: 图片资源
+categories: 图片资源
 mood: empty
 tags:
   - 其他

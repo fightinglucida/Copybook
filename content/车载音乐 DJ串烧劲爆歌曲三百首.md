@@ -1,6 +1,6 @@
 ---
 title: 车载音乐 DJ串烧劲爆歌曲三百首
-category: 音乐资源
+categories: 音乐资源
 mood: empty
 tags:
   - 音乐

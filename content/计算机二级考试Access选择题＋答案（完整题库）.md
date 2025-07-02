@@ -1,6 +1,6 @@
 ---
 title: 计算机二级考试Access选择题＋答案（完整题库）
-category: 学习资料
+categories: 学习资料
 mood: empty
 tags:
   - 学习

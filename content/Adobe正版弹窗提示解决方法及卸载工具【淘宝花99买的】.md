@@ -1,6 +1,6 @@
 ---
 title: Adobe正版弹窗提示解决方法及卸载工具【淘宝花99买的】
-category: 软件工具
+categories: 软件工具
 mood: empty
 tags:
   - 软件

@@ -1,6 +1,6 @@
 ---
 title: 【TED-ED 700集】最好英语合集，刷一遍绝对能让你英语口语起飞!
-category: 学习资料
+categories: 学习资料
 mood: empty
 tags:
   - 学习

@@ -1,6 +1,6 @@
 ---
 title: 花了两万多买的Python全套教程，入门让到精通开发教程
-category: 软件工具
+categories: 软件工具
 mood: empty
 tags:
   - 软件

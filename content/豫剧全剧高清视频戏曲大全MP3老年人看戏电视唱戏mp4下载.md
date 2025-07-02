@@ -1,6 +1,6 @@
 ---
 title: 豫剧全剧高清视频戏曲大全MP3老年人看戏电视唱戏mp4下载
-category: 影视资源
+categories: 影视资源
 mood: empty
 tags:
   - 影视

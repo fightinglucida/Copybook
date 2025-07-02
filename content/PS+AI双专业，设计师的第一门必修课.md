@@ -1,6 +1,6 @@
 ---
 title: PS+AI双专业，设计师的第一门必修课
-category: 软件工具
+categories: 软件工具
 mood: empty
 tags:
   - 软件

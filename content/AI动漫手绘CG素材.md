@@ -1,6 +1,6 @@
 ---
 title: AI动漫手绘CG素材
-category: 图片资源
+categories: 图片资源
 mood: empty
 tags:
   - 其他

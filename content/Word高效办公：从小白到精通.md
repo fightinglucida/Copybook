@@ -1,6 +1,6 @@
 ---
 title: Word高效办公：从小白到精通
-category: 软件工具
+categories: 软件工具
 mood: empty
 tags:
   - 软件

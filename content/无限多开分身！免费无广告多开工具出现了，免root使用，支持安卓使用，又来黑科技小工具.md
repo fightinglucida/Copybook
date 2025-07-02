@@ -1,6 +1,6 @@
 ---
 title: 无限多开分身！免费无广告多开工具出现了，免root使用，支持安卓使用，又来黑科技小工具
-category: 软件工具
+categories: 软件工具
 mood: empty
 tags:
   - 软件

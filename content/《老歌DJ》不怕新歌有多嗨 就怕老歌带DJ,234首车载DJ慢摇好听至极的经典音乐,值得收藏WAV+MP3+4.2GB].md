@@ -1,6 +1,6 @@
 ---
 title: 《老歌DJ》不怕新歌有多嗨 就怕老歌带DJ,234首车载DJ慢摇好听至极的经典音乐,值得收藏WAV+MP3+4.2GB]
-category: 音乐资源
+categories: 音乐资源
 mood: empty
 tags:
   - 音乐

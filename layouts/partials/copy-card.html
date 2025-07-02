@@ -7,8 +7,10 @@
     {{.Title}}
   </a>
   <div class="flex justify-between items-center w-full px-5 py-4 text-xs select-none rounded-b-lg">
-    {{ with .Params.categories }}
-      <a class="font-medium text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition" href="{{ "/categories/" }}{{ . | urlize }}">{{ . | title }}</a>
+    {{ if .Params.categories }}
+      <a class="font-medium text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition" href="{{ "/categories/" }}{{ .Params.categories | urlize }}">{{ .Params.categories | title }}</a>
+    {{ else }}
+      <span></span>
     {{ end }}
     <button
       class="flex items-center font-medium space-x-1 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition"

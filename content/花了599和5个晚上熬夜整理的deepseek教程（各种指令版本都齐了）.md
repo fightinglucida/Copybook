@@ -1,6 +1,6 @@
 ---
 title: 花了599和5个晚上熬夜整理的deepseek教程（各种指令版本都齐了）
-category: 副业项目
+categories: 副业项目
 mood: empty
 tags:
   - 其他

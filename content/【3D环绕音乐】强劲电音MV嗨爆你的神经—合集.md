@@ -1,6 +1,6 @@
 ---
 title: 【3D环绕音乐】强劲电音MV嗨爆你的神经—合集
-category: 音乐资源
+categories: 音乐资源
 mood: empty
 tags:
   - 音乐

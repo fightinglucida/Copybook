@@ -9,11 +9,7 @@
       {{- $css = $css | minify | fingerprint -}}
     {{- end -}}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
-    <link
-      rel="preconnect"
-      href="https://4MZ0X6SBEH-dsn.algolia.net" 
-      crossorigin
-    />
+    
     <script>
       var copy = function (elem) {
         const copyRect = document.getElementById(elem + "-copy");
@@ -32,20 +28,9 @@
   >
     {{ partial "aside" . }}
     <main class="p-5 md:ml-60">{{ block "main" . }}{{ end }}</main>
-    <script src="https://cdn.jsdelivr.net/npm/@docsearch/js@3"></script>
-    <script type="text/javascript">
-      docsearch({
-        appId: "4MZ0X6SBEH",
-        apiKey: "d841ebb5c716c1523386fdb2dec28fc8",
-        indexName: "skillgetnow",
-        container: "#docsearch",
-        placeholder: "Search and filter...",
-        getMissingResultsUrl({ query }) {
-          return (
-            "https://github.com/fightinglucida/Copybook/issues/new?title=" + query
-          );
-        },
-      });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+    {{ $searchJS := resources.Get "js/search.js" }}
+    <script src="{{ $searchJS.RelPermalink }}"></script>
+    
   </body>
 </html>

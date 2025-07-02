@@ -25,10 +25,9 @@ canonifyURLs = false
 
 [params.author]
   name = "Lucida"
-  github = "praveenjuge"
-  twitter = "praveenjuge"
-  dribbble = "praveenjuge"
-  behance = "praveenjuge"
+  github = "fightinglucida"
+  twitter = "fightinglucida"
+
 
 [mediaTypes]
   [mediaTypes."text/css"]

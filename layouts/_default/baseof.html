@@ -10,6 +10,17 @@
     {{- end -}}
     <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
     
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQHN4D94EN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-EQHN4D94EN');
+    </script>
+    <!-- Google tag (gtag.js) -->
+
     <script>
       var copy = function (elem) {
         const copyRect = document.getElementById(elem + "-copy");
@@ -21,16 +32,6 @@
           copyRect.innerHTML = "Copy";
         }, 1000);
       };
-    </script>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQHN4D94EN"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-EQHN4D94EN');
     </script>
   </head>
   <body

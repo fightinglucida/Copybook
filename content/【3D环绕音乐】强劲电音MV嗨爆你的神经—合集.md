@@ -4,6 +4,7 @@ categories: 音乐资源
 mood: empty
 tags:
   - 音乐
+link: "https://pan.quark.cn/s/27007fd22f0f"
 ---
 
 资源请尽快转存，网盘空间快满了，到时有可能会删除

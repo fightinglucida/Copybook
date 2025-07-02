@@ -4,6 +4,7 @@ categories: 音乐资源
 mood: empty
 tags:
   - 音乐
+link: "https://pan.quark.cn/s/589cfdd8874b"
 ---
 
 

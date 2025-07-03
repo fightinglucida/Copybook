@@ -10,7 +10,7 @@
     </span>
     <span class="text-stone-500 font-normal">{{ len .RegularPages }} </span>
   </a>
-  {{ end }} {{ else }} {{ range (.Paginate .Pages.ByLastmod.Reverse).Pages }} {{
+  {{ end }} {{ else }} {{ range (.Paginate (sort .Pages "Date" "desc")).Pages }} {{
   partial "copy-card" . }} {{ end }} {{ end }}
 </div>
 

@@ -1,6 +1,6 @@
 ---
 title: 互联网女皇 Mary Meeker 人工智能趋势报告
-categories: AI资源
+categories: 电子书
 mood: empty
 tags:
   - AI

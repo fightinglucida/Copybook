@@ -1,19 +1,15 @@
 ---
-title: 尚硅谷LangChain4j速通教程
-categories: 学习资料
+title: 【编程】尚硅谷LangChain4j速通教程
+categories: 编程
 mood: empty
 tags:
-  - 学习
-  - 英语
   - 编程
-  - 影视
-  - 工具
   - AI
-  - 网盘
 link: "https://pan.quark.cn/s/33be1ff297ac"
 ---
 
-```
+## 课程目录
+
 ├─尚硅谷LangChain4j速通教程
 ├─02_code.exe
 ├─03_note.exe
@@ -103,12 +99,11 @@ link: "https://pan.quark.cn/s/33be1ff297ac"
 │  ├─83_MCP之实战案例-前置环境配置.mp4
 │  ├─84_MCP之实战案例-编码落地.mp4
 │  ├─85_MCP之实战案例-测试和小总结.mp4
-```
 
-我用夸克网盘分享了「尚硅谷LangChain4j速通教程」，点击链接即可保存。打开「夸克APP」，无需下载在线播放视频，畅享原画5倍速，支持电视投屏。
 
- *128×128*
+## 链接
 
-[pan.quark.cn](https://pan.quark.cn/s/33be1ff297ac) `https://pan.quark.cn/s/33be1ff297ac`
+
+链接：[夸克网盘](https://pan.quark.cn/s/33be1ff297ac)
 
 

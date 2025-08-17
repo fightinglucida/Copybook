@@ -1,12 +1,11 @@
 ---
-title: Python实战：四周实现爬虫系统
-categories: 学习资料
+title: 【编程】Python实战：四周实现爬虫系统
+categories: 编程
 mood: empty
 tags:
-  - 学习
   - 编程
-  - 电子书
-  - 网盘
+  - Python
+  - 爬虫
 link: "https://pan.quark.cn/s/e73b3b82dec8"
 ---
 
@@ -84,8 +83,6 @@ link: "https://pan.quark.cn/s/e73b3b82dec8"
 
 ## 链接
 
- *128×128*
-
-[pan.quark.cn](https://pan.quark.cn/s/e73b3b82dec8) `https://pan.quark.cn/s/e73b3b82dec8`
+链接：[夸克网盘](https://pan.quark.cn/s/e73b3b82dec8)
 
 

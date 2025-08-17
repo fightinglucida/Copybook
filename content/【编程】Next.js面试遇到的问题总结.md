@@ -1,13 +1,10 @@
 ---
-title: Next.js面试遇到的问题总结
-categories: 软件工具
+title: 【编程】Next.js面试遇到的问题总结
+categories: 编程
 mood: empty
 tags:
   - 编程
-  - 工具
-  - 职场
   - AI
-  - 资源
 ---
 
 # 2025最好的Next.js面试题（一）

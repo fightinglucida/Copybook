@@ -1,5 +1,0 @@
-{{- $url := "" -}}
-{{- with .Params.avatar -}}{{- $url = . | relURL -}}{{- end -}}
-{{- if not $url -}}{{- with .File -}}{{- $url = index site.Data.avatars .Path -}}{{- end -}}{{- end -}}
-{{- if not $url -}}{{- $seed := .RelPermalink -}}{{- with .File -}}{{- $seed = .Path -}}{{- end -}}{{- $url = printf "/images/avatars/fallback-%02d.svg" (mod (hash.FNV32a $seed) 32) -}}{{- end -}}
-{{- return $url -}}

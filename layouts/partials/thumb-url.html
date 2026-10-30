@@ -1,0 +1,70 @@
+{{- /* Content-related photo thumbnail.
+     Order: explicit front matter -> first body image -> category photo set -> generic set.
+     Within a set the pick is keyed on the post path, so a post keeps the same photo
+     across rebuilds while neighbouring posts in one category still vary. */ -}}
+{{- $path := .RelPermalink -}}
+{{- with .File -}}{{- $path = .Path -}}{{- end -}}
+{{- $hash := hash.FNV32a $path -}}
+
+{{- $thumb := "" -}}
+{{- with .Params.thumbnail -}}{{- $thumb = . | relURL -}}{{- end -}}
+{{- if not $thumb -}}
+  {{- with .Resources.GetMatch "{thumbnail,cover,featured}*" -}}{{- $thumb = .RelPermalink -}}{{- end -}}
+{{- end -}}
+{{- if not $thumb -}}
+  {{- with .Params.cover -}}{{- $thumb = . | relURL -}}{{- end -}}
+{{- end -}}
+
+{{- if not $thumb -}}
+  {{- $category := "" -}}
+  {{- range first 1 (.GetTerms "categories") -}}{{- $category = .Title -}}{{- end -}}
+  {{- $tags := slice -}}{{- range .GetTerms "tags" -}}{{- $tags = $tags | append .Title -}}{{- end -}}
+  {{- $key := printf "%s %s" $category (delimit $tags " ") -}}
+
+  {{- $sets := dict
+      "学习资料"   (slice "study-handwriting" "study-books-open" "study-books-apple" "study-book-coffee" "study-desk-coffee")
+      "置顶学习资料" (slice "study-books-open" "study-books-apple" "study-book-coffee")
+      "编程"       (slice "code-lines" "code-laptop-desk" "code-svg-colors" "code-python-note" "code-matrix")
+      "软件工具"   (slice "tool-laptop-purple" "tool-workspace-team" "tool-office" "tool-circuit")
+      "音乐资源"   (slice "music-guitars" "music-drums")
+      "影视资源"   (slice "film-cinema" "film-projector")
+      "电影"       (slice "film-cinema" "film-projector")
+      "电子书"     (slice "book-library" "book-library-aisle" "study-book-coffee")
+      "电子书籍"   (slice "book-library" "book-library-aisle")
+      "AI资源"     (slice "ai-robot" "ai-space" "code-matrix")
+      "电商"       (slice "biz-retail-payment" "biz-shop-open" "biz-analytics")
+      "副业项目"   (slice "biz-analytics" "biz-shop-open" "tool-workspace-team")
+      "图片资源"   (slice "photo-creator-desk")
+      "自媒体"     (slice "media-social" "photo-creator-desk")
+  -}}
+  {{- $generic := slice "study-desk-coffee" "tool-workspace-team" "code-laptop-desk" "book-library" "photo-creator-desk" "biz-analytics" -}}
+  {{- $set := index $sets $category -}}
+  {{- if not $set -}}{{- $set = $generic -}}{{- end -}}
+
+  {{- /* A tag that matches a set of its own wins, so 编程/音乐 topics filed under
+         学习资料 still get a relevant photo. */ -}}
+  {{- $tagSets := dict
+      "编程" (slice "code-lines" "code-python-note" "code-svg-colors")
+      "Python" (slice "code-python-note" "code-lines")
+      "AI" (slice "ai-robot" "ai-space")
+      "音乐" (slice "music-guitars" "music-drums")
+      "影视" (slice "film-cinema" "film-projector")
+      "电影" (slice "film-cinema" "film-projector")
+      "电子书" (slice "book-library" "book-library-aisle")
+      "英语" (slice "study-books-open" "study-book-coffee")
+      "设计" (slice "photo-creator-desk" "code-svg-colors")
+      "摄影" (slice "photo-creator-desk")
+      "电商" (slice "biz-retail-payment" "biz-shop-open")
+      "创业" (slice "biz-analytics" "biz-shop-open")
+      "自媒体" (slice "media-social" "photo-creator-desk")
+  -}}
+  {{- $tagSet := "" -}}
+  {{- range $tags -}}
+    {{- if not $tagSet -}}{{- $tagSet = index $tagSets . -}}{{- end -}}
+  {{- end -}}
+  {{- with $tagSet -}}{{- $set = . -}}{{- end -}}
+
+  {{- $thumb = printf "/images/thumbs/%s.webp" (index $set (mod $hash (len $set))) -}}
+{{- end -}}
+
+{{- return $thumb -}}

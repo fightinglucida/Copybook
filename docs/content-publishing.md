@@ -45,6 +45,6 @@ downloads:
 
 后台字段也已加入发布日期和两种网盘配置。后台仍依赖原有 git-gateway 登录服务；本次没有迁移其认证后端。也可以直接编辑 Markdown 后提交。
 
-帖子头像使用本地 Notionists SVG。已有文章按文件映射，新增文章按文件路径稳定选择本地头像，不请求外部头像 API。品牌 Logo 来源记录在 `docs/brand-assets.md`，字体和图标授权位于 `static/licenses/`。
+帖子列表使用本地 WebP 缩略图；可以通过文章的 `thumbnail` 或 `cover` 字段指定图片，未指定时按分类、标签及文章路径稳定选择缩略图。品牌 Logo 来源记录在 `docs/brand-assets.md`，字体和图标授权位于 `static/licenses/`。
 
 运行 `npm run serve` 本地预览，运行 `npm run build` 构建至 `public/`。Cloudflare Pages 的主分支为 `main`，构建输出目录应为 `public`，Hugo 版本至少为 0.152.1。界面 CSS 与 JS 由 Hugo 内置管道压缩并生成内容哈希。

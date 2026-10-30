@@ -1,47 +1,8 @@
-<!DOCTYPE html>
-<html prefix="og: http://ogp.me/ns#" lang="{{ .Language }}">
-  <head itemscope itemtype="https://schema.org/WebPage">
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    {{ partial "meta" . }}
-    {{- $css := resources.Get "css/main.css" | css.PostCSS -}}
-    {{- if hugo.IsProduction -}}
-      {{- $css = $css | minify | fingerprint -}}
-    {{- end -}}
-    <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}" crossorigin="anonymous">
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQHN4D94EN"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-EQHN4D94EN');
-    </script>
-    <!-- Google tag (gtag.js) -->
-
-    <script>
-      var copy = function (elem) {
-        const copyRect = document.getElementById(elem + "-copy");
-        copyRect.innerHTML = "Copied!";
-        navigator.clipboard.writeText(
-          document.getElementById(elem + "-content").innerText
-        );
-        setTimeout(function () {
-          copyRect.innerHTML = "Copy";
-        }, 1000);
-      };
-    </script>
-  </head>
-  <body
-    class="antialiased text-stone-900 bg-white dark:bg-stone-900 dark:text-slate-100 text-sm"
-  >
-    {{ partial "aside" . }}
-    <main class="p-5 md:ml-60">{{ block "main" . }}{{ end }}</main>
-    <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
-    {{ $searchJS := resources.Get "js/search.js" }}
-    <script src="{{ $searchJS.RelPermalink }}"></script>
-    
-  </body>
-</html>
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light">
+{{ partial "meta" . }}
+{{ $css := resources.Get "css/site.css" | minify | fingerprint }}<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EQHN4D94EN"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-EQHN4D94EN');</script>
+</head><body><a class="skip-link" href="#main-content">跳转到主要内容</a>{{ partial "header" . }}<div class="site-layout">{{ partial "aside" . }}<main class="main-column" id="main-content">{{ block "main" . }}{{ end }}</main>{{ partial "sidebar" . }}</div>{{ partial "footer" . }}
+<div class="toast" role="status" hidden></div><dialog class="image-viewer" aria-label="图片预览"><button class="image-viewer-close" type="button" aria-label="关闭图片预览">关闭 ×</button><figure><img alt=""><figcaption></figcaption></figure></dialog>
+{{ $js := resources.Get "js/site.js" | minify | fingerprint }}<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script></body></html>

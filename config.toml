@@ -1,6 +1,7 @@
 baseURL = "https://copybook-3w6.pages.dev/"
 languageCode = "zh-CN"
-title = "Skill Get Now"
+title = "技能之书"
+timeZone = "Asia/Shanghai"
 
 enableRobotsTXT = true
 enableEmoji = true
@@ -8,7 +9,7 @@ enableGitInfo = true
 canonifyURLs = false
 
 [pagination]
-  pagerSize = 30
+  pagerSize = 20
 
 [outputs]
   home = ['HTML', 'RSS', 'JSON']
@@ -22,6 +23,10 @@ canonifyURLs = false
   description = "技能之书 ▪ 永久免费的通识技能学习资源站，每天持续更新"
   og_image = "/images/og.jpg"
   sitename = "技能之书"
+  channel = "https://t.me/linshufighting"
+
+[markup.goldmark.parser]
+  wrapStandAloneImageWithinParagraph = false
 
 [params.author]
   name = "Lucida"

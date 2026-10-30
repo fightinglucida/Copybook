@@ -16,6 +16,28 @@ collections:
     editor:
       preview: false
     fields:
+      - { label: "文章标题", name: "title", widget: "string", required: true }
+      - { label: "发布时间", name: "date", widget: "datetime", required: false, date_format: "YYYY-MM-DD", time_format: "HH:mm" }
+      - { label: "原资源链接（兼容旧文章）", name: "link", widget: "string", required: false }
+      - name: "downloads"
+        label: "文末网盘下载"
+        widget: "object"
+        required: false
+        fields:
+          - name: "baidu"
+            label: "百度网盘"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "分享链接", name: "url", widget: "string", required: false }
+              - { label: "提取码", name: "code", widget: "string", required: false }
+          - name: "quark"
+            label: "夸克网盘"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "分享链接", name: "url", widget: "string", required: false }
+              - { label: "提取码", name: "code", widget: "string", required: false }
       - name: "mood"
         label: "Mood"
         widget: "create-select"

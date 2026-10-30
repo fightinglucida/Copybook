@@ -1,0 +1,7 @@
+{{- if gt .TotalPages 1 -}}
+<nav class="pagination" aria-label="分页导航"><span class="page-info">第 {{ .PageNumber }} / {{ .TotalPages }} 页</span><div class="page-links">
+{{ if .HasPrev }}<a class="page-arrow" href="{{ .Prev.URL }}" aria-label="上一页">{{ partial "icon" "caret-left" }}</a>{{ end }}
+{{ $current := .PageNumber }}{{ range .Pagers }}{{ if or (le .PageNumber 2) (ge .PageNumber (sub $.TotalPages 1)) (le (math.Abs (sub .PageNumber $current)) 2) }}<a href="{{ .URL }}" class="page-link {{ if eq .PageNumber $current }}is-current{{ end }}" {{ if eq .PageNumber $current }}aria-current="page"{{ end }}>{{ .PageNumber }}</a>{{ else if or (eq .PageNumber 3) (eq .PageNumber (sub $.TotalPages 2)) }}<span class="page-link" aria-hidden="true">…</span>{{ end }}{{ end }}
+{{ if .HasNext }}<a class="page-arrow" href="{{ .Next.URL }}" aria-label="下一页">{{ partial "icon" "caret-right" }}</a>{{ end }}
+</div></nav>
+{{- end -}}

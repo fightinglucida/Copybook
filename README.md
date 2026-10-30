@@ -18,14 +18,14 @@ Then clone the repo, install dependencies, and start the server locally.
 git clone https://github.com/praveenjuge/copybook.git
 cd copybook
 npm install
-npm run dev
+npm run serve
 ```
 
 Open [`http://localhost:1313`](http://localhost:1313) in your browser.
 
 | Scripts         | Description                                     |
 | --------------- | ----------------------------------------------- |
-| `npm run dev`   | Starts a local Hugo server and Tailwind Watcher |
+| `npm run serve`   | Starts a local Hugo server and 开发预览 |
 | `npm run build` | For generating production files                 |
 
 ## License
@@ -56,7 +56,7 @@ title: "Your Article Title"
 date: 2023-10-27T10:00:00Z
 draft: true
 mood: ""
-category: ""
+categories: ""
 tags: [""]
 ---
 
@@ -73,7 +73,7 @@ tags: [""]
 - `date`: 发布日期。
 - `draft`: 是否为草稿。`true` 表示是，文章不会被发布。
 - `mood`: 心情或文章基调。例如：`Direct`, `Creative`。
-- `category`: 文章分类。例如：`Marketing`, `Tech`。
+- `categories`: 文章分类。例如：`Marketing`, `Tech`。
 - `tags`: 文章标签，可以有多个。例如：`["upsell", "features"]`。
 
 这些分类和标签有助于组织和筛选内容。
@@ -128,7 +128,7 @@ title = "您的网站标题"
 
 - **本地开发服务器**：
   ```sh
-  npm run dev
+  npm run serve
   ```
   这会启动一个实时刷新的本地服务器，默认地址是 `http://localhost:1313`。
 
@@ -138,3 +138,6 @@ title = "您的网站标题"
   ```
   这个命令会清除旧的构建文件，并重新生成所有静态网站文件到 `public` 目录。这些文件是最终可以部署到服务器上的版本。
 
+
+
+新版界面、图文正文、发布日期及百度/夸克网盘配置请参阅 [发布说明](docs/content-publishing.md)。

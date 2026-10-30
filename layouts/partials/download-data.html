@@ -1,0 +1,32 @@
+{{- $result := dict -}}
+{{- $raw := .RawContent -}}
+{{- $candidates := slice -}}
+{{- with .Params.link -}}{{- $candidates = $candidates | append . -}}{{- end -}}
+{{- range (findRE `https?://(?:pan\.baidu\.com|pan\.quark\.cn)/[^\s)\]<>"]+` .RawContent) -}}
+  {{- $candidates = $candidates | append (strings.TrimRight "`，。；" .) -}}
+{{- end -}}
+{{- range $provider := slice "baidu" "quark" -}}
+  {{- $url := "" -}}{{- $code := "" -}}
+  {{- with index $.Params.downloads $provider -}}
+    {{- if reflect.IsMap . -}}{{- $url = .url | default "" -}}{{- $code = .code | default "" -}}{{- else -}}{{- $url = . -}}{{- end -}}
+  {{- end -}}
+  {{- if not $url -}}
+    {{- $host := printf "pan.%s.c" $provider -}}
+    {{- range $candidates -}}{{- if in . $host -}}{{- if or (not $url) (and (in . "pwd=") (not (in $url "pwd="))) -}}{{- $url = . -}}{{- end -}}{{- end -}}{{- end -}}
+  {{- end -}}
+  {{- if $url -}}
+    {{- $parsed := urls.Parse $url -}}
+    {{- $expectedHost := "pan.quark.cn" -}}{{- if eq $provider "baidu" -}}{{- $expectedHost = "pan.baidu.com" -}}{{- end -}}
+    {{- $validHost := eq $parsed.Host $expectedHost -}}
+    {{- if and $validHost (in (slice "http" "https") $parsed.Scheme) -}}
+      {{- if not $code -}}{{- $code = $parsed.Query.Get "pwd" -}}{{- end -}}
+      {{- if and (not $code) (eq $provider "baidu") -}}
+        {{- $matches := findRESubmatch `提取码[：:]\s*([A-Za-z0-9]{4})` $raw 1 -}}
+        {{- with $matches -}}{{- $code = index (index . 0) 1 -}}{{- end -}}
+      {{- end -}}
+      {{- if and $code (not ($parsed.Query.Get "pwd")) -}}{{- $sep := "?" -}}{{- if $parsed.RawQuery -}}{{- $sep = "&" -}}{{- end -}}{{- $url = printf "%s%s%s" $url $sep (querify "pwd" $code) -}}{{- end -}}
+      {{- $result = merge $result (dict $provider (dict "url" $url "code" $code)) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $result -}}

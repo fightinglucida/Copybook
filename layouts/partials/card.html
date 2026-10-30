@@ -1,35 +1,3 @@
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 font-medium gap-6">
-  {{ if eq .Kind "taxonomy" }} {{ range (.Paginate .Pages).Pages }}
-  <a
-    class="rounded-lg p-5 transition border border-stone-200 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 dark:bg-stone-800 flex justify-between space-x-1"
-    href="{{.RelPermalink}}"
-  >
-    <span>
-      {{ if in .Permalink "/tags" }} #{{.Title | urlize}} {{ else }} {{.Title |
-      title}} {{ end }}
-    </span>
-    <span class="text-stone-500 font-normal">{{ len .RegularPages }} </span>
-  </a>
-  {{ end }} {{ else }} {{ range (.Paginate (sort .Pages "Date" "desc")).Pages }} {{
-  partial "copy-card" . }} {{ end }} {{ end }}
-</div>
-
-{{ if .Paginator }}
-<div
-  class="flex justify-center items-center space-x-2 py-10 font-medium text-stone-800 dark:text-stone-100"
->
-  {{ if .Paginator.HasPrev }}
-  <a
-    href="{{ .Paginator.Prev.URL }}"
-    class="transition px-5 py-3 border border-stone-200 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 dark:bg-stone-800 rounded-lg"
-    >上一页</a
-  >
-  {{ end }} {{ if .Paginator.HasNext }}
-  <a
-    href="{{ .Paginator.Next.URL }}"
-    class="transition px-5 py-3 border border-stone-200 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 dark:bg-stone-800 rounded-lg"
-    >下一页</a
-  >
-  {{ end }}
-</div>
-{{ end }}
+{{ $taxonomy := eq .Kind "taxonomy" }}{{ $collection := .RegularPages }}{{ if .IsHome }}{{ $collection = .Site.RegularPages }}{{ end }}{{ $pages := .Pages.ByTitle }}{{ if not $taxonomy }}{{ $pages = partial "sorted-pages" $collection }}{{ end }}{{ $pager := .Paginate $pages }}
+<section class="post-panel" aria-label="{{ if $taxonomy }}分类与标签{{ else }}资源列表{{ end }}"><div class="list-toolbar"><div class="list-heading"><span class="status-dot"></span><h2>{{ if $taxonomy }}全部{{ .Title }}{{ else if .IsHome }}最新发布{{ else }}资源列表{{ end }}</h2><span class="count-label">{{ $pager.TotalNumberOfElements }} {{ if $taxonomy }}个{{ else }}篇{{ end }}</span></div><span class="toolbar-note">{{ if not $taxonomy }}{{ partial "icon" "calendar-blank" }}<span class="sort-label">按发布时间排序</span>{{ else }}探索感兴趣的内容{{ end }}</span></div>
+{{ if $taxonomy }}<div class="taxonomy-grid">{{ range $pager.Pages }}<a class="taxonomy-item" href="{{ .RelPermalink }}">{{ partial "icon" "folder" }}<span class="taxonomy-label {{ partial "badge-tone" .Title }}">{{ .Title }}</span><small>{{ len .RegularPages }} 篇</small>{{ partial "icon" "caret-right" }}</a>{{ end }}</div>{{ else }}<div class="post-list">{{ range $pager.Pages }}{{ partial "copy-card" . }}{{ else }}<div class="empty-state">{{ partial "icon" "books" }}<h3>这里还没有资源</h3><p>先去其他分类看看。</p><a href="/">浏览全部资源 {{ partial "icon" "arrow-right" }}</a></div>{{ end }}</div>{{ end }}{{ partial "pagination" $pager }}</section>

@@ -1,0 +1,5 @@
+{{- $date := .PublishDate -}}
+{{- if $date.IsZero -}}{{- with .File -}}{{- with index site.Data.publication_dates .Path -}}{{- $date = time.AsTime . -}}{{- end -}}{{- end -}}{{- end -}}
+{{- if $date.IsZero -}}{{- $date = .Date -}}{{- end -}}
+{{- if $date.IsZero -}}{{- with .GitInfo -}}{{- $date = .AuthorDate -}}{{- end -}}{{- end -}}
+{{- return $date -}}

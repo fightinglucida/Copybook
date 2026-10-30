@@ -1,0 +1,12 @@
+<header class="site-header"><div class="header-inner">
+  <a class="brand" href="{{ "/" | relURL }}" aria-label="技能之书首页"><span class="brand-mark">{{ partial "icon" "book-open" }}</span><strong>技能之书</strong></a>
+  <nav class="header-nav" aria-label="主导航">
+    <a href="{{ "/" | relURL }}" class="{{ if .IsHome }}is-active{{ end }}" {{ if .IsHome }}aria-current="page"{{ end }}>发现</a>
+    <a href="{{ "/categories/" | relURL }}" class="{{ if eq .Data.Plural "categories" }}is-active{{ end }}">资源分类</a>
+    <a href="{{ "/tags/" | relURL }}" class="{{ if eq .Data.Plural "tags" }}is-active{{ end }}">标签索引</a>
+  </nav>
+  <div class="header-actions">
+    <div class="search-wrap" role="search">{{ partial "icon" "magnifying-glass" }}<label class="sr-only" for="search-input">搜索资源</label><input id="search-input" type="search" placeholder="搜索资源（按 /）" autocomplete="off" aria-controls="search-results" aria-expanded="false" data-index-url="{{ "index.json" | relURL }}"><div id="search-results" class="search-results" aria-live="polite" hidden></div></div>
+    <button class="icon-button menu-toggle" type="button" aria-label="打开分类导航" aria-controls="category-navigation" aria-expanded="false">{{ partial "icon" "list" }}</button>
+  </div>
+</div></header>

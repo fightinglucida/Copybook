@@ -1,0 +1,9 @@
+{{- $src := .Destination -}}
+{{- $url := urls.Parse $src -}}
+{{- if not $url.IsAbs -}}
+  {{- with .Page.Resources.GetMatch $url.Path -}}{{- $src = .RelPermalink -}}
+  {{- else -}}{{- with resources.Get $url.Path -}}{{- $src = .RelPermalink -}}{{- else -}}{{- if hasPrefix $src "/" -}}{{- $src = $src | relURL -}}{{- end -}}{{- end -}}{{- end -}}
+{{- end -}}
+{{- if .IsBlock -}}<figure class="article-figure"><button type="button" class="article-image-button" data-image-view="{{ $src }}" aria-label="放大查看图片：{{ .PlainText | default "正文图片" }}"><img src="{{ $src }}" alt="{{ .PlainText }}" loading="lazy" decoding="async"></button>{{ with .Title }}<figcaption>{{ . }}</figcaption>{{ end }}</figure>
+{{- else -}}<img class="article-image-inline" src="{{ $src }}" alt="{{ .PlainText }}" {{ with .Title }}title="{{ . }}"{{ end }} loading="lazy" decoding="async" data-image-view="{{ $src }}" tabindex="0" role="button" aria-label="放大查看图片：{{ .PlainText | default "正文图片" }}">
+{{- end -}}

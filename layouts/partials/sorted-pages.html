@@ -1,0 +1,8 @@
+{{- $entries := slice -}}
+{{- range . -}}
+  {{- $date := partialCached "publication-date" . .RelPermalink -}}
+  {{- $entries = $entries | append (dict "page" . "published" $date.Unix) -}}
+{{- end -}}
+{{- $pages := slice -}}
+{{- range sort $entries "published" "desc" -}}{{- $pages = $pages | append .page -}}{{- end -}}
+{{- return $pages -}}

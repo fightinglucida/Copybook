@@ -1,0 +1,2 @@
+{{- $map := dict "编程" "code" "软件工具" "code" "AI资源" "lightning" "学习资料" "book-open" "电子书" "books" "影视资源" "film-strip" "电影" "film-strip" "音乐资源" "music-notes" "副业项目" "lightning" "电商" "lightning" -}}
+{{- return (index $map . | default "folder") -}}

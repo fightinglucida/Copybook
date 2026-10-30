@@ -6,6 +6,7 @@
     "permalink": {{ .RelPermalink | jsonify }},
     "tags": {{ .Params.tags | jsonify }},
     "categories": {{ .Params.categories | jsonify }},
+    "date": {{ (partialCached "publication-date" . .RelPermalink).Format "2006-01-02" | jsonify }},
     "contents": {{ .Plain | jsonify }}
   }
   {{- end -}}

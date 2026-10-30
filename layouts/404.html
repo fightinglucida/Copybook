@@ -1,10 +1,1 @@
-{{ define "main" }}
-
-<div class="max-w-xl mx-auto pt-10 pb-16 space-y-2">
-  <h1 class="text-3xl tracking-tight font-bold">该页面无法找到 (404)</h1>
-  <p class="text-stone-500 text-base">
-    你可能输入错误的地址，或者页面已被删除。
-  </p>
-</div>
-
-{{ end }}
+{{ define "main" }}<section class="post-panel empty-state">{{ partial "icon" "books" }}<h1>这页资源暂时找不到了</h1><p>链接可能已更改，试试搜索资源，或从首页重新浏览。</p><a href="/">{{ partial "icon" "arrow-left" }}返回首页</a></section>{{ end }}

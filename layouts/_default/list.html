@@ -1,11 +1,1 @@
-{{ define "main" }}
-
-<h1 class="mt-4 mb-8 text-3xl font-bold tracking-tight">
-  {{ if in .Permalink "/tags/" }} 
-    #{{.Title | urlize}} 
-  {{ else }} 
-    {{.Title | humanize | title}} 
-  {{ end }}
-</h1>
-
-{{ partial "card" . }} {{end}}
+{{ define "main" }}<div class="page-heading"><nav class="breadcrumbs" aria-label="面包屑导航"><a href="/">首页</a>{{ partial "icon" "caret-right" }}<span>{{ if eq .Data.Plural "tags" }}标签{{ else }}资源分类{{ end }}</span></nav><h1>{{ if eq .Data.Plural "tags" }}<span class="accent">#</span> {{ end }}{{ .Title }}</h1><p>{{ if eq .Kind "taxonomy" }}按主题浏览，找到你需要的资源。{{ else }}与「{{ .Title }}」有关的全部资源。{{ end }}</p></div>{{ partial "card" . }}{{ end }}

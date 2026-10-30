@@ -1,0 +1,4 @@
+{{- $semantic := dict "学习资料" "sage" "学习" "sage" "教育" "sage" "置顶学习资料" "sage" "编程" "blue" "Python" "blue" "技术" "blue" "英语" "blue" "软件工具" "teal" "工具" "teal" "AI资源" "violet" "AI" "violet" "电子书" "violet" "影视资源" "rose" "电影" "rose" "影视" "rose" "图片资源" "rose" "摄影" "rose" "音乐资源" "sand" "音乐" "sand" "副业项目" "sand" "创业" "sand" "电商" "sand" "其他资源" "stone" "资源" "stone" "网盘" "stone" "自媒体" "teal" -}}
+{{- $tone := index $semantic . -}}
+{{- if not $tone -}}{{- $tone = index (slice "sage" "blue" "teal" "violet" "sand" "rose" "stone") (mod (hash.FNV32a .) 7) -}}{{- end -}}
+{{- return (printf "badge-%s" $tone) -}}

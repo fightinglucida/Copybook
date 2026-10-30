@@ -17,6 +17,7 @@ collections:
       preview: false
     fields:
       - { label: "文章标题", name: "title", widget: "string", required: true }
+      - { label: "首页置顶", name: "pinned", widget: "boolean", required: false, default: false, hint: "置顶帖排在首页最前面；多篇置顶帖按发布时间从新到旧排序。" }
       - { label: "激活码解锁下载", name: "paid", widget: "boolean", required: false, default: false }
       - { label: "受保护资源编号（须与授权系统一致）", name: "resource_id", widget: "string", required: false }
       - { label: "购买激活码地址", name: "purchase_url", widget: "string", required: false }

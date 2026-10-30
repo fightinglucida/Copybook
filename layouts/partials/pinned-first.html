@@ -1,0 +1,12 @@
+{{- /* Receive pages already sorted by publication date, preserving order within each group. */ -}}
+{{- $pinned := slice -}}
+{{- $regular := slice -}}
+{{- range . -}}
+  {{- if eq .Params.pinned true -}}
+    {{- $pinned = $pinned | append . -}}
+  {{- else -}}
+    {{- $regular = $regular | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- range $regular -}}{{- $pinned = $pinned | append . -}}{{- end -}}
+{{- return $pinned -}}

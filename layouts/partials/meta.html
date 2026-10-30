@@ -28,7 +28,6 @@
 <meta name="twitter:description" content="{{ .Params.description }}" />
 
 <!-- Link Tags -->
-<base href="{{ .Permalink }}" />
 <link rel="canonical" href="{{ .Permalink }}" itemprop="url" />
 <meta name="url" content="{{ .Permalink }}" />
 <meta name="twitter:url" content="{{ .Permalink }}" />
@@ -77,7 +76,7 @@
     "url": "{{ .Permalink }}",
     "sameAs": ["{{ .Site.Params.Author.github }}"],
     "name": "{{ .Title }}",
-    "logo": "https://copybook.me/images/brand/favicon.png"
+    "logo": "{{ "images/logo.svg" | absURL }}"
   }
 </script>
 

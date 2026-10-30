@@ -2,7 +2,7 @@
   {{ if eq .Kind "taxonomy" }} {{ range (.Paginate .Pages).Pages }}
   <a
     class="rounded-lg p-5 transition border border-stone-200 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 dark:bg-stone-800 flex justify-between space-x-1"
-    href="{{.Permalink}}"
+    href="{{.RelPermalink}}"
   >
     <span>
       {{ if in .Permalink "/tags" }} #{{.Title | urlize}} {{ else }} {{.Title |

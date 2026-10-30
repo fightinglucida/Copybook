@@ -28,7 +28,7 @@
     <div class="space-x-2 md:space-x-0 md:space-y-0.5 hidden md:flex flex-wrap md:flex-col md:items-start">
       <a href="/categories/" class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white">分类</a>
       {{ range first 10 (.Site.Taxonomies.categories.ByCount) }}
-        <a href="{{ .Page.Permalink }}">{{ .Page.Title | title }}</a>
+        <a href="{{ .Page.RelPermalink }}">{{ .Page.Title | title }}</a>
       {{ end }}
       <a href="/categories/" class="hover:text-stone-900 dark:hover:text-white flex space-x-0.5 items-center group">
         <span>查看全部</span>
@@ -38,7 +38,7 @@
     <div class="space-x-2 md:space-x-0 md:space-y-0.5 hidden md:flex flex-wrap md:flex-col md:items-start">
       <a href="/mood/" class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white">推荐指数</a>
       {{ range first 10 (.Site.Taxonomies.mood.ByCount) }}
-        <a href="{{ .Page.Permalink }}">{{ .Page.Title | title }}</a>
+        <a href="{{ .Page.RelPermalink }}">{{ .Page.Title | title }}</a>
       {{ end }}
       <a href="/mood/" class="hover:text-stone-900 dark:hover:text-white flex space-x-0.5 items-center group">
         <span>查看全部</span>
@@ -48,7 +48,7 @@
     <div class="space-x-2 md:space-x-0 md:space-y-0.5 hidden md:flex flex-wrap md:flex-col md:items-start">
       <a href="/tags/" class="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white">标签</a>
       {{ range first 10 (.Site.Taxonomies.tags.ByCount) }}
-        <a href="{{ .Page.Permalink }}">#{{ .Page.Title }}</a>
+        <a href="{{ .Page.RelPermalink }}">#{{ .Page.Title }}</a>
       {{ end }}
       <a href="/tags/" class="hover:text-stone-900 dark:hover:text-white flex space-x-0.5 items-center group">
         <span>查看全部</span>

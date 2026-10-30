@@ -3,7 +3,7 @@
   {{- if $index -}},{{- end -}}
   {
     "title": {{ .Title | jsonify }},
-    "permalink": {{ .Permalink | jsonify }},
+    "permalink": {{ .RelPermalink | jsonify }},
     "tags": {{ .Params.tags | jsonify }},
     "categories": {{ .Params.categories | jsonify }},
     "contents": {{ .Plain | jsonify }}

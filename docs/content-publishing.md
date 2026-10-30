@@ -1,5 +1,7 @@
 # 发布文章与下载配置
 
+激活码付费资源请先阅读 [免登录逐资源授权](paid-resources.md)。付费文章的真实链接需要在授权系统配置，不能填写在文章正文或下方免费资源的 `downloads` 字段中。
+
 正式地址：https://copybook-3w6.pages.dev/ 。界面仅提供浅色模式。
 
 新建文章使用 `hugo new content/文章名称.md`，修改生成的 Markdown，完成后将 `draft` 设为 `false`。发布日期使用文章的 `publishDate` 或 `date`；未填写日期的历史文章使用 `data/publication_dates.json` 中记录的 Git 首次加入时间，供列表、详情、搜索与 RSS 一致展示。历史回填时间代表仓库收录时间，不能保证等于最初创作时间。

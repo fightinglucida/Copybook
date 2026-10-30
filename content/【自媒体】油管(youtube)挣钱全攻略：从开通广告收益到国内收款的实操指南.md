@@ -1,7 +1,7 @@
 ---
-title: 油管(youtube)挣钱全攻略：从开通广告收益到国内收款的实操指南
-categories: 学习资料
-mood: empty
+title: 【自媒体】油管(youtube)挣钱全攻略：从开通广告收益到国内收款的实操指南
+categories: 自媒体
+mood: 五星
 tags:
   - 学习
   - 影视

@@ -1,0 +1,42 @@
+{
+  "source": "https://www.nodeseek.com/",
+  "measuredOn": "2026-10-30",
+  "viewport": {
+    "width": 1905,
+    "height": 863
+  },
+  "header": {
+    "width": 1080,
+    "height": 40,
+    "x": 412.5,
+    "y": 0
+  },
+  "body": {
+    "width": 1080,
+    "x": 412.5,
+    "y": 55,
+    "padding": "25px 30px"
+  },
+  "posts": {
+    "width": 740,
+    "x": 442.5,
+    "y": 80,
+    "rowHeight": 61.5,
+    "rowPadding": 8,
+    "iconSize": 40,
+    "titleFontSize": 14
+  },
+  "rightSidebar": {
+    "width": 260,
+    "x": 1202.5,
+    "y": 80
+  },
+  "categoryPanel": {
+    "width": 100,
+    "x": 292.5,
+    "y": 55
+  },
+  "columnGap": 20,
+  "categoryGap": 20,
+  "theme": "light only"
+}

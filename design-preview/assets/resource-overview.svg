@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560">
+<rect width="1200" height="560" fill="#f1f3ed"/><path d="M0 80h1200M0 160h1200M0 240h1200M0 320h1200M0 400h1200M0 480h1200M80 0v560M160 0v560M240 0v560M320 0v560M400 0v560M480 0v560M560 0v560M640 0v560M720 0v560M800 0v560M880 0v560M960 0v560M1040 0v560M1120 0v560" stroke="#dfe5d9" stroke-width="1"/>
+<rect x="64" y="64" width="1072" height="432" rx="12" fill="#fff" stroke="#dce3d7"/>
+<text x="108" y="126" fill="#78916c" font-size="15" font-family="Microsoft YaHei,sans-serif" letter-spacing="3">KNOWLEDGE LIBRARY</text>
+<text x="108" y="192" fill="#323e34" font-size="36" font-weight="600" font-family="Microsoft YaHei,sans-serif">把值得学的，收集起来。</text>
+<text x="108" y="234" fill="#7b877b" font-size="18" font-family="Microsoft YaHei,sans-serif">课程、工具与阅读，组成自己的知识书架。</text>
+<rect x="108" y="288" width="152" height="36" rx="5" fill="#edf3e9"/><text x="127" y="312" fill="#66815c" font-size="16" font-family="Microsoft YaHei,sans-serif">持续学习 · 实践</text>
+<path d="M102 426h430" stroke="#e3e7de" stroke-width="2"/><text x="108" y="459" fill="#a0aaa0" font-size="13" font-family="Microsoft YaHei,sans-serif">技能之书 · 图文排版示意</text>
+<rect x="650" y="388" width="380" height="12" rx="4" fill="#b1b9a6"/>
+<rect x="672" y="194" width="64" height="194" rx="5" fill="#97ab8b"/><path d="M686 208v164M720 208v164" stroke="#819c77" stroke-width="2"/><rect x="686" y="224" width="36" height="40" rx="3" fill="#e5ecdf"/><path d="M695 234h18M695 242h18M695 250h12" stroke="#7f9776" stroke-width="2"/>
+<rect x="742" y="236" width="54" height="152" rx="4" fill="#c3ac8d"/><path d="M752 250v124M785 250v124" stroke="#b49a78" stroke-width="2"/><path d="M755 270h28M755 278h28" stroke="#eae1d3" stroke-width="3"/>
+<g transform="rotate(-9 810 388)"><rect x="810" y="212" width="68" height="176" rx="5" fill="#9aaabc"/><path d="M822 226v146M864 226v146" stroke="#8498ae" stroke-width="2"/><rect x="826" y="248" width="36" height="24" rx="2" fill="#dfe6ed"/></g>
+<rect x="906" y="286" width="86" height="102" rx="4" fill="#e4e8de"/><path d="M918 298h62v78h-62z" fill="#f6f7f3"/><circle cx="949" cy="332" r="15" fill="#afbea2"/><path d="m933 361 12-13 7 8 9-11 13 16" fill="none" stroke="#9cab90" stroke-width="3"/>
+</svg>

@@ -1,0 +1,4 @@
+Avatar style: Notionists by Zoish
+Source: https://www.dicebear.com/styles/notionists/
+License: CC0 1.0 https://creativecommons.org/publicdomain/zero/1.0/
+Generated locally with DiceBear core 9.4.3 / collection 9.4.2 (core MIT license).

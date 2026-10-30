@@ -1,0 +1,16 @@
+/* Review version 6: clearer color accents over the existing light surfaces. */
+:root{--brand:#16825a;--brand-soft:#e4f6ec;--blue:#376cc4;--blue-soft:#e6efff;--amber:#a66a1f;--amber-soft:#fff1d7}
+.badge-sage{--badge-bg:#e1f5e8;--badge-border:#bde4cb;--badge-ink:#317b4c}
+.badge-blue{--badge-bg:#e5efff;--badge-border:#c5d8fb;--badge-ink:#3d68b1}
+.badge-teal{--badge-bg:#dff4ef;--badge-border:#b9e3d9;--badge-ink:#247567}
+.badge-violet{--badge-bg:#eee5ff;--badge-border:#dac5f5;--badge-ink:#7950ad}
+.badge-sand{--badge-bg:#fff0d6;--badge-border:#efd4a1;--badge-ink:#95631f}
+.badge-rose{--badge-bg:#ffe7ec;--badge-border:#f3c7d2;--badge-ink:#aa4963}
+.badge-stone{--badge-bg:#eaf0f7;--badge-border:#d2dfec;--badge-ink:#596f88}
+.category-badge{font-weight:550}.post-tag{font-weight:500}.tag-cloud a{font-weight:500}.tag-cloud small{opacity:.8}
+.site-header .brand-mark{color:#68d7a1}.header-nav a.is-active:after{background:#61d69a}.site-header .search-wrap:focus-within{border-color:#6bd7a2}
+.rail-link.is-active{background:#e3f5e9;color:#25814e}.rail-link:hover{background:#f0f9f3;color:#27834f}.rail-channel .online-dot,.status-dot,.online-dot{background:#28a76a}
+.about-heading .brand-mark{background:#e0f5e7;border-color:#c0e6cd;color:#2c9b5a}.channel-button{background:#168359;border-color:#13764f;color:#fff}.channel-button:hover{background:#168158;color:#fff;opacity:1}.button-primary{background:#168359;border-color:#13764f;color:#fff}.button-primary:hover{color:#fff}
+.download-button.quark{background:#168359;border-color:#167c57;color:#fff}.download-button.quark:hover{background:#127650;color:#fff;opacity:1}.download-button.baidu{background:#e3edff;color:#3565ae;border-color:#b9cef5}.download-button.baidu:hover{background:#d8e6ff;color:#2b579c;opacity:1}.section-heading svg{color:#23935e}.copy-code:hover{color:#16825a}.post-title:hover{color:#16825a}
+.post-row:hover{background:#f6fbf8}.author-dot{background:#dcf3e5;border-color:#50a873}.author-avatar{background:#e2f5e9;color:#298456}.page-link.is-current{background:#e4f6ec;border-color:#b8dfc8;color:#278456}.pagination a:hover{background:#f0f8f3}.sidebar-panel h2 svg{color:#718f7c}
+.article-body a{color:#16825a}.article-body blockquote{background:#eef9f1;border-color:#cfe8d6;color:#56775e}.image-viewer-close{background:#e8f5eb;color:#397e4b;border-color:#cbe3d0}.image-viewer-close:hover{background:#dbefdf}.site-footer a:hover{color:#8fdeb1}.site-footer svg{color:#91cba4}

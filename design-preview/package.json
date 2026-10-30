@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@dicebear/collection": "9.4.2",
+    "@dicebear/core": "9.4.3",
+    "dompurify": "3.4.17",
+    "marked": "15.0.12"
+  }
+}

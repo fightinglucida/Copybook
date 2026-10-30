@@ -6,7 +6,9 @@ tags:
   - 编程
   - Python
   - 爬虫
-link: "https://pan.quark.cn/s/e73b3b82dec8"
+paid: true
+resource_id: copybook-python-crawler
+purchase_url: ""
 ---
 
 ## 文件树
@@ -81,8 +83,5 @@ link: "https://pan.quark.cn/s/e73b3b82dec8"
 │   │   └── 课时52 推荐10本编程书，并且送你一本).swf (2.10 MB)
 ```
 
-## 链接
 
-链接：[夸克网盘](https://pan.quark.cn/s/e73b3b82dec8)
-
-
+本资源正在进行激活码访问测试，购买入口暂未开放。下载地址请在下方验证激活码后查看。

@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "copybook",
+  "pages_build_output_dir": "./public",
+  "compatibility_date": "2026-10-30",
+  "compatibility_flags": ["nodejs_compat"],
+  "services": [
+    { "binding": "LICENSE_CENTER", "service": "linshu-license-center-api" }
+  ]
+}

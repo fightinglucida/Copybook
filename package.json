@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "build": "hugo",
-    "serve": "hugo server -D"
+    "serve": "hugo server -D",
+    "serve:access": "wrangler pages dev public --port 18477",
+    "typecheck:access": "tsc --noEmit --strict --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022 worker-configuration.d.ts functions/api/access/[[path]].ts",
+    "check:paid": "node scripts/check-paid-output.mjs"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.0.0",
@@ -15,6 +18,8 @@
     "@tailwindcss/typography": "^0.5.16",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.35",
-    "postcss-cli": "^10.1.0"
+    "postcss-cli": "^10.1.0",
+    "typescript": "^5.5.4",
+    "wrangler": "^4.156.0"
   }
 }

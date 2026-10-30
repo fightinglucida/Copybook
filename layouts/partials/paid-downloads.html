@@ -1,0 +1,12 @@
+<section class="download-section paid-resource" id="downloads" data-resource-id="{{ .Params.resource_id }}" aria-label="激活码解锁资源">
+  <div class="section-heading"><h2>{{ partial "icon" "download-simple" }}资源下载</h2><span class="paid-badge">激活码解锁</span></div>
+  <div class="paid-lock-panel">
+    <h3>输入本资源的激活码，查看下载地址</h3>
+    <p>无需注册或登录。每份资源使用独立激活码，验证后显示网盘链接与提取码。</p>
+    <form class="activation-form"><label for="resource-code">激活码</label><div class="activation-input-row"><input id="resource-code" name="code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="128" placeholder="请输入购买后收到的激活码" required aria-describedby="activation-message"><button class="button button-primary" type="submit">验证并解锁</button></div></form>
+    <div class="activation-message" id="activation-message" role="status" aria-live="polite">正在检查本机授权…</div>
+    <div class="paid-purchase-row"><span>还没有本资源的激活码？</span>{{ with .Params.purchase_url }}{{ if hasPrefix . "https://" }}<a class="purchase-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">前往购买 {{ partial "icon" "arrow-up-right" }}</a>{{ else }}<span class="purchase-unavailable">购买入口待配置</span>{{ end }}{{ else }}<span class="purchase-unavailable">购买入口待配置</span>{{ end }}</div>
+  </div>
+  <div class="paid-unlocked" hidden><div class="unlock-status"><span class="online-dot"></span><strong>本资源已解锁</strong><span class="license-expiry"></span></div><div class="download-grid"></div><p class="download-note">点击按钮在新窗口打开网盘。换设备或清理浏览器后，可再次输入原激活码。</p></div>
+  <noscript><p>请启用 JavaScript，以验证激活码并获取下载地址。</p></noscript>
+</section>

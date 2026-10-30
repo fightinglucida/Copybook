@@ -17,6 +17,9 @@ collections:
       preview: false
     fields:
       - { label: "文章标题", name: "title", widget: "string", required: true }
+      - { label: "激活码解锁下载", name: "paid", widget: "boolean", required: false, default: false }
+      - { label: "受保护资源编号（须与授权系统一致）", name: "resource_id", widget: "string", required: false }
+      - { label: "购买激活码地址", name: "purchase_url", widget: "string", required: false }
       - { label: "发布时间", name: "date", widget: "datetime", required: false, date_format: "YYYY-MM-DD", time_format: "HH:mm" }
       - { label: "原资源链接（兼容旧文章）", name: "link", widget: "string", required: false }
       - name: "downloads"

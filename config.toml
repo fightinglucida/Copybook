@@ -20,7 +20,7 @@ canonifyURLs = false
   category = 'categories'
 
 [params]
-  description = "技能之书 ▪ 永久免费的通识技能学习资源站，每天持续更新"
+  description = "技能之书 ▪ 通识技能与优质资源分享站，持续更新"
   og_image = "/images/og.jpg"
   sitename = "技能之书"
   channel = "https://t.me/linshufighting"

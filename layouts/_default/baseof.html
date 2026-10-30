@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light">
-{{ partial "meta" . }}
+{{ partial "paid-policy" . }}{{ partial "meta" . }}
 {{ $css := resources.Get "css/site.css" | minify | fingerprint }}<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-EQHN4D94EN"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-EQHN4D94EN');</script>
 </head><body><a class="skip-link" href="#main-content">跳转到主要内容</a>{{ partial "header" . }}<div class="site-layout">{{ partial "aside" . }}<main class="main-column" id="main-content">{{ block "main" . }}{{ end }}</main>{{ partial "sidebar" . }}</div>{{ partial "footer" . }}
 <div class="toast" role="status" hidden></div><dialog class="image-viewer" aria-label="图片预览"><button class="image-viewer-close" type="button" aria-label="关闭图片预览">关闭 ×</button><figure><img alt=""><figcaption></figcaption></figure></dialog>
-{{ $js := resources.Get "js/site.js" | minify | fingerprint }}<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script></body></html>
+{{ $js := resources.Get "js/site.js" | minify | fingerprint }}<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>{{ if .Params.paid }}{{ $paidJS := resources.Get "js/paid-access.js" | minify | fingerprint }}<script src="{{ $paidJS.RelPermalink }}" integrity="{{ $paidJS.Data.Integrity }}" defer></script>{{ end }}</body></html>

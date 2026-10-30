@@ -1,3 +1,4 @@
+{{ if .Params.paid }}{{ partial "paid-downloads" . }}{{ else }}
 {{ $downloads := partial "download-data" . }}
 {{ if $downloads }}
 <section class="download-section" id="downloads" aria-label="资源下载"><div class="section-heading"><h2>{{ partial "icon" "download-simple" }}资源下载</h2><span>选择你常用的网盘</span></div><div class="download-grid">
@@ -7,3 +8,4 @@
 {{ else }}<button class="download-button missing-link" type="button" disabled>暂未提供</button><div class="extraction-row">可使用另一网盘获取资源</div>{{ end }}</div>
 {{ end }}</div><p class="download-note">{{ partial "icon" "arrow-up-right" }}点击按钮将在新窗口打开网盘，提取码可单独复制。</p></section>
 {{ else }}{{ with .Params.link }}{{ if or (hasPrefix . "https://") (hasPrefix . "http://") }}<section class="download-section" id="downloads"><div class="section-heading"><h2>{{ partial "icon" "arrow-up-right" }}资源入口</h2></div><a class="button button-primary" href="{{ . }}" target="_blank" rel="noopener noreferrer">前往资源页面 {{ partial "icon" "arrow-up-right" }}</a></section>{{ end }}{{ end }}{{ end }}
+{{ end }}

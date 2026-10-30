@@ -2,6 +2,9 @@
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
 draft: true
+paid: false
+resource_id: ""
+purchase_url: ""
 mood: ""
 categories: ""
 tags: [""]

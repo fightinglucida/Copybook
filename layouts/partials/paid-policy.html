@@ -1,0 +1,7 @@
+{{- if .Params.paid -}}
+  {{- if not (findRE `^[a-z0-9][a-z0-9_-]{0,95}$` (.Params.resource_id | default "")) -}}{{- errorf "付费文章必须填写有效 resource_id：%s" .File.Path -}}{{- end -}}
+  {{- $exposed := printf "%s %s %s" .RawContent (.Params.link | default "") (.Params.downloads | jsonify) -}}
+  {{- if findRE `(?i)https?://(?:pan\.baidu\.com|pan\.quark\.cn)/` $exposed -}}
+    {{- errorf "付费文章含公开网盘地址，请移至授权系统的受保护资源配置：%s" .File.Path -}}
+  {{- end -}}
+{{- end -}}

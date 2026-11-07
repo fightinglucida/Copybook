@@ -18,15 +18,13 @@ collections:
     fields:
       - { label: "文章标题", name: "title", widget: "string", required: true }
       - { label: "首页置顶", name: "pinned", widget: "boolean", required: false, default: false, hint: "置顶帖排在首页最前面；多篇置顶帖按发布时间从新到旧排序。" }
-      - { label: "激活码解锁下载", name: "paid", widget: "boolean", required: false, default: false }
-      - { label: "受保护资源编号（须与授权系统一致）", name: "resource_id", widget: "string", required: false }
-      - { label: "购买激活码地址", name: "purchase_url", widget: "string", required: false }
       - { label: "发布时间", name: "date", widget: "datetime", required: false, date_format: "YYYY-MM-DD", time_format: "HH:mm" }
-      - { label: "原资源链接（兼容旧文章）", name: "link", widget: "string", required: false }
+      - { label: "资源入口链接", name: "link", widget: "string", required: false, hint: "填写网盘、外部购买或发码平台的完整网址。外部平台链接优先显示为跳转按钮。" }
       - name: "downloads"
         label: "文末网盘下载"
         widget: "object"
         required: false
+        hint: "仅填写需要展示的网盘；未填写链接的网盘不会显示。"
         fields:
           - name: "baidu"
             label: "百度网盘"
@@ -41,6 +39,15 @@ collections:
             required: false
             fields:
               - { label: "分享链接", name: "url", widget: "string", required: false }
+              - { label: "提取码", name: "code", widget: "string", required: false }
+          - name: "other"
+            label: "其他网盘"
+            widget: "list"
+            required: false
+            summary: "{{fields.name}}"
+            fields:
+              - { label: "网盘名称", name: "name", widget: "string" }
+              - { label: "分享链接", name: "url", widget: "string" }
               - { label: "提取码", name: "code", widget: "string", required: false }
       - name: "categories"
         label: "Categories"

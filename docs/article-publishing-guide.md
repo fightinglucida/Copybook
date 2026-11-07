@@ -1,8 +1,8 @@
 # 技能之书：文章发布与配置完整指南
 
-核对日期：2026-10-31。适用项目：`F:\linshutech\copybook`。正式网站：[技能之书](https://copybook-3w6.pages.dev/)。
+核对日期：2026-11-07。适用项目：`F:\linshutech\copybook`。正式网站：[技能之书](https://copybook-3w6.pages.dev/)。
 
-本指南根据当前文章模板、页面模板、Hugo 配置、网页后台和授权接口整理。日常发布推荐直接编辑 Markdown，再通过 Git 推送到 `main`。本地保存、Git 提交、Cloudflare 部署是三个不同步骤，部署成功后文章才会在线上更新。
+本指南根据当前文章模板、页面模板、Hugo 配置、网页后台和资源入口整理。日常发布推荐直接编辑 Markdown，再通过 Git 推送到 `main`。本地保存、Git 提交、Cloudflare 部署是三个不同步骤，部署成功后文章才会在线上更新。
 
 ## 目录
 
@@ -14,7 +14,7 @@
 - [6. 分类、标签与作者](#6-分类标签与作者)
 - [7. 缩略图与正文图片](#7-缩略图与正文图片)
 - [8. 免费下载与普通资源入口](#8-免费下载与普通资源入口)
-- [9. 激活码付费资源](#9-激活码付费资源)
+- [9. 外部购买与发码平台](#9-外部购买与发码平台)
 - [10. 正文 Markdown 写法](#10-正文-markdown-写法)
 - [11. 地址与进阶参数](#11-地址与进阶参数)
 - [12. 预览、检查、提交和上线](#12-预览检查提交和上线)
@@ -48,7 +48,6 @@ title: "零基础 Excel 学习路线"
 date: 2026-10-31T09:00:00+08:00
 draft: false
 pinned: false
-paid: false
 categories: "学习资料"
 tags: ["学习", "工具"]
 author: "Lucida"
@@ -67,7 +66,7 @@ thumbnail: "/images/thumbs/tool-office.webp"
 每天选择一张真实表格完成一个小练习。
 ```
 
-这篇文章没有下载配置，因此文末没有下载区。分享网盘使用第 8 节模板，需要激活码使用第 9 节模板。示例时间是北京时间，正式使用时换成实际发布时间。
+这篇文章没有下载配置，因此文末没有下载区。分享网盘使用第 8 节模板，跳转外部购买平台使用第 9 节模板。示例时间是北京时间，正式使用时换成实际发布时间。
 
 ### 1.3 预览并发布
 
@@ -104,12 +103,12 @@ git push origin main
 | `static/admin/config.yml` | 内容后台的表单字段 | 普通发文不用 |
 | `data/publication_dates.json` | 旧文章日期回填映射 | 新文章不用填，直接写 `date` |
 | `layouts/` | 排序、缩略图、下载等展示逻辑 | 普通发文不用 |
-| `functions/`、`wrangler.jsonc` | 付费校验接口及授权服务连接 | 普通发文不用 |
+| `wrangler.jsonc` | Cloudflare Pages 静态输出目录配置 | 普通发文不用 |
 | `docs/` | 项目操作说明，不会成为网站文章 | 查阅即可 |
 | `public/` | 构建生成的文件 | 不手改，不作为文章源文件提交 |
 | `design-preview/` | 旧的设计审核原型 | 不是正式文章编辑入口 |
 
-公开文章、图片和静态文件都可以被访客读取。付费下载地址、提取码、管理员密钥、激活码库存放在授权系统，不放进博客公开目录和 Git 仓库。
+公开文章、图片和静态文件都可以被访客读取。需要收费的资源，在文章中填写外部平台商品入口；购买、发码和下载交付由目标平台处理。
 
 ## 3. YAML 配置怎么写
 
@@ -132,7 +131,7 @@ tags:
 基本规则：
 
 - 参数名和冒号用英文半角，冒号后留空格。
-- `true`、`false` 不加引号。不要写 `pinned: "true"` 或 `paid: "false"`，它们是字符串，可能造成错误行为。
+- `true`、`false` 不加引号。不要写 `pinned: "true"`，它们是字符串，可能造成错误行为。
 - 缩进用空格，不用 Tab。嵌套参数每层推荐两个空格。
 - 标题、描述、网址、提取码建议加引号；数字提取码也写成 `"0012"`，避免前导零丢失。
 - 标签既可写成 `["学习", "工具"]`，也可使用多行数组。
@@ -159,21 +158,19 @@ tags:
 | `thumbnail` | 图片路径：`"/images/thumbs/tool-office.webp"` | 可选 | 列表左侧缩略图，最高优先级；不自动插入正文、不替换分享大图 |
 | `cover` | 图片路径：`"/images/my-post/cover.webp"` | 可选 | 列表缩略图备用值，优先级低于 `thumbnail` 及资源包约定图片 |
 
-### 4.2 下载与付费
+### 4.2 下载与外部入口
 
 | 参数 | 类型／示例 | 适用场景 | 作用 |
 |---|---|---|---|
-| `paid` | 布尔值：`false`／`true` | 所有文章 | 模板默认 `false`；为 `true` 时使用服务端激活码下载校验。**只锁下载区，正文仍公开** |
-| `resource_id` | 字符串：`"copybook-excel-basics"` | 付费必填 | 与授权后台“资源编号”完全一致；不是 App ID、套餐 ID、文章地址或激活码 |
-| `purchase_url` | HTTPS 网址 | 付费可选 | “前往购买”的跳转地址；为空或不是 `https://` 开头时显示“购买入口待配置” |
-| `downloads` | 对象 | 免费网盘推荐 | 文末网盘入口，包含 `baidu` 和／或 `quark`；付费文章不在这里写真实地址 |
+| `downloads` | 对象 | 公开网盘推荐 | 文末网盘入口，支持 `baidu`、`quark` 和 `other`；只显示填写了有效链接的项 |
 | `downloads.baidu.url` | 百度完整分享网址 | 免费百度资源 | 生成百度按钮，主机名须为 `pan.baidu.com` |
 | `downloads.baidu.code` | 字符串：`"abcd"` | 可选 | 显示并可复制提取码；为空时尝试链接 `pwd`，再尝试正文中的百度提取码 |
 | `downloads.quark.url` | 夸克完整分享网址 | 免费夸克资源 | 生成夸克按钮，主机名须为 `pan.quark.cn` |
 | `downloads.quark.code` | 字符串：`"1234"` | 可选 | 显示并可复制提取码；为空时尝试链接 `pwd` |
-| `link` | HTTP(S) 网址 | 旧文章或普通资源 | 网盘地址回退来源；没有百度／夸克下载项时显示“前往资源页面”。新网盘文章推荐用 `downloads` |
+| `downloads.other` | 数组 | 其他网盘 | 每项填写 `name`、`url`、可选 `code`；支持任意数量，按填写顺序显示 |
+| `link` | HTTP(S) 网址 | 网盘或外部平台 | 非百度／夸克的外部网址优先显示“前往资源页面”，适合购买、发码平台；填写百度／夸克地址时作为网盘回退来源 |
 
-普通文章不分享资源时，可以删除 `link`、`downloads`。付费文章推荐把它们整个删除，真实下载配置只保存在授权系统。
+普通文章不分享资源时，可以删除 `link`、`downloads`。跳转外部购买平台时只需填写 `link`，不必配置网盘地址或其他付费参数。
 
 ## 5. 日期、草稿和置顶
 
@@ -304,7 +301,6 @@ title: "表格基础练习资料"
 date: 2026-10-31T09:00:00+08:00
 draft: false
 pinned: false
-paid: false
 categories: "学习资料"
 tags: ["学习", "工具", "资源"]
 description: "配合表格入门学习的公开练习资料与操作说明。"
@@ -326,94 +322,88 @@ downloads:
 - 使用说明
 ```
 
-下载面板自动位于完整正文之后，不用自己写按钮。只有一个网盘就删除另一个子项；免费面板仍展示两个服务商，缺少的显示“暂未提供”。没有提取码就填 `""` 或删除 `code`。
+下载面板自动位于完整正文之后，不用自己写按钮。配置几个有效网盘链接，就显示几个对应入口。没有填写链接的网盘不会显示；只有一个入口时占满一行。没有提取码就填 `""` 或删除 `code`。
+
+只提供夸克网盘：
+
+```yaml
+downloads:
+  quark:
+    url: "https://pan.quark.cn/s/替换为真实分享标识"
+    code: "1234"
+```
+
+此时只显示夸克网盘，百度及其他网盘不会占位。
+
+其他网盘添加到 `other` 列表，可与百度、夸克同时使用：
+
+```yaml
+downloads:
+  baidu:
+    url: "https://pan.baidu.com/s/替换为真实分享标识"
+    code: "abcd"
+  quark:
+    url: "https://pan.quark.cn/s/替换为真实分享标识"
+    code: "1234"
+  other:
+    - name: "阿里云盘"
+      url: "https://example.com/replace-with-aliyun-share"
+      code: "5678"
+    - name: "其他网盘名称"
+      url: "https://example.com/replace-with-share"
+      code: ""
+```
+
+`example.com` 为占位网址，请替换为相应网盘的完整分享地址。上例会显示四个入口；删除不需要的项即可。其他网盘使用通用下载图标，按钮显示自己填写的名称。
 
 ### 8.2 读取优先级与提取码
 
-每个网盘先读自己的 `downloads`。未配置网址时，从旧 `link` 和正文中找对应网盘，带 `pwd=` 的候选通常优先。不要在一个资源里配置多份不一致的旧分享地址。
+填写非百度／夸克的外部 `link` 时，优先显示外部跳转按钮。否则，只要 `downloads` 中填写了任意网盘网址，就仅显示这些配置项，不再从正文或旧 `link` 补出其他网盘。完全没有填写网盘网址时，兼容从 `link` 和正文识别百度／夸克链接。
 
-提取码先用 `code`，再读网址中的 `pwd`。百度还会尝试读取正文 `提取码：abcd`／`提取码: abcd`；夸克没有这个正文提取码回退。新文章推荐明确配置，避免自动猜测。
+百度／夸克提取码先用 `code`，再读网址中的 `pwd`。百度还会尝试读取正文 `提取码：abcd`／`提取码: abcd`。其他网盘使用自己填写的 `code`，只展示和复制，不自动修改分享链接。
 
 网址已经有 `pwd=旧码`、但 `code` 填了新码时，当前模板不会自动覆盖网址里的旧值。应让两者一致，或删除网址中的 `pwd`，只填 `code`。
 
 免费入口允许 HTTP／HTTPS，建议使用 HTTPS 完整分享网址。系统不自动检测分享有效期；更新分享链接后还要检查正文旧地址。
 
-### 8.3 普通外部网站或其他网盘
+### 8.3 普通外部网站
 
 ```yaml
-paid: false
 link: "https://example.com/resource"
 ```
 
-未识别到百度／夸克下载项时，文末显示“前往资源页面”。可用于网站、在线工具、迅雷等其他入口，不会自动生成它们的品牌 Logo 或提取码面板。
+填写非百度／夸克的 HTTP(S) 外部网址时，文末优先显示“前往资源页面”。可用于购买平台、发码平台、网站、在线工具、迅雷等其他入口，不会自动生成它们的品牌 Logo 或提取码面板。此入口优先于 `downloads` 和正文中自动识别的网盘地址。
 
-## 9. 激活码付费资源
+## 9. 外部购买与发码平台
 
-**正文、目录、图片和摘要仍公开，只有下载区需要激活码。** 不要把应受保护的地址、提取码、二维码、截图入口或其他绕过链接放进公开内容。
+本站负责内容介绍和入口展示。需要收费时，在第三方平台建立商品，将商品页面填入文章的 `link`；用户点击后在新窗口完成购买、领取和下载。
 
-### 9.1 先配置授权系统
-
-打开[林书授权系统](https://linshu-license-center.pages.dev/)，按顺序操作：
-
-1. **应用管理**：使用“技能之书”，App ID 为 `app_copybook`。
-2. **套餐管理**：为本资源新建独立永久或按天套餐；每个资源单独买码，不共用其他资源套餐。当前免登录入口不支持次数额度套餐。
-3. **受保护资源**：填写唯一编号和标题，选择该应用及套餐，填写真实百度／夸克地址与提取码，状态设为启用。一个套餐只绑定一个资源。
-4. **授权码批次**：选相同应用和套餐，生成、导出激活码，在淘宝等平台销售。测试码和销售库存不提交博客 Git。
-5. **博客文章**：只配置相同的资源编号、购买页面和公开介绍。
-
-资源创建后不允许更换产品和套餐；可修改标题、下载地址和状态。改变售卖范围时，新建资源编号及套餐，避免旧码意外获得其他商品权限。
-
-### 9.2 付费文章完整模板
+### 9.1 完整模板
 
 ```yaml
 ---
-title: "Excel 实战课程资料包"
-date: 2026-10-31T09:00:00+08:00
+title: "怀旧老照片素材合集"
+date: "2026-11-07 10:05:00"
 draft: false
-pinned: false
-paid: true
-resource_id: "copybook-excel-basics"
-purchase_url: "https://example.com/buy/excel"
-categories: "学习资料"
-tags: ["学习", "工具"]
-author: "Lucida"
-description: "课程目录、适用人群和学习说明，购买后使用激活码获取下载地址。"
-thumbnail: "/images/thumbs/tool-office.webp"
+categories: "素材资源"
+tags: ["老照片", "怀旧"]
+link: "https://example.com/buy/old-photos"
 ---
 
-这里介绍课程内容和适用人群。
+这里介绍素材内容、目录、适用人群和使用场景。
 
-## 资源目录
-
-- 入门讲解
-- 配套练习
-- 案例资料
-
-购买后，在文末输入本资源的激活码，即可查看网盘下载地址。
+需要获取完整素材，请点击文末的“前往资源页面”，在目标平台购买并下载。
 ```
 
-`copybook-excel-basics` 是已有示例编号；发布新商品必须替换为该商品在授权后台创建的编号。`example.com` 也要换成实际销售链接；没有购买页时填写 `purchase_url: ""`，显示“购买入口待配置”。
+将 `example.com` 替换为实际商品或发码页面，按钮会直接打开该地址。文章只需配置一个 `link`，其余交易与交付设置均在目标平台完成。
 
-`resource_id` 必须小写英文或数字开头，后续只允许小写英文、数字、`-`、`_`，总长 1～96 字符，须与授权后台完全一致。
+### 9.2 配置说明
 
-### 9.3 付费文章的内容边界
-
-`paid: true` 时，正文或任意元数据中出现百度／夸克 HTTP(S) 网盘地址会阻止构建。真实链接不能写进 `link`、`downloads`、描述或摘要，应只放在授权后台。
-
-检查防止常见明文泄漏，但不识别所有二维码、截图、编码地址和第三方网盘。仍要人工确认公开材料中没有绕过入口。正文全文本身不是保密内容，也会进入搜索。
-
-旧免费资源转付费前，先在网盘生成新链接，再配置授权后台；Git 历史、旧部署、其他人的收藏里可能还留着旧地址，单纯删除当前正文无法追回。
-
-### 9.4 用户访问规则
-
-- 无需账号，正确码只解锁对应资源。同一浏览器可以分别解锁多份。
-- 本机会话最长 30 天；换浏览器、清理 Cookie 或会话到期后，可重新输入原码。
-- 永久套餐不因浏览器会话到期而失效；按天套餐从首次激活计时，重输原码不会续期。
-- 每次取下载信息都重新校验。停用产品、套餐、资源或匿名码后，后续请求会被拒绝；已经显示／复制走的地址无法收回。
-- 原账号体系的设备数量设置不用于本免登录入口；没有购买者身份绑定，持有码的人也可能转发使用。
-- `expiryDate` 是 Hugo 文章日期，不是授权套餐期限；套餐期限在授权系统管理。
-
-需要维护接口和部署细节时，参阅 [paid-resources.md](paid-resources.md)。
+- 外部平台链接优先于网盘配置和正文的网盘识别，只显示外部资源入口。
+- 收费资源建议删除文章中的公开网盘地址和 `downloads` 配置，完整资源在外部平台交付。
+- 普通网站、在线工具也使用同一个 `link` 字段；不需要收费时无需做其他配置。
+- 本站不接入支付或发码 API；售价、订单、发码及下载交付均在目标平台管理。
+- 本地运行 `npm run serve` 就可以预览文章和跳转按钮，无需额外后端服务。
 
 ## 10. 正文 Markdown 写法
 
@@ -452,7 +442,7 @@ print("Hello")
 
 推荐 Markdown 图片和链接，不依赖原始 HTML；当前没有启用任意原始 HTML 渲染，也没有自定义短代码组件库，不要随意写 `{{< button >}}` 等未实现组件。
 
-普通正文外链不会自动获得下载按钮的“新窗口”行为。`<!--more-->` 可用于划分 Hugo 摘要，但不会隐藏后半篇文章，更不会产生付费阅读全文。全文搜索取文章完整纯文本，不只取摘要。
+普通正文外链不会自动获得资源入口按钮的“新窗口”行为。`<!--more-->` 可用于划分 Hugo 摘要，但不会隐藏后半篇文章，更不会产生付费阅读全文。全文搜索取文章完整纯文本，不只取摘要。
 
 ## 11. 地址与进阶参数
 
@@ -464,7 +454,7 @@ print("Hello")
 | `url` | `"/resources/excel-basics/"` | 指定完整站内路径，建议 `/` 开头和结尾；不同于 `downloads.*.url` |
 | `aliases` | `["/old-excel-guide/"]` | 旧地址生成 Hugo 跳转页；不等同于自动在 Cloudflare 创建服务器端 301 规则 |
 | `publishDate` | `2026-11-01T09:00:00+08:00` | 正式发布时间，影响过滤及排序；到期仍需重新构建 |
-| `expiryDate` | `2027-01-01T00:00:00+08:00` | 到期后在下一次普通构建中不再生成，非授权期限 |
+| `expiryDate` | `2027-01-01T00:00:00+08:00` | 到期后在下一次普通构建中不再生成 |
 | `lastmod` | `2026-10-31T12:00:00+08:00` | Hugo 最后修改时间，可供默认站点地图等使用；当前页面不显示“更新于”，也不按它排序 |
 | `summary` | `"一句话摘要"` | Hugo 和 RSS 摘要，不会生成首页摘要区 |
 | `weight` | `10` | 当前首页不靠它置顶，请使用 `pinned` |
@@ -477,15 +467,15 @@ aliases:
   - "/old-excel-guide/"
 ```
 
-已发布后改文件名、移动目录、转换资源包，都可能改变网址。先保存旧地址，再用 `url` 保留或用 `aliases` 跳转。付费 `resource_id` 不要因为文章改名而随意修改。
+已发布后改文件名、移动目录、转换资源包，都可能改变网址。先保存旧地址，再用 `url` 保留或用 `aliases` 跳转。
 
 ### 当前没有实现的字段或效果
 
 - `avatar`、旧 SVG 头像和 `data/avatars.json` 已不使用。
 - 文章 `og_image`、`images` 不控制当前分享图；模板只读全站 `params.og_image`。
-- `price`、`password`、`activation_code`、`download_url`、`baidu_url` 等不是现有下载／付费配置，任意添加不会生效。
+- `price`、`password`、`download_url`、`baidu_url` 等不是现有下载配置，任意添加不会生效。
 - 文章阅读量、点赞数、价格徽标、作者简介没有对应展示逻辑。
-- `paid: true` 不能把整篇正文设置为保密。
+- 文章全文公开，收费资源请通过外部平台交付。
 
 ## 12. 预览、检查、提交和上线
 
@@ -502,28 +492,7 @@ npm run serve
 
 这个命令包含草稿，所以“本地看到了”不代表生产会发布。未来文章可用 `hugo server -D -F`。端口被占用时可用 `hugo server -D --port 18479`，地址看终端实际提示。
 
-### 12.3 付费完整预览
-
-Hugo server 没有授权 Functions；激活码联调需要两边同时运行：
-
-```powershell
-# 终端一：授权 API
-Set-Location -LiteralPath 'F:\linshutech\授权系统\apps\worker'
-npx wrangler dev --local --port 8796
-```
-
-```powershell
-# 终端二：博客及本站授权接口
-Set-Location -LiteralPath 'F:\linshutech\copybook'
-npm run build
-npm run serve:access
-```
-
-通常访问 `http://localhost:18477/`。本地授权库要先应用迁移并建立产品、套餐、资源、测试码；生产码不会自动出现在本地。若用了专门的 `--persist-to` 数据库目录，迁移和开发服务必须使用同一个目录。
-
-Service Binding 使用 `LICENSE_CENTER` 连接服务名 `linshu-license-center-api`，不用在文章里写管理员令牌和 API 密钥。只发普通文章不需要重新部署授权 Worker。
-
-### 12.4 构建检查
+### 12.3 构建检查
 
 ```powershell
 npm run build
@@ -531,18 +500,9 @@ npm run build
 
 失败时先修复报错。可用 `hugo list drafts`、`hugo list future`、`hugo list expired` 定位没有进入生产构建的文章。
 
-涉及付费时可额外运行：
-
-```powershell
-npm run typecheck:access
-npm run check:paid
-```
-
-`check:paid` 要求结果中至少有一篇付费文章。如果都是免费文章，会报 `Expected at least one gated resource page`，这不代表普通文章构建失败。不要为了通过检查把真实网址放回付费文章。
-
 `public/` 是输出目录。普通 `hugo` 不应理解成必定清空所有旧文件；检查删文结果时可使用新的空输出目录，避免旧文件误导。不要手改生成的 `public/index.html`。
 
-### 12.5 提交并确认线上
+### 12.4 提交并确认线上
 
 ```powershell
 git status --short
@@ -553,17 +513,17 @@ git commit -m "content: publish Excel study guide"
 git push origin main
 ```
 
-没用新图片时删掉命令中的图片路径。检查暂存区仅包含要发布的文件。Cloudflare Pages 的 `copybook` 项目完成这次 `main` 部署后，再检查首页、详情、日期、置顶、图片、下载入口；付费页还要看未解锁状态和源码。
+没用新图片时删掉命令中的图片路径。检查暂存区仅包含要发布的文件。Cloudflare Pages 的 `copybook` 项目完成这次 `main` 部署后，再检查首页、详情、日期、置顶、图片、下载入口；外部入口还应确认目标商品页面正确。
 
-文章标题、购买链接、置顶等博客内容变化需要重新构建。授权后台的网盘地址或停用状态变化，通常直接影响后续接口请求，不需要重新构建博客。
+文章标题、资源入口、置顶等博客内容变化需要重新构建。目标平台上的价格、发码与下载交付设置在外部平台管理。
 
 ## 13. 网页后台的字段与限制
 
-本站 `/admin/` 是**内容编辑后台**，林书授权系统是**产品、资源和激活码后台**，两者用途不同。
+本站 `/admin/` 是**内容编辑后台**，只编辑文章和资源入口。
 
 内容后台仍使用 Decap CMS＋原有 `git-gateway`／Netlify Identity。Cloudflare 静态托管不会自动提供这个登录服务。本指南确认了配置文件，不等于已验证后台登录可用；若无法登录，用 Markdown＋Git 发布即可。
 
-表单已配置：标题、置顶、付费、资源编号、购买链接、发布时间、旧链接、百度／夸克地址及提取码、Categories、Tags、Body。表单中 Categories、Tags、Body 设为必填，这与手写 Markdown 可省略某些字段不同。
+表单已配置：标题、置顶、发布时间、资源入口链接、百度／夸克及其他网盘地址、名称和提取码、Categories、Tags、Body。表单中 Categories、Tags、Body 设为必填，这与手写 Markdown 可省略某些字段不同。
 
 表单尚未配置 `author`、`description`、`thumbnail`、`cover`、`slug`、`url`、`aliases`、`summary`、`publishDate`、`expiryDate`、`lastmod`。需要它们时直接编辑 Markdown，不要假设表单里有开关。
 
@@ -580,12 +540,9 @@ git push origin main
 | 缩略图空白 | 检查路径、文件提交、大小写；别写 `static/` 或本地硬盘路径 |
 | 正文首图没成为缩略图 | 当前不做自动提取，配置 `thumbnail` 或资源包约定图片 |
 | 图片本地正常，线上 404 | 图片漏提交、大小写不同、误用反斜线、资源包 URL 不匹配 |
-| 免费下载区没出现 | 检查 `paid`、`downloads`／`link`、网盘主机名和完整分享网址 |
+| 下载区没出现 | 检查 `downloads`／`link`、网盘主机名和完整分享网址 |
+| 外部购买入口没出现 | 在 `link` 填写完整 HTTP(S) 网址；外部平台链接会优先展示 |
 | 网盘提取码报错 | 检查 `pwd` 与 `code` 一致性及网盘分享本身 |
-| 付费文章构建失败 | 检查编号格式及正文／元数据是否仍含网盘地址 |
-| 购买入口待配置 | `purchase_url` 为空或非 HTTPS |
-| 激活码失败 | 核对资源编号、套餐绑定、码套餐、启用状态、有效期、本地／生产环境 |
-| Hugo 预览不能解锁 | 改用 Pages 本地服务并运行授权 Worker |
 | 新分类图片不专属 | 未知分类用通用回退，需要时直接指定 `thumbnail` |
 | 网页后台缺字段 | 按当前配置未暴露，请编辑 Markdown |
 | 删除后本地还看到旧页 | 确认不是旧 `public/` 或设计原型，使用新空目录构建 |
@@ -593,14 +550,13 @@ git push origin main
 ## 15. 发布检查单
 
 - [ ] 标题、实际日期、分类正确，`draft: false`。
-- [ ] 时间带时区，未来日期是有意设置。
-- [ ] `pinned`、`paid` 为不带引号的布尔值。
+- [ ] 日期和时间正确，未来日期是有意设置。
+- [ ] `pinned` 为不带引号的布尔值。
 - [ ] 分类、标签没有拼写或重复命名问题。
 - [ ] 图片路径正确，新图片已加入 Git。
 - [ ] 免费资源的分享链接和提取码一致且可用。
-- [ ] 付费真实地址只在授权后台，公开材料没有绕过入口。
-- [ ] 付费编号、套餐、卡密批次及销售链接对应。
-- [ ] 构建成功，按需检查付费功能。
+- [ ] 收费资源的 `link` 指向正确的外部商品或发码页面。
+- [ ] 构建成功，已检查资源入口跳转。
 - [ ] 暂存区只包含要发布的改动。
 - [ ] 推送后 CF 部署成功，正式网址已打开验证。
 
@@ -618,9 +574,7 @@ git push origin main
 | 日期回退 | [publication-date.html](../layouts/partials/publication-date.html) |
 | 缩略图 | [thumb-url.html](../layouts/partials/thumb-url.html) |
 | 正文图片 | [render-image.html](../layouts/_default/_markup/render-image.html) |
-| 免费下载 | [download-data.html](../layouts/partials/download-data.html)、[downloads.html](../layouts/partials/downloads.html) |
-| 付费校验、展示 | [paid-policy.html](../layouts/partials/paid-policy.html)、[paid-downloads.html](../layouts/partials/paid-downloads.html) |
+| 下载与外部入口 | [download-data.html](../layouts/partials/download-data.html)、[downloads.html](../layouts/partials/downloads.html) |
 | SEO、RSS、搜索 | [meta.html](../layouts/partials/meta.html)、[rss.xml](../layouts/_default/rss.xml)、[index.json](../layouts/index.json) |
-| 付费运营细节 | [paid-resources.md](paid-resources.md) |
 
 Hugo 通用语法可查官方 [Front matter](https://gohugo.io/content-management/front-matter/)、[文章资源包](https://gohugo.io/content-management/page-bundles/)、[新建内容命令](https://gohugo.io/commands/hugo_new_content/)。通用文档提供的字段不代表本站主题都会展示，页面表现以当前模板为准。

@@ -1,6 +1,14 @@
-{{- $result := dict -}}
+{{- $result := slice -}}
 {{- $raw := .RawContent -}}
 {{- $candidates := slice -}}
+{{- $configured := false -}}
+{{- range $provider := slice "baidu" "quark" -}}
+  {{- with index $.Params.downloads $provider -}}
+    {{- if reflect.IsMap . -}}{{- if .url -}}{{- $configured = true -}}{{- end -}}
+    {{- else -}}{{- $configured = true -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- range .Params.downloads.other -}}{{- if .url -}}{{- $configured = true -}}{{- end -}}{{- end -}}
 {{- with .Params.link -}}{{- $candidates = $candidates | append . -}}{{- end -}}
 {{- range (findRE `https?://(?:pan\.baidu\.com|pan\.quark\.cn)/[^\s)\]<>"]+` .RawContent) -}}
   {{- $candidates = $candidates | append (strings.TrimRight "`，。；" .) -}}
@@ -10,7 +18,7 @@
   {{- with index $.Params.downloads $provider -}}
     {{- if reflect.IsMap . -}}{{- $url = .url | default "" -}}{{- $code = .code | default "" -}}{{- else -}}{{- $url = . -}}{{- end -}}
   {{- end -}}
-  {{- if not $url -}}
+  {{- if and (not $configured) (not $url) -}}
     {{- $host := printf "pan.%s.c" $provider -}}
     {{- range $candidates -}}{{- if in . $host -}}{{- if or (not $url) (and (in . "pwd=") (not (in $url "pwd="))) -}}{{- $url = . -}}{{- end -}}{{- end -}}{{- end -}}
   {{- end -}}
@@ -25,7 +33,19 @@
         {{- with $matches -}}{{- $code = index (index . 0) 1 -}}{{- end -}}
       {{- end -}}
       {{- if and $code (not ($parsed.Query.Get "pwd")) -}}{{- $sep := "?" -}}{{- if $parsed.RawQuery -}}{{- $sep = "&" -}}{{- end -}}{{- $url = printf "%s%s%s" $url $sep (querify "pwd" $code) -}}{{- end -}}
-      {{- $result = merge $result (dict $provider (dict "url" $url "code" $code)) -}}
+      {{- $name := "夸克网盘" -}}{{- $logo := "images/brands/quark-pan.png" -}}
+      {{- if eq $provider "baidu" -}}{{- $name = "百度网盘" -}}{{- $logo = "images/brands/baidu-pan.ico" -}}{{- end -}}
+      {{- $result = $result | append (dict "provider" $provider "name" $name "logo" $logo "url" $url "code" $code) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- range .Params.downloads.other -}}
+  {{- $download := . -}}
+  {{- with .url -}}
+    {{- $parsed := urls.Parse . -}}
+    {{- if and $parsed.Host (in (slice "http" "https") $parsed.Scheme) -}}
+      {{- /* Other services have their own extraction-code URL formats. */ -}}
+      {{- $result = $result | append (dict "provider" "other" "name" ($download.name | default "其他网盘") "logo" "" "url" . "code" ($download.code | default "")) -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}

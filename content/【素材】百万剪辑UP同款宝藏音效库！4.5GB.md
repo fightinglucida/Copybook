@@ -2,10 +2,10 @@
 title: 百万剪辑UP同款宝藏音效库！4.5GB
 date: 2026-11-07 20:55:00
 categories: 素材资源
-mood: empty
 tags:
   - 剪辑
   - 音频
+  - 自媒体
 link: "https://pan.quark.cn/s/d79a2afabd2f"
 typora-root-url: ../static
 ---

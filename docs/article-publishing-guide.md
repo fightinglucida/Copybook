@@ -158,7 +158,6 @@ tags:
 | `summary` | 字符串，短摘要 | 可选 | Hugo 摘要，影响 RSS 和未填 `description` 时的描述来源；首页没有独立摘要栏 |
 | `thumbnail` | 图片路径：`"/images/thumbs/tool-office.webp"` | 可选 | 列表左侧缩略图，最高优先级；不自动插入正文、不替换分享大图 |
 | `cover` | 图片路径：`"/images/my-post/cover.webp"` | 可选 | 列表缩略图备用值，优先级低于 `thumbnail` 及资源包约定图片 |
-| `mood` | 字符串：`"五星"`／`"empty"` | 可选 | 历史分类体系，会生成 `/mood/` 相关页面；当前紧凑列表和详情不显示星级。模板默认空字符串 |
 
 ### 4.2 下载与付费
 
@@ -564,7 +563,7 @@ git push origin main
 
 内容后台仍使用 Decap CMS＋原有 `git-gateway`／Netlify Identity。Cloudflare 静态托管不会自动提供这个登录服务。本指南确认了配置文件，不等于已验证后台登录可用；若无法登录，用 Markdown＋Git 发布即可。
 
-表单已配置：标题、置顶、付费、资源编号、购买链接、发布时间、旧链接、百度／夸克地址及提取码、Mood、Categories、Tags、Body。表单中 Mood、Categories、Tags、Body 设为必填，这与手写 Markdown 可省略某些字段不同。
+表单已配置：标题、置顶、付费、资源编号、购买链接、发布时间、旧链接、百度／夸克地址及提取码、Categories、Tags、Body。表单中 Categories、Tags、Body 设为必填，这与手写 Markdown 可省略某些字段不同。
 
 表单尚未配置 `author`、`description`、`thumbnail`、`cover`、`slug`、`url`、`aliases`、`summary`、`publishDate`、`expiryDate`、`lastmod`。需要它们时直接编辑 Markdown，不要假设表单里有开关。
 

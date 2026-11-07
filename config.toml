@@ -16,7 +16,6 @@ canonifyURLs = false
 
 [taxonomies]
   tag = 'tags'
-  mood = 'mood'
   category = 'categories'
 
 [params]

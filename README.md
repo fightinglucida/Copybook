@@ -57,7 +57,6 @@ hugo new your-article-title.md
 title: "Your Article Title"
 date: 2023-10-27T10:00:00Z
 draft: true
-mood: ""
 categories: ""
 tags: [""]
 ---
@@ -74,7 +73,6 @@ tags: [""]
 - `title`: 文章标题。
 - `date`: 发布日期。
 - `draft`: 是否为草稿。`true` 表示是，文章不会被发布。
-- `mood`: 心情或文章基调。例如：`Direct`, `Creative`。
 - `categories`: 文章分类。例如：`Marketing`, `Tech`。
 - `tags`: 文章标签，可以有多个。例如：`["upsell", "features"]`。
 

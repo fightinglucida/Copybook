@@ -42,14 +42,6 @@ collections:
             fields:
               - { label: "分享链接", name: "url", widget: "string", required: false }
               - { label: "提取码", name: "code", widget: "string", required: false }
-      - name: "mood"
-        label: "Mood"
-        widget: "create-select"
-        mode: "xml"
-        url: "/mood/index.xml"
-        query: "item > title"
-        multiple: false
-        required: true
       - name: "categories"
         label: "Categories"
         widget: "create-select"

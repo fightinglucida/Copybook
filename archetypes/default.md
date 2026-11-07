@@ -6,7 +6,6 @@ pinned: false
 paid: false
 resource_id: ""
 purchase_url: ""
-mood: ""
 categories: ""
 tags: [""]
 downloads:

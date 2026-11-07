@@ -1,5 +1,7 @@
 # Copy Book
 
+**本站发文请先阅读：[文章发布与配置完整指南](docs/article-publishing-guide.md)。** 指南已按当前代码核对，包含完整参数表、置顶、缩略图、免费网盘和激活码资源。下方为早期通用说明，实际字段与行为以完整指南为准。
+
 Copy book is a collection of texts that are commonly used around the web.
 
 ## Development

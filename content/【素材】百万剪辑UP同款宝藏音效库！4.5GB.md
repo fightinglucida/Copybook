@@ -1,0 +1,29 @@
+---
+title: 百万剪辑UP同款宝藏音效库！4.5GB
+categories: 素材资源
+mood: empty
+tags:
+  - 剪辑
+  - 音频
+link: "https://pan.quark.cn/s/d79a2afabd2f"
+typora-root-url: ../static
+---
+
+
+
+![音效库资源](/images/sound-effects/resource.png)
+
+超细中文分类，涵盖场景动物、动作、乐器、人声等分类
+百万剪辑狮的音效库，导入剪辑软件，辅助剪辑利器
+
+
+
+
+
+
+下载链接：https://pan.quark.cn/s/d79a2afabd2f
+
+
+
+
+

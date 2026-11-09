@@ -161,3 +161,9 @@ body{color:var(--body)}
 
 .post-thumb.post-cover-text{background:var(--badge-bg);color:var(--badge-ink);border-color:var(--badge-border);padding:8px;text-align:center}
 .post-cover-text span{font-size:12px;line-height:16px;font-weight:600;overflow-wrap:anywhere;text-wrap:balance;max-width:100%}
+
+/* Detail cover stays above the post facts in the sidebar's normal flow. */
+.sidebar-cover{width:100%;aspect-ratio:4/3;overflow:hidden;border:1px solid var(--border);border-radius:4px;background:var(--surface);flex-shrink:0}
+.sidebar-cover img{display:block;width:100%;height:100%;object-fit:cover}
+.sidebar-cover-text{display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;background:var(--badge-bg);color:var(--badge-ink);border-color:var(--badge-border)}
+.sidebar-cover-text span{font-size:24px;line-height:32px;font-weight:600;overflow-wrap:anywhere;text-wrap:balance}

@@ -1,5 +1,8 @@
 <aside class="right-sidebar" aria-label="站点信息">
   {{ if .IsPage }}{{ $date := partialCached "publication-date" . .RelPermalink }}
+  {{ $cover := partial "thumb-url" . }}
+  {{ $category := "未分类" }}{{ range first 1 (.GetTerms "categories") }}{{ $category = .Title }}{{ end }}
+  <div class="sidebar-cover {{ if not $cover }}sidebar-cover-text {{ partial "badge-tone" $category }}{{ end }}" aria-label="文章封面">{{ with $cover }}<img src="{{ . }}" alt="{{ $.Title }}的封面" width="400" height="300" decoding="async">{{ else }}<span>{{ $category }}</span>{{ end }}</div>
   <section class="sidebar-panel"><h2>{{ partial "icon" "file-text" }}本帖信息</h2><dl class="post-facts"><div><dt>发布者</dt><dd>{{ .Params.author | default .Site.Params.author.name }}</dd></div>{{ if not $date.IsZero }}<div><dt>发布时间</dt><dd>{{ $date.Format "2006-01-02" }}</dd></div>{{ end }}<div><dt>所属分类</dt><dd>{{ range .GetTerms "categories" }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}</dd></div></dl></section>
   {{ end }}
   <section class="sidebar-panel about-panel"><div class="about-heading"><span class="brand-mark">{{ partial "icon" "book-open" }}</span><div><h2>技能之书</h2><span class="muted">把值得学的，收集起来</span></div></div><p>一个持续更新的通识技能资源库。分享实用课程、优质工具与阅读灵感。</p><div class="site-stats"><div><strong>{{ len .Site.RegularPages }}</strong><span>精选资源</span></div><div><strong>{{ len .Site.Taxonomies.categories }}</strong><span>资源分类</span></div><div><strong>{{ len .Site.Taxonomies.tags }}</strong><span>探索标签</span></div></div><a class="button button-primary channel-button" href="{{ .Site.Params.channel }}" target="_blank" rel="noopener noreferrer">关注 Telegram 频道 {{ partial "icon" "arrow-up-right" }}</a></section>

@@ -17,6 +17,7 @@ collections:
       preview: false
     fields:
       - { label: "文章标题", name: "title", widget: "string", required: true }
+      - { label: "列表封面", name: "cover", widget: "image", required: false, hint: "建议上传4:3图片；未配置时显示分类名称文字封面。" }
       - { label: "首页置顶", name: "pinned", widget: "boolean", required: false, default: false, hint: "置顶帖排在首页最前面；多篇置顶帖按发布时间从新到旧排序。" }
       - { label: "发布时间", name: "date", widget: "datetime", required: false, date_format: "YYYY-MM-DD", time_format: "HH:mm" }
       - { label: "资源入口链接", name: "link", widget: "string", required: false, hint: "填写网盘、外部购买或发码平台的完整网址。外部平台链接优先显示为跳转按钮。" }

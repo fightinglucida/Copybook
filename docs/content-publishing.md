@@ -62,6 +62,6 @@ downloads:
 
 后台字段已加入发布日期、百度／夸克配置和可添加多项的“其他网盘”列表。后台仍依赖原有 git-gateway 登录服务；本次没有迁移其认证后端。也可以直接编辑 Markdown 后提交。
 
-帖子列表使用本地 WebP 缩略图；可以通过文章的 `thumbnail` 或 `cover` 字段指定图片，未指定时按分类、标签及文章路径稳定选择缩略图。品牌 Logo 来源记录在 `docs/brand-assets.md`，字体和图标授权位于 `static/licenses/`。
+首页及分类、标签列表统一使用4:3封面。在文章顶部填写 `cover: "/images/my-post/cover.webp"`，兼容旧字段 `thumbnail`。未配置图片时显示分类名称，没有分类则显示“未分类”，不再自动分配预设图片。品牌 Logo 来源记录在 `docs/brand-assets.md`，字体和图标授权位于 `static/licenses/`。
 
 运行 `npm run serve` 本地预览，运行 `npm run build` 构建至 `public/`。Cloudflare Pages 的主分支为 `main`，构建输出目录应为 `public`，Hugo 版本至少为 0.152.1。界面 CSS 与 JS 由 Hugo 内置管道压缩并生成内容哈希。

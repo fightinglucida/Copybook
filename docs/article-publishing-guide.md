@@ -52,7 +52,7 @@ categories: "学习资料"
 tags: ["学习", "工具"]
 author: "Lucida"
 description: "适合零基础读者的 Excel 学习顺序、练习方法和常见问题。"
-thumbnail: "/images/thumbs/tool-office.webp"
+cover: "/images/my-post/cover.webp"
 ---
 
 这里写文章开头，说明适合谁读、可以学到什么。
@@ -150,13 +150,13 @@ tags:
 | `date` | 时间：`2026-10-31T09:00:00+08:00` | 新文章必填 | 发布日期和列表排序的主要来源，建议写完整时区 |
 | `draft` | 布尔值：`false` | 发布前确认 | 模板默认 `true`；正式普通构建排除草稿。删除此字段相当于默认非草稿 |
 | `pinned` | 布尔值：`true` | 可选 | 模板默认 `false`；为 `true` 时首页优先并显示“置顶”，不改变分类／标签／RSS 的时间排序 |
-| `categories` | 字符串：`"学习资料"` | 建议必填 | 分类索引、侧栏、分类徽标、详情导航及自动缩略图库；推荐一篇一个分类 |
+| `categories` | 字符串：`"学习资料"` | 建议必填 | 分类索引、侧栏、分类徽标、详情导航及默认文字封面；推荐一篇一个分类 |
 | `tags` | 字符串数组：`["学习", "工具"]` | 建议 2～5 个 | 标签页、搜索、热门标签、帖子标签；列表最多取前三个，手机可能进一步精简，详情展示全部 |
 | `author` | 字符串：`"林书"` | 可选 | 列表、详情和本帖信息的作者；未填使用全站作者，当前为 `Lucida`。填一个名字，不填对象／数组 |
 | `description` | 字符串，一两句简介 | 建议填写 | SEO 和社交分享描述；未填通常从摘要提取，不是首页摘要段落 |
 | `summary` | 字符串，短摘要 | 可选 | Hugo 摘要，影响 RSS 和未填 `description` 时的描述来源；首页没有独立摘要栏 |
-| `thumbnail` | 图片路径：`"/images/thumbs/tool-office.webp"` | 可选 | 列表左侧缩略图，最高优先级；不自动插入正文、不替换分享大图 |
-| `cover` | 图片路径：`"/images/my-post/cover.webp"` | 可选 | 列表缩略图备用值，优先级低于 `thumbnail` 及资源包约定图片 |
+| `thumbnail` | 图片路径 | 可选 | 兼容旧封面配置；未填 `cover` 时读取 |
+| `cover` | 图片路径：`"/images/my-post/cover.webp"` | 可选 | 首页及分类、标签列表的4:3封面，优先于 `thumbnail`；未配置图片时显示分类名称 |
 
 ### 4.2 下载与外部入口
 
@@ -228,39 +228,32 @@ author: "林书"
 
 Hugo 自动生成分类和标签页，无需手建索引文件。新分类会出现在侧栏，通常按文章数量排列。已知名称使用固定色系，未知名称自动分配色系，不用给文章设置标签颜色。
 
-现有规则支持的常见分类有：`学习资料`、`编程`、`软件工具`、`电子书`、`AI资源`、`音乐资源`、`影视资源`、`电影`、`副业项目`、`电商`、`图片资源`、`自媒体`、`其他资源`。这些是图库和图标规则中的名称，不限制新增分类，也不要求每个分类都有文章。
+现有规则支持的常见分类有：`学习资料`、`编程`、`软件工具`、`电子书`、`AI资源`、`音乐资源`、`影视资源`、`电影`、`副业项目`、`电商`、`图片资源`、`自媒体`、`其他资源`。这些是分类和图标规则中的名称，不限制新增分类，也不要求每个分类都有文章。
 
-统一命名：“电子书”和“电子书籍”会成为不同分类。分类字段是复数 **`categories`**，不要误写成 `category`。Hugo 也接受数组 `categories: ["学习资料", "编程"]`，但当前导航和自动缩略图主要取一个分类，新文章推荐单分类。
+统一命名：“电子书”和“电子书籍”会成为不同分类。分类字段是复数 **`categories`**，不要误写成 `category`。Hugo 也接受数组 `categories: ["学习资料", "编程"]`，但当前导航和文字封面主要取一个分类，新文章推荐单分类。
 
 作者名字会改变页面上的发布者；页面 HTML 的作者元信息仍取全站作者配置。姓名前的小方块显示姓名首字，不是可配置的作者照片。
 
 ## 7. 缩略图与正文图片
 
-### 7.1 列表缩略图的实际优先级
+### 7.1 每篇文章的4:3列表封面
 
-1. 文章的 `thumbnail`。
-2. 文章资源包中以 `thumbnail`、`cover`、`featured` 开头的匹配资源。
-3. 文章的 `cover`。
-4. 根据分类／匹配标签选取本地图库；匹配标签图库可以覆盖分类图库。
-5. 通用图库回退。
-
-**当前不会自动读取正文第一张图片作为缩略图。** 资源包有多张约定命名图片时，建议明确指定 `thumbnail`，不要依赖匹配顺序。自动图库按文章路径稳定选择；改名或移动文章可能改变自动分配的图片。
-
-使用已有图片：
+首页、分类和标签列表统一使用4:3封面。将图片放到 `static/images/文章目录/`，在文章顶部填写：
 
 ```yaml
-thumbnail: "/images/thumbs/study-book-coffee.webp"
+cover: "/images/my-post/cover.webp"
 ```
 
-还可以使用：`/images/thumbs/tool-office.webp`、`/images/thumbs/code-lines.webp`、`/images/thumbs/book-library.webp`、`/images/thumbs/ai-robot.webp`、`/images/thumbs/film-cinema.webp`、`/images/thumbs/music-guitars.webp`。
+推荐1200×900像素或其他4:3图片。非4:3图片会居中裁切填满，不拉伸。路径不包含 `static`，也不要填写电脑硬盘路径。正文图片仍需使用 Markdown 图片语法，封面不会自动插入正文或替换社交分享图。
 
-自己上传时，将文件放在 `static/images/my-post/cover.webp`，配置：
+读取顺序：
 
-```yaml
-thumbnail: "/images/my-post/cover.webp"
-```
+1. 文章顶部的 `cover`。
+2. 兼容旧字段 `thumbnail`。
+3. 文章资源包中以 `cover`、`thumbnail`、`featured` 开头的图片。
+4. 没有图片时显示文章的第一个分类名称；没有分类时显示“未分类”。
 
-路径不带 `static`，也不能填 `F:\...`。列表图是紧凑裁切显示，适合主体居中的方图，不适合密集文字截图。它不自动变成详情页封面或社交分享大图。
+不再根据分类、标签或文章路径自动分配预设图片，也不会自动取正文第一张图片。网页后台可以通过“列表封面”上传或选择图片。
 
 ### 7.2 正文图片方式 A：集中放在 static
 
@@ -285,9 +278,9 @@ content/excel-study-guide/
   step-1.webp
 ```
 
-文章文件用 `index.md`，不要误写成 `_index.md`。正文可用 `![操作示意](step-1.webp)`，当前图片模板会正确解析资源。资源包的 `cover.webp` 也能自动作为缩略图，通常不必再写 `cover: "cover.webp"`。
+文章文件用 `index.md`，不要误写成 `_index.md`。正文可用 `![操作示意](step-1.webp)`，当前图片模板会正确解析资源。资源包的 `cover.webp` 也能自动作为封面，或显式填写 `cover: "cover.webp"`。
 
-如果显式配置资源包缩略图，应使用它最终的站内路径，例如 `/excel-study-guide/cover.webp`，并确保与文章输出 URL 一致；更简单的是保留约定命名让资源包自动解析。
+资源包封面支持相对资源名（如 `cover: "cover.webp"`），也可以使用图片最终的站内路径。
 
 Markdown 图片可以点击放大，Esc 关闭；独立占一行的图片，其引号标题会显示为图注。只设置缩略图不会在正文插入图片，正文图需要自己写图片语法。
 
@@ -304,7 +297,7 @@ pinned: false
 categories: "学习资料"
 tags: ["学习", "工具", "资源"]
 description: "配合表格入门学习的公开练习资料与操作说明。"
-thumbnail: "/images/thumbs/tool-office.webp"
+cover: "/images/my-post/cover.webp"
 downloads:
   baidu:
     url: "https://pan.baidu.com/s/替换为真实分享标识"
@@ -523,9 +516,9 @@ git push origin main
 
 内容后台仍使用 Decap CMS＋原有 `git-gateway`／Netlify Identity。Cloudflare 静态托管不会自动提供这个登录服务。本指南确认了配置文件，不等于已验证后台登录可用；若无法登录，用 Markdown＋Git 发布即可。
 
-表单已配置：标题、置顶、发布时间、资源入口链接、百度／夸克及其他网盘地址、名称和提取码、Categories、Tags、Body。表单中 Categories、Tags、Body 设为必填，这与手写 Markdown 可省略某些字段不同。
+表单已配置：标题、列表封面、置顶、发布时间、资源入口链接、百度／夸克及其他网盘地址、名称和提取码、Categories、Tags、Body。表单中 Categories、Tags、Body 设为必填，这与手写 Markdown 可省略某些字段不同。
 
-表单尚未配置 `author`、`description`、`thumbnail`、`cover`、`slug`、`url`、`aliases`、`summary`、`publishDate`、`expiryDate`、`lastmod`。需要它们时直接编辑 Markdown，不要假设表单里有开关。
+表单尚未配置 `author`、`description`、`thumbnail`、`slug`、`url`、`aliases`、`summary`、`publishDate`、`expiryDate`、`lastmod`。需要它们时直接编辑 Markdown，不要假设表单里有开关。
 
 后台上传图位置是 `static/images/`，公开图片前缀是 `/images/`。
 
@@ -538,12 +531,12 @@ git push origin main
 | 置顶没生效 | 检查布尔值 `pinned: true`、是否看首页、是否部署；“置顶”分类名不会触发 |
 | 更新正文却没排最前 | 当前按发布时间，不按文件修改时间或 `lastmod` |
 | 缩略图空白 | 检查路径、文件提交、大小写；别写 `static/` 或本地硬盘路径 |
-| 正文首图没成为缩略图 | 当前不做自动提取，配置 `thumbnail` 或资源包约定图片 |
+| 正文首图没成为缩略图 | 当前不做自动提取，配置 `cover` 或资源包约定图片 |
 | 图片本地正常，线上 404 | 图片漏提交、大小写不同、误用反斜线、资源包 URL 不匹配 |
 | 下载区没出现 | 检查 `downloads`／`link`、网盘主机名和完整分享网址 |
 | 外部购买入口没出现 | 在 `link` 填写完整 HTTP(S) 网址；外部平台链接会优先展示 |
 | 网盘提取码报错 | 检查 `pwd` 与 `code` 一致性及网盘分享本身 |
-| 新分类图片不专属 | 未知分类用通用回退，需要时直接指定 `thumbnail` |
+| 没有显示图片封面 | 填写 `cover` 并检查文件路径；未配置时使用分类文字封面 |
 | 网页后台缺字段 | 按当前配置未暴露，请编辑 Markdown |
 | 删除后本地还看到旧页 | 确认不是旧 `public/` 或设计原型，使用新空目录构建 |
 

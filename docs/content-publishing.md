@@ -4,7 +4,9 @@
 
 外部购买或发码平台直接填写 `link: "https://example.com/buy/resource"`，文末会生成“前往资源页面”按钮，购买和下载在目标平台完成。外部平台链接优先于网盘配置和正文自动识别。
 
-正式地址：https://copybook-3w6.pages.dev/ 。界面仅提供浅色模式。
+正式地址：https://pan.linshutech.com/ 。界面仅提供浅色模式。
+
+正式域名由 Cloudflare Pages 的 `copybook` 项目关联，生产分支为 `main`。DNS 记录为 `CNAME pan → copybook-3w6.pages.dev`，域名与 Pages 的关联须在项目的「自定义域」中配置，不能仅添加 DNS。Hugo 的 `config.toml` 中 `baseURL` 为 `https://pan.linshutech.com/`，用于生成 canonical、Open Graph、RSS 和站点地图的正式网址。`wrangler.jsonc` 继续用于指定 Pages 构建输出目录 `public`；自定义域名不使用 Workers 的 `routes` 配置。后续推送到 `main` 会由现有 Git 集成自动构建部署。
 
 ## 首页置顶
 

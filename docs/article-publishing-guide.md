@@ -1,6 +1,6 @@
 # 技能之书：文章发布与配置完整指南
 
-核对日期：2026-11-07。适用项目：`F:\linshutech\copybook`。正式网站：[技能之书](https://copybook-3w6.pages.dev/)。
+核对日期：2026-11-07。适用项目：`F:\linshutech\copybook`。正式网站：[技能之书](https://pan.linshutech.com/)。
 
 本指南根据当前文章模板、页面模板、Hugo 配置、网页后台和资源入口整理。日常发布推荐直接编辑 Markdown，再通过 Git 推送到 `main`。本地保存、Git 提交、Cloudflare 部署是三个不同步骤，部署成功后文章才会在线上更新。
 

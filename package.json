@@ -3,12 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "hugo",
-    "serve": "hugo server -D"
+    "build": "hugo --cleanDestinationDir",
+    "serve": "hugo server -D",
+    "wechat:encrypt": "node scripts/encrypt-wechat-downloads.mjs",
+    "prebuild": "npm run wechat:sync",
+    "preserve": "npm run wechat:sync",
+    "wechat:sync": "node scripts/import-wechat-accounts.mjs",
+    "wechat:metrics": "node scripts/import-wechat-accounts.mjs --snapshot-metrics"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.0.0",
-    "tailwindcss": "^4.0.0"
+    "tailwindcss": "^4.0.0",
+    "yaml": "^2.8.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "latest",

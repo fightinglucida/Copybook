@@ -1,0 +1,3 @@
+<span class="benchmark-avatar" data-tone="{{ .avatar_tone | default "green" }}" aria-hidden="true">
+  {{ with .avatar }}<img src="{{ . | relURL }}" width="48" height="48" alt="" loading="lazy" referrerpolicy="no-referrer">{{ else }}{{ .avatar_text | default "微" }}{{ end }}
+</span>

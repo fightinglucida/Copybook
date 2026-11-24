@@ -1,0 +1,7 @@
+{{- $params := .Params -}}
+{{- with .File -}}
+  {{- with index (site.Data.wechat_accounts | default dict) .ContentBaseName -}}
+    {{- $params = merge $params . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $params -}}

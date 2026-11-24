@@ -1,0 +1,15 @@
+{{- $cards := slice -}}
+{{- $topics := slice -}}
+{{- $labels := slice -}}
+{{- range . -}}
+  {{- $card := partialCached "benchmark-card-data" . .RelPermalink -}}
+  {{- $cards = $cards | append $card -}}
+  {{- with $card.topic -}}{{- $topics = $topics | append . -}}{{- end -}}
+  {{- range $card.labels -}}{{- $labels = $labels | append . -}}{{- end -}}
+{{- end -}}
+{{- $indexURL := "" -}}
+{{- with $cards -}}
+  {{- $index := resources.FromString "gzh/catalog-index.json" (jsonify .) | fingerprint -}}
+  {{- $indexURL = $index.RelPermalink -}}
+{{- end -}}
+{{- return (dict "indexURL" $indexURL "topics" ($topics | uniq | sort) "labels" ($labels | uniq | sort)) -}}

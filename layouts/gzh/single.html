@@ -1,0 +1,133 @@
+{{ define "main" }}
+{{ $params := partial "benchmark-params" . }}
+{{ $articles := $params.articles | default slice }}
+{{ $downloads := $params.downloads_encrypted }}
+{{ $description := $params.description | default .Description }}
+<article class="benchmark-detail">
+  <nav class="breadcrumbs" aria-label="面包屑导航"><a href="{{ .CurrentSection.RelPermalink }}">公众号对标库</a>{{ partial "icon" "caret-right" }}<span>{{ .Title }}</span></nav>
+  <header class="benchmark-account">
+    <div class="benchmark-account-heading">
+      {{ partial "benchmark-avatar" $params }}
+      <div><h1>{{ .Title }}</h1><div class="benchmark-labels">{{ with $params.topic }}<span class="benchmark-topic">{{ . }}</span>{{ end }}{{ range $params.labels }}<span>{{ . }}</span>{{ end }}</div></div>
+    </div>
+    {{ with $description }}<p>{{ . }}</p>{{ end }}
+    {{ with .Content }}<div class="benchmark-prose">{{ . }}</div>{{ end }}
+    <dl class="benchmark-stats benchmark-account-stats">
+      <div><dt>收录文章</dt><dd>{{ partial "benchmark-article-count" $params }}<small> 篇</small></dd></div>
+      {{ with $params.archive_from }}<div><dt>归档范围</dt><dd>{{ . }}{{ with $params.archive_to }} 至 {{ . }}{{ end }}</dd></div>{{ end }}
+      {{ if not .Date.IsZero }}<div><dt>最近更新</dt><dd>{{ .Date.Format "2006-01-02" }}</dd></div>{{ end }}
+    </dl>
+  </header>
+  <section class="benchmark-history" data-benchmark-history aria-labelledby="benchmark-history-heading">
+    <header class="benchmark-history-heading">
+      <div><h2 id="benchmark-history-heading">历史文章</h2><p>{{ len $articles }} 篇可预览</p></div>
+      {{ if $downloads }}<button type="button" class="button button-primary benchmark-download-trigger" data-benchmark-open aria-haspopup="dialog" aria-controls="benchmark-download-dialog" hidden>{{ partial "icon" "download-simple" }}历史文章下载</button>{{ end }}
+    </header>
+    {{ if $articles }}
+      <div class="benchmark-reader">
+        <nav class="benchmark-article-list" aria-label="历史文章列表">
+          {{ range $index, $article := $articles }}
+            <a href="#article-{{ add $index 1 }}" data-benchmark-article-link><strong>{{ $article.title | default "微信文章" }}</strong>{{ with $article.date }}<time datetime="{{ . }}">{{ . }}</time>{{ end }}</a>
+          {{ end }}
+        </nav>
+        <div class="benchmark-previews">
+          {{ range $index, $article := $articles }}
+            {{ $bodyURL := partial "benchmark-article-body" (dict "page" $ "id" $article.body) }}
+            <section class="benchmark-preview benchmark-prose" id="article-{{ add $index 1 }}" data-benchmark-article{{ with $bodyURL }} data-benchmark-body-url="{{ . }}"{{ end }}>
+              {{ with $article.date }}<time datetime="{{ . }}">{{ . }}</time>{{ end }}
+              <h3>{{ $article.title | default "微信文章" }}</h3>
+              {{ with $article.preview }}<div data-benchmark-summary>{{ $.RenderString (dict "display" "block") . }}</div>{{ end }}
+              <button type="button" class="button benchmark-reading-trigger" data-benchmark-read hidden>{{ partial "icon" "book-open" }}弹窗阅读</button>
+              {{ with $bodyURL }}<a class="benchmark-source" href="{{ . }}">查看采集正文</a>{{ end }}
+              {{ with $article.source_url }}<a class="benchmark-source" data-benchmark-source href="{{ . }}" target="_blank" rel="noopener noreferrer">打开微信原文 {{ partial "icon" "arrow-up-right" }}</a>{{ end }}
+            </section>
+          {{ end }}
+        </div>
+      </div>
+    {{ else }}<p class="benchmark-empty">暂无可预览的历史文章。</p>{{ end }}
+  </section>
+</article>
+<dialog class="benchmark-dialog benchmark-reading-dialog" aria-labelledby="benchmark-reading-title" data-benchmark-reading-dialog>
+  <header class="benchmark-reading-heading">
+    <div class="benchmark-reading-account">
+      {{ partial "benchmark-avatar" $params }}
+      <div>
+        <h2 id="benchmark-reading-title">{{ .Title }}</h2>
+        <p>收录 {{ partial "benchmark-article-count" $params }} 篇 · {{ len $articles }} 篇可预览{{ with $params.archive_from }} · {{ . }}{{ with $params.archive_to }} 至 {{ . }}{{ end }}{{ end }}</p>
+      </div>
+    </div>
+    <div class="benchmark-reading-actions">
+      {{ if and $articles $params.account_metrics }}<button type="button" class="button benchmark-profile-toggle" data-benchmark-profile-toggle aria-controls="benchmark-reading-profile" aria-expanded="false">账号数据</button>{{ end }}
+      {{ if $downloads }}
+        {{ $labels := dict "baidu" "百度网盘" "quark" "夸克网盘" "other" "其他网盘" "all" "网盘下载" }}
+        {{ range $params.download_providers | default (slice "all") }}
+          <button type="button" class="button benchmark-reading-download" data-benchmark-download-toggle="{{ . }}" aria-haspopup="dialog" aria-controls="benchmark-download-dialog" hidden>{{ partial "icon" "download-simple" }}{{ index $labels . }}</button>
+        {{ end }}
+      {{ else }}<span class="benchmark-reading-availability">暂未配置网盘</span>{{ end }}
+      <a class="button button-primary" data-benchmark-reading-original target="_blank" rel="noopener noreferrer" hidden>打开微信原文 {{ partial "icon" "arrow-up-right" }}</a>
+      <form method="dialog"><button type="submit" class="benchmark-close" aria-label="关闭账号窗口" autofocus>×</button></form>
+    </div>
+  </header>
+  <div class="benchmark-reading-layout{{ if not $articles }} benchmark-reading-no-articles{{ end }}">
+    <aside class="benchmark-reading-profile" id="benchmark-reading-profile" aria-label="账号资料">
+      {{ with $description }}<p>{{ . }}</p>{{ end }}
+      {{ with .Content }}<div class="benchmark-prose">{{ . }}</div>{{ end }}
+      <div class="benchmark-labels">{{ with $params.topic }}<span class="benchmark-topic">{{ . }}</span>{{ end }}{{ range $params.labels }}<span>{{ . }}</span>{{ end }}</div>
+      {{ partial "benchmark-account-metrics" $params.account_metrics }}
+    </aside>
+    {{ if $articles }}
+    <div class="benchmark-reading-index">
+      {{ if ge (len $articles) 12 }}
+        <label class="benchmark-search benchmark-reading-search">{{ partial "icon" "magnifying-glass" }}<span class="sr-only">搜索历史文章</span><input type="search" placeholder="搜索历史文章" data-benchmark-article-search></label>
+      {{ end }}
+      <div class="benchmark-reading-list">
+        <nav aria-label="弹窗历史文章列表">
+          {{ range $index, $article := $articles }}
+            <button type="button" data-benchmark-reading-select="article-{{ add $index 1 }}">
+              <strong>{{ $article.title | default "微信文章" }}</strong>
+              <span class="benchmark-reading-item-meta">
+                {{ with $article.date }}<time datetime="{{ . }}">{{ . }}</time>{{ end }}
+                {{ with $article.read_count_text }}<span>阅读 {{ . }}</span>{{ else }}{{ if isset $article "read_count" }}<span>阅读 {{ lang.FormatNumber 0 $article.read_count }}</span>{{ end }}{{ end }}
+                {{ with $article.like_count_text }}<span>点赞 {{ . }}</span>{{ else }}{{ if isset $article "like_count" }}<span>点赞 {{ lang.FormatNumber 0 $article.like_count }}</span>{{ end }}{{ end }}
+              </span>
+            </button>
+          {{ end }}
+          <p class="benchmark-account-status" role="status" data-benchmark-article-empty hidden>没有匹配的文章。</p>
+        </nav>
+        {{ partial "benchmark-archive-download" (dict "available" $downloads "message" "站内展示文章样本，完整归档可下载到本地查看。") }}
+      </div>
+    </div>
+    <div class="benchmark-reading-content" tabindex="0" data-benchmark-reading-content>
+      <article class="benchmark-reading-article benchmark-prose">
+        <div class="benchmark-reading-meta"><time data-benchmark-reading-date hidden></time><span data-benchmark-reading-kind></span></div>
+        <h3 data-benchmark-reading-article-title></h3>
+        <div class="benchmark-reading-body" data-benchmark-reading-body></div>
+      </article>
+    </div>
+    {{ else }}
+    <div class="benchmark-reading-empty">
+      <div>
+        <h3>暂无可预览的历史文章</h3>
+        {{ partial "benchmark-archive-download" (dict "available" $downloads "message" "可通过网盘下载完整归档，在本地查看。") }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</dialog>
+{{ if $downloads }}
+<dialog class="benchmark-dialog benchmark-download-dialog" id="benchmark-download-dialog" aria-labelledby="benchmark-download-heading" data-benchmark-dialog data-encrypted="{{ $downloads }}">
+  <header class="benchmark-dialog-heading">
+    <div><h2 id="benchmark-download-heading">历史文章下载</h2><p>{{ .Title }}</p></div>
+    <form method="dialog"><button type="submit" class="benchmark-close" aria-label="关闭下载窗口">×</button></form>
+  </header>
+  {{ partial "benchmark-download-fields" . }}
+</dialog>
+<template id="benchmark-download-template" data-baidu-logo="{{ "images/brands/baidu-pan.ico" | relURL }}" data-quark-logo="{{ "images/brands/quark-pan.png" | relURL }}">
+  <div class="download-card">
+    <div class="provider-heading"><span class="provider-logo" aria-hidden="true">{{ partial "icon" "download-simple" }}</span><div><strong data-provider-name></strong><small>历史文章归档</small></div></div>
+    <a class="download-button" target="_blank" rel="noopener noreferrer"><span data-provider-action></span> {{ partial "icon" "arrow-up-right" }}</a>
+    <div class="extraction-row" data-extraction hidden><span>提取码 <code></code></span><button type="button" class="copy-code">复制提取码</button></div>
+  </div>
+</template>
+{{ end }}
+{{ end }}

@@ -1,0 +1,61 @@
+{{ define "main" }}
+{{ $accounts := .RegularPages.ByWeight }}
+{{ $pager := .Paginate $accounts 30 }}
+{{ $index := partialCached "benchmark-catalog-index" $accounts .Language.Lang }}
+<section class="benchmark-catalog" data-benchmark-catalog data-index-url="{{ $index.indexURL }}" data-page-size="{{ $pager.PagerSize }}">
+  <header class="benchmark-page-heading">
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Description }}</p>
+  </header>
+  <div class="benchmark-filters" data-benchmark-filters hidden>
+    <div class="benchmark-filter-row">
+      <span id="benchmark-topics">分类</span>
+      <div class="benchmark-options" role="group" aria-labelledby="benchmark-topics">
+        <button type="button" data-topic="" aria-pressed="true">全部</button>
+        {{ range $index.topics }}<button type="button" data-topic="{{ . }}" aria-pressed="false">{{ . }}</button>{{ end }}
+      </div>
+    </div>
+    <div class="benchmark-filter-row">
+      <span id="benchmark-labels">标签</span>
+      <div class="benchmark-options" role="group" aria-labelledby="benchmark-labels">
+        <button type="button" data-label="" aria-pressed="true">全部</button>
+        {{ range $index.labels }}<button type="button" data-label="{{ . }}" aria-pressed="false">{{ . }}</button>{{ end }}
+      </div>
+    </div>
+    <div class="benchmark-filter-tools">
+      <label class="benchmark-search">{{ partial "icon" "magnifying-glass" }}<span class="sr-only">搜索公众号</span><input type="search" placeholder="搜索账号、简介或标签" data-benchmark-search></label>
+      <label class="benchmark-select">下载状态<select data-benchmark-availability><option value="">全部</option><option value="available">可下载</option><option value="unavailable">暂未配置</option></select></label>
+      <label class="benchmark-select">排序<select data-benchmark-sort><option value="default">默认</option><option value="count">收录篇数最多</option><option value="date">最近更新</option></select></label>
+    </div>
+  </div>
+  <p class="benchmark-results" data-benchmark-results role="status" tabindex="-1">{{ len $accounts }} 个账号</p>
+  <button type="button" class="button benchmark-index-retry" data-benchmark-index-retry hidden>重试加载</button>
+  <div class="benchmark-grid" data-benchmark-grid>
+    {{ range $pager.Pages }}
+      {{ partial "benchmark-card" (partialCached "benchmark-card-data" . .RelPermalink) }}
+    {{ end }}
+  </div>
+  <div data-benchmark-static-pagination>{{ partial "pagination.html" $pager }}</div>
+  <nav class="pagination" aria-label="账号搜索结果分页" data-benchmark-filtered-pagination hidden>
+    <span class="page-info" data-benchmark-page-info></span>
+    <div class="page-links">
+      <button type="button" class="page-arrow" data-benchmark-prev aria-label="上一页">{{ partial "icon" "caret-left" }}</button>
+      <button type="button" class="page-arrow" data-benchmark-next aria-label="下一页">{{ partial "icon" "caret-right" }}</button>
+    </div>
+  </nav>
+  <template data-benchmark-card-template>{{ partial "benchmark-card" (dict "placeholder" true "href" "" "title" "" "topic" "" "description" "" "avatar" "" "avatarTone" "green" "avatarText" "微" "count" 0 "readable" 0) }}</template>
+  <p class="benchmark-empty" data-benchmark-empty{{ if $accounts }} hidden{{ end }}>{{ if $accounts }}没有找到匹配的账号。{{ else }}暂无账号。{{ end }}</p>
+</section>
+<dialog class="benchmark-dialog benchmark-reading-dialog" aria-labelledby="benchmark-reading-title" data-benchmark-account-dialog>
+  <template data-benchmark-loading>
+    <header class="benchmark-reading-heading">
+      <h2 id="benchmark-reading-title"></h2>
+      <form method="dialog"><button type="submit" class="benchmark-close" aria-label="关闭账号窗口" autofocus>×</button></form>
+    </header>
+    <div class="benchmark-account-status">
+      <p role="status">正在加载账号资料…</p>
+      <button type="button" class="button" data-benchmark-retry hidden>重试</button>
+    </div>
+  </template>
+</dialog>
+{{ end }}

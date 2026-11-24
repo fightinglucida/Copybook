@@ -1,0 +1,26 @@
+{{- $purchaseURL := "" -}}
+{{- with site.Params.wechat_benchmark.purchase_url -}}
+  {{- $value := strings.TrimSpace . -}}
+  {{- if findRE `(?i)^https://[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?(?::[0-9]{1,5})?(?:[/?#][^\s]*)?$` $value -}}
+    {{- $purchaseURL = $value -}}
+  {{- end -}}
+{{- end -}}
+<div class="benchmark-download-options" data-benchmark-download-options>
+  <form class="benchmark-unlock" data-benchmark-unlock>
+    <label for="benchmark-password">对标库通用口令</label>
+    <div><input id="benchmark-password" type="password" placeholder="输入通用口令" autocomplete="off" required autofocus><button class="button button-primary" type="submit">解锁下载</button></div>
+    <p data-benchmark-error role="alert" hidden></p>
+  </form>
+  <section class="benchmark-purchase" aria-labelledby="benchmark-purchase-heading">
+    <div>
+      <h3 id="benchmark-purchase-heading">还没有口令？</h3>
+      {{ if $purchaseURL }}<p>在发码平台付款后获取通用口令，回来输入即可解锁下载。</p>{{ else }}<p>购买入口暂未开放。</p>{{ end }}
+    </div>
+    {{ if $purchaseURL }}
+      <a class="button benchmark-purchase-button" href="{{ $purchaseURL }}" target="_blank" rel="noopener noreferrer">前往付款 {{ partial "icon" "arrow-up-right" }}</a>
+    {{ else }}
+      <button class="button benchmark-purchase-button" type="button" disabled>前往付款</button>
+    {{ end }}
+  </section>
+</div>
+<div class="download-grid benchmark-download-grid" data-benchmark-downloads hidden></div>

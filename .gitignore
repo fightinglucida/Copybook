@@ -10,3 +10,5 @@ bun.lockb
 .wrangler/
 .dev.vars
 .local/
+
+/content/gzh/mp_accounts/*/downloads.json

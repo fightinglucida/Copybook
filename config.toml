@@ -27,6 +27,10 @@ canonifyURLs = false
 [markup.goldmark.parser]
   wrapStandAloneImageWithinParagraph = false
 
+[params.wechat_benchmark]
+  download_password = "" # 对标库通用口令，仅在构建时读取
+  purchase_url = "" # 第三方发码平台的 HTTPS 商品链接
+
 [params.author]
   name = "Lucida"
   github = "fightinglucida"
@@ -62,3 +66,33 @@ canonifyURLs = false
       source = "assets/css/main.css"
       target = "css/main.css"
       minify = true
+
+# Keep raw archive files out of Hugo's content and publish only the importer output.
+[[module.mounts]]
+  source = "content"
+  target = "content"
+  excludeFiles = ["gzh/**"]
+[[module.mounts]]
+  source = "content/gzh/_index.md"
+  target = "content/gzh/_index.md"
+[[module.mounts]]
+  source = ".local/wechat-accounts/content"
+  target = "content/gzh"
+[[module.mounts]]
+  source = "data"
+  target = "data"
+[[module.mounts]]
+  source = ".local/wechat-accounts/data"
+  target = "data"
+[[module.mounts]]
+  source = "assets"
+  target = "assets"
+[[module.mounts]]
+  source = ".local/wechat-accounts/articles"
+  target = "assets/gzh/imported"
+[[module.mounts]]
+  source = "static"
+  target = "static"
+[[module.mounts]]
+  source = ".local/wechat-accounts/media"
+  target = "static/gzh-media"

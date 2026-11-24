@@ -1,0 +1,19 @@
+<a class="benchmark-card" href="{{ .href }}" data-benchmark-card>
+  <div class="benchmark-card-heading">
+    <span class="benchmark-avatar" data-tone="{{ .avatarTone }}" aria-hidden="true">
+      {{ if or .avatar .placeholder }}<img{{ with .avatar }} src="{{ . }}"{{ end }} width="48" height="48" alt="" loading="lazy" referrerpolicy="no-referrer"{{ if .placeholder }} hidden{{ end }}>{{ end }}
+      {{ if or (not .avatar) .placeholder }}<span>{{ .avatarText }}</span>{{ end }}
+    </span>
+    <div class="benchmark-card-title">
+      <h2 title="{{ .title }}">{{ .title }}</h2>
+      {{ if or .topic .placeholder }}<span class="benchmark-card-topic">{{ .topic }}</span>{{ end }}
+    </div>
+    {{ partial "icon" "caret-right" }}
+  </div>
+  {{ if or .description .placeholder }}<p class="benchmark-card-description" title="{{ .description }}">{{ .description }}</p>{{ end }}
+  <div class="benchmark-card-footer">
+    <span><strong>{{ .count }}</strong> 篇收录</span>
+    {{ if or .downloadable .placeholder }}<span data-benchmark-card-download>{{ partial "icon" "download-simple" }}可下载</span>{{ end }}
+    {{ if or (not .downloadable) .placeholder }}<span data-benchmark-card-readable>{{ .readable }} 篇可读</span>{{ end }}
+  </div>
+</a>

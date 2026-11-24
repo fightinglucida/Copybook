@@ -1,0 +1,18 @@
+{{- $params := partial "benchmark-params" . -}}
+{{- $labels := $params.labels | default slice -}}
+{{- $avatar := "" -}}
+{{- with $params.avatar -}}{{- $avatar = . | relURL -}}{{- end -}}
+{{- return (dict
+  "href" .RelPermalink
+  "title" .Title
+  "topic" ($params.topic | default "")
+  "labels" (cond (reflect.IsSlice $labels) $labels (slice $labels))
+  "description" ($params.description | default .Description)
+  "avatar" $avatar
+  "avatarTone" ($params.avatar_tone | default "green")
+  "avatarText" ($params.avatar_text | default "微")
+  "count" (partial "benchmark-article-count" $params)
+  "readable" (len ($params.articles | default slice))
+  "date" ($params.archive_to | default (.Date.Format "2006-01-02"))
+  "downloadable" (not (not $params.downloads_encrypted))
+) -}}

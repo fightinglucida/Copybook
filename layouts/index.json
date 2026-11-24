@@ -1,5 +1,5 @@
 [
-  {{- range $index, $page := .Site.RegularPages -}}
+  {{- range $index, $page := partial "resource-pages" . -}}
   {{- if $index -}},{{- end -}}
   {
     "title": {{ .Title | jsonify }},

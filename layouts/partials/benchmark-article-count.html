@@ -1,0 +1,3 @@
+{{- $count := len (.articles | default slice) -}}
+{{- if isset . "archive_count" -}}{{- $count = .archive_count -}}{{- end -}}
+{{- return $count -}}

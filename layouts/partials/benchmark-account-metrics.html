@@ -1,0 +1,30 @@
+{{- $metrics := . -}}
+{{- with $metrics -}}
+<section class="benchmark-account-metrics" aria-label="账号数据">
+  <h3>账号数据</h3>
+  <dl class="benchmark-account-facts">
+    {{ if isset . "original_articles" }}<div><dt>原始文章数</dt><dd>{{ lang.FormatNumber 0 .original_articles }} 篇</dd></div>{{ end }}
+    <div><dt>已采集文章</dt><dd>{{ lang.FormatNumber 0 .total.articles }} 篇</dd></div>
+    {{ with .last_collected }}{{ $date := time.AsTime . "Asia/Shanghai" }}<div><dt>最近采集</dt><dd><time datetime="{{ . }}">{{ ($date.In (time.AsTime "2006-01-02" "Asia/Shanghai").Location).Format "2006-01-02 15:04:05" }}</time></dd></div>{{ end }}
+  </dl>
+</section>
+{{ partial "benchmark-read-trend" .trend }}
+{{ if or (isset .total "reads") (isset .total "likes") .recent_30 }}
+<section class="benchmark-account-metrics" aria-label="数据概览">
+  <h3>数据概览</h3>
+  <dl class="benchmark-metric-grid">
+    {{ $periods := slice (dict "label" "总" "data" .total) }}
+    {{ with .recent_7 }}{{ $periods = $periods | append (dict "label" "近 7 天" "data" .) }}{{ end }}
+    {{ with .recent_30 }}{{ $periods = $periods | append (dict "label" "近 30 天" "data" .) }}{{ end }}
+    {{ range $periods }}
+      {{ $posts := printf "%s发文" .label }}{{ if eq .label "总" }}{{ $posts = "总文章数" }}{{ end }}
+      <div><dt>{{ $posts }}</dt><dd>{{ lang.FormatNumber 0 .data.articles }}</dd></div>
+      {{ if isset .data "reads" }}<div><dt>{{ .label }}阅读</dt><dd>{{ lang.FormatNumber 0 .data.reads }}</dd></div>{{ end }}
+      {{ if isset .data "likes" }}<div><dt>{{ .label }}点赞</dt><dd>{{ lang.FormatNumber 0 .data.likes }}</dd></div>{{ end }}
+    {{ end }}
+    {{ with .recent_30 }}<div><dt>日均发文</dt><dd>{{ math.Ceil (div (float .articles) 30.0) }} 篇</dd></div>{{ end }}
+  </dl>
+  {{ with .anchor }}<p class="benchmark-metric-note">统计基准日 {{ . }}</p>{{ end }}
+</section>
+{{ end }}
+{{- end -}}

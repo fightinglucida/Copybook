@@ -1,0 +1,10 @@
+{{- $url := "" -}}
+{{- with .id -}}
+  {{- $path := printf "gzh/imported/%s.md" . -}}
+  {{- with resources.Get $path -}}
+    {{- $body := $.page.RenderString (dict "display" "block") .Content -}}
+    {{- $asset := resources.FromString (printf "gzh-body/%s.html" $.id) (printf "<div data-benchmark-imported-body>%s</div>" $body) -}}
+    {{- $url = $asset.RelPermalink -}}
+  {{- end -}}
+{{- end -}}
+{{- return $url -}}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="250" viewBox="0 0 640 250" role="img" aria-labelledby="title desc">
+  <title id="title">SEO小平近30天阅读走势</title>
+  <desc id="desc">按文章发布日期汇总每日阅读量，统计区间2026-08-30至2026-09-28</desc>
+  <defs>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1583ff" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#1583ff" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+  <style>
+    .grid{stroke:#e8eef5;stroke-width:1} .axis-label{fill:#8996a8;font:11px "Microsoft YaHei",sans-serif}
+    .area{fill:url(#area)} .line{fill:none;stroke:#1583ff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .point{fill:#fff;stroke:#1583ff;stroke-width:2} .empty{fill:#94a3b8;font:13px "Microsoft YaHei",sans-serif}
+  </style>
+  <rect width="640" height="250" rx="10" fill="#fbfdff"/>
+  <line x1="76" y1="24.0" x2="598" y2="24.0" class="grid"/><line x1="76" y1="68.0" x2="598" y2="68.0" class="grid"/><line x1="76" y1="112.0" x2="598" y2="112.0" class="grid"/><line x1="76" y1="156.0" x2="598" y2="156.0" class="grid"/><line x1="76" y1="200.0" x2="598" y2="200.0" class="grid"/><text x="64" y="28.0" text-anchor="end" class="axis-label">1,661</text><text x="64" y="72.0" text-anchor="end" class="axis-label">1,246</text><text x="64" y="116.0" text-anchor="end" class="axis-label">830</text><text x="64" y="160.0" text-anchor="end" class="axis-label">415</text><text x="64" y="204.0" text-anchor="end" class="axis-label">0</text>
+  <line x1="76" y1="200" x2="598" y2="200" stroke="#dce5ef"/>
+  <polygon points="76,200 76.0,200.0 94.0,160.8 112.0,144.1 130.0,65.2 148.0,200.0 166.0,200.0 184.0,200.0 202.0,200.0 220.0,200.0 238.0,200.0 256.0,77.1 274.0,200.0 292.0,200.0 310.0,200.0 328.0,104.0 346.0,200.0 364.0,24.0 382.0,200.0 400.0,200.0 418.0,200.0 436.0,200.0 454.0,200.0 472.0,200.0 490.0,88.6 508.0,99.5 526.0,200.0 544.0,200.0 562.0,200.0 580.0,200.0 598.0,146.2 598,200" class="area"/>
+  <polyline points="76.0,200.0 94.0,160.8 112.0,144.1 130.0,65.2 148.0,200.0 166.0,200.0 184.0,200.0 202.0,200.0 220.0,200.0 238.0,200.0 256.0,77.1 274.0,200.0 292.0,200.0 310.0,200.0 328.0,104.0 346.0,200.0 364.0,24.0 382.0,200.0 400.0,200.0 418.0,200.0 436.0,200.0 454.0,200.0 472.0,200.0 490.0,88.6 508.0,99.5 526.0,200.0 544.0,200.0 562.0,200.0 580.0,200.0 598.0,146.2" class="line"/>
+  <circle cx="94.0" cy="160.8" r="3.2" class="point"><title>2026-08-31：阅读 370，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="112.0" cy="144.1" r="3.2" class="point"><title>2026-09-01：阅读 528，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="130.0" cy="65.2" r="3.2" class="point"><title>2026-09-02：阅读 1,272，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="256.0" cy="77.1" r="3.2" class="point"><title>2026-09-09：阅读 1,160，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="328.0" cy="104.0" r="3.2" class="point"><title>2026-09-13：阅读 906，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="364.0" cy="24.0" r="3.2" class="point"><title>2026-09-15：阅读 1,661，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="490.0" cy="88.6" r="3.2" class="point"><title>2026-09-22：阅读 1,051，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="508.0" cy="99.5" r="3.2" class="point"><title>2026-09-23：阅读 948，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="598.0" cy="146.2" r="3.2" class="point"><title>2026-09-28：阅读 508，发文 1 篇，有效阅读数据 1 篇</title></circle><text x="76.0" y="233" text-anchor="middle" class="axis-label">08-30</text><text x="202.0" y="233" text-anchor="middle" class="axis-label">09-06</text><text x="328.0" y="233" text-anchor="middle" class="axis-label">09-13</text><text x="454.0" y="233" text-anchor="middle" class="axis-label">09-20</text><text x="598.0" y="233" text-anchor="middle" class="axis-label">09-28</text>
+</svg>

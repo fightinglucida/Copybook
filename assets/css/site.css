@@ -156,6 +156,7 @@ body{color:var(--body)}
 
 /* Download cards show only configured services. */
 .download-grid:has(>.download-card:only-child){grid-template-columns:minmax(0,1fr)}
+@media(min-width:681px){.benchmark-rail-link{display:none}}
 .provider-logo.other{background:var(--brand-soft);color:var(--brand)}
 .provider-logo.other svg{width:16px;height:16px}
 

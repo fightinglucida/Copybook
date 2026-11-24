@@ -1,0 +1,6 @@
+<div class="benchmark-archive-download">
+  <p>{{ if .available }}{{ .message }}{{ else }}该账号暂未提供网盘下载。{{ end }}</p>
+  <button type="button" class="button button-primary"{{ if .available }} data-benchmark-open aria-haspopup="dialog" aria-controls="benchmark-download-dialog" hidden{{ else }} disabled{{ end }}>
+    {{ partial "icon" "download-simple" }}下载完整历史文章
+  </button>
+</div>

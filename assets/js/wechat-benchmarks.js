@@ -7,6 +7,7 @@
     title.title = data.title;
     const topic = card.querySelector('.benchmark-card-topic');
     topic.textContent = data.topic;
+    topic.title = data.topic;
     topic.hidden = !data.topic;
     const description = card.querySelector('.benchmark-card-description');
     description.textContent = data.description;
@@ -20,6 +21,13 @@
     image.hidden = !data.avatar;
     initials.textContent = data.avatarText;
     initials.hidden = Boolean(data.avatar);
+    const chart = card.querySelector('[data-benchmark-trend-image]');
+    if (data.stats.chart) chart.src = data.stats.chart;
+    chart.hidden = !data.stats.chart;
+    card.querySelector('[data-benchmark-trend-empty]').hidden = Boolean(data.stats.chart);
+    for (const field of card.querySelectorAll('[data-benchmark-stat]')) {
+      field.textContent = data.stats[field.dataset.benchmarkStat];
+    }
     card.querySelector('.benchmark-card-footer strong').textContent = data.count;
     card.querySelector('[data-benchmark-card-download]').hidden = !data.downloadable;
     const readable = card.querySelector('[data-benchmark-card-readable]');
@@ -159,12 +167,11 @@
         return;
       }
 
-      const articles = [...page.content.querySelectorAll('[data-benchmark-article]')];
+      const index = articleIndex(page.content.querySelector('[data-benchmark-article-catalog]'));
       dialog.replaceChildren(...reader.children);
-      if (articles.length) {
+      if (index) {
         const renderReading = createReader(dialog);
-        renderReading(articles[0]);
-        bindArticleOptions(dialog, articles, renderReading);
+        setupArticleList(dialog, index, renderReading).open();
       }
       setupProfileToggle(dialog);
       const downloadDialog = page.content.querySelector('[data-benchmark-dialog]');
@@ -202,24 +209,183 @@
     });
   }
 
-  function bindArticleOptions(dialog, articles, selectArticle) {
-    const byId = new Map(articles.map(article => [article.id, article]));
-    const options = [...dialog.querySelectorAll('[data-benchmark-reading-select]')];
-    for (const option of options) {
-      const article = byId.get(option.dataset.benchmarkReadingSelect);
-      option.addEventListener('click', () => selectArticle(article));
+  function articleIndex(source) {
+    if (!source) return null;
+    const initial = JSON.parse(source.textContent);
+    const { indexUrl, total, pageSize } = source.dataset;
+    let loaded;
+    return {
+      initial,
+      total: Number(total),
+      pageSize: Number(pageSize),
+      all() {
+        if (!indexUrl) return Promise.resolve(initial);
+        if (!loaded) {
+          loaded = fetch(indexUrl, { mode: 'same-origin' }).then(response => {
+            if (!response.ok) throw new Error('Article index unavailable');
+            return response.json();
+          }).catch(error => {
+            loaded = undefined;
+            throw error;
+          });
+        }
+        return loaded;
+      },
+    };
+  }
+
+  function setArticleLink(element, url) {
+    element.hidden = !url;
+    if (url) element.href = url;
+    else element.removeAttribute('href');
+  }
+
+  function setArticleDate(element, date) {
+    element.textContent = date;
+    element.dateTime = date;
+    element.hidden = !date;
+  }
+
+  function setupArticleList(container, index, selectArticle) {
+    const panel = container.querySelector('[data-benchmark-article-panel]');
+    const tools = panel.querySelector('[data-benchmark-article-tools]');
+    const options = panel.querySelector('[data-benchmark-article-options]');
+    const scroll = panel.querySelector('[data-benchmark-article-scroll]');
+    const template = panel.querySelector('[data-benchmark-article-option]').content.firstElementChild;
+    const search = panel.querySelector('[data-benchmark-article-search]');
+    const sort = panel.querySelector('[data-benchmark-article-sort]');
+    const empty = panel.querySelector('[data-benchmark-article-empty]');
+    const archive = panel.querySelector('[data-benchmark-article-archive]');
+    const pagination = panel.querySelector('[data-benchmark-article-pagination]');
+    const previous = panel.querySelector('[data-benchmark-article-prev]');
+    const next = panel.querySelector('[data-benchmark-article-next]');
+    const pageInfo = panel.querySelector('[data-benchmark-article-page]');
+    const notice = panel.querySelector('[data-benchmark-article-notice]');
+    let current;
+    let visible = [];
+    let page = 1;
+    let revision = 0;
+
+    function optionFor(article) {
+      const option = template.cloneNode(true);
+      option.dataset.benchmarkReadingSelect = article.id;
+      if (option instanceof HTMLAnchorElement) option.href = `#${article.id}`;
+      option.querySelector('strong').textContent = article.title;
+      setArticleDate(option.querySelector('time'), article.date);
+      const reading = option.querySelector('[data-benchmark-option-reading]');
+      const likes = option.querySelector('[data-benchmark-option-likes]');
+      reading.hidden = !article.reading;
+      reading.textContent = `阅读 ${article.reading}`;
+      likes.hidden = !article.likes;
+      likes.textContent = `点赞 ${article.likes}`;
+      if (article.id === current) option.setAttribute('aria-current', 'true');
+      return option;
     }
-    const search = dialog.querySelector('[data-benchmark-article-search]');
-    const empty = dialog.querySelector('[data-benchmark-article-empty]');
-    search?.addEventListener('input', () => {
+
+    function select(article, fromOption) {
+      current = article?.id;
+      for (const option of options.children) {
+        if (option.dataset.benchmarkReadingSelect === current) option.setAttribute('aria-current', 'true');
+        else option.removeAttribute('aria-current');
+      }
+      selectArticle(article, fromOption);
+    }
+
+    function display(rows, total, requestedPage, preferredId, focusPage) {
+      const pages = Math.max(1, Math.ceil(total / index.pageSize));
+      const selectedPosition = preferredId ? rows.findIndex(article => article.id === preferredId) : -1;
+      page = selectedPosition < 0 ? Math.min(requestedPage, pages) : Math.floor(selectedPosition / index.pageSize) + 1;
+      const start = (page - 1) * index.pageSize;
+      visible = rows.slice(start, start + index.pageSize);
+      const selected = visible.find(article => article.id === preferredId) || visible[0];
+      current = selected?.id;
+      options.replaceChildren(...visible.map(optionFor));
+      scroll.scrollTop = 0;
+      empty.hidden = visible.length > 0;
+      if (archive) archive.hidden = !visible.length || page !== pages || Boolean(search.value.trim());
+      pagination.hidden = pages === 1;
+      pageInfo.textContent = `第 ${page} / ${pages} 页 · ${total} 篇`;
+      previous.disabled = page === 1;
+      next.disabled = page === pages;
+      selectArticle(selected);
+      if (focusPage && !pagination.hidden) pageInfo.focus();
+    }
+
+    async function update(requestedPage, { preferredId, focusPage = false } = {}) {
+      const request = ++revision;
       const query = search.value.trim().toLocaleLowerCase();
-      for (const option of options) option.hidden = !option.textContent.toLocaleLowerCase().includes(query);
-      empty.hidden = options.some(option => !option.hidden);
+      const order = sort.value;
+      const initial = !query && order === 'reads' && requestedPage === 1 &&
+        (!preferredId || index.initial.some(article => article.id === preferredId));
+      notice.hidden = true;
+      panel.removeAttribute('aria-busy');
+      if (initial) {
+        display(index.initial, index.total, 1, preferredId, focusPage);
+        return;
+      }
+      panel.setAttribute('aria-busy', 'true');
+      try {
+        let rows = await index.all();
+        if (request !== revision || !panel.isConnected) return;
+        if (query) {
+          rows = rows.filter(article => [article.title, article.date, article.reading && `阅读 ${article.reading}`,
+            article.likes && `点赞 ${article.likes}`].join(' ').toLocaleLowerCase().includes(query));
+        }
+        if (order !== 'reads') {
+          const direction = order === 'oldest' ? 1 : -1;
+          rows = [...rows].sort((a, b) => {
+            if (!a.date || !b.date) return Number(!a.date) - Number(!b.date);
+            return direction * a.date.localeCompare(b.date);
+          });
+        }
+        display(rows, rows.length, requestedPage, preferredId, focusPage);
+      } catch {
+        if (request !== revision || !panel.isConnected) return;
+        notice.textContent = '文章列表加载失败，请重试翻页、搜索或排序。';
+        notice.hidden = false;
+      } finally {
+        if (request === revision) panel.removeAttribute('aria-busy');
+      }
+    }
+
+    options.addEventListener('click', event => {
+      const option = event.target.closest('[data-benchmark-reading-select]');
+      if (!option || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      select(visible.find(article => article.id === option.dataset.benchmarkReadingSelect), option);
     });
+    search.addEventListener('input', () => update(1));
+    sort.addEventListener('change', () => update(1));
+    previous.addEventListener('click', () => update(page - 1, { focusPage: true }));
+    next.addEventListener('click', () => update(page + 1, { focusPage: true }));
+    tools.hidden = false;
+    return {
+      open(preferredId) {
+        search.value = '';
+        sort.value = 'reads';
+        update(1, { preferredId });
+      },
+      reveal(id) {
+        const article = visible.find(article => article.id === id);
+        if (article) select(article);
+        else this.open(id);
+      },
+      cancel() { revision++; },
+      selectedOption() { return options.querySelector('[aria-current="true"]'); },
+    };
+  }
+
+  async function fetchArticleMarkup(url, request) {
+    const response = await fetch(url, { signal: request.signal, mode: 'same-origin' });
+    if (!response.ok) throw new Error('Article unavailable');
+    const page = document.createElement('template');
+    page.innerHTML = await response.text();
+    const markup = page.content.querySelector('[data-benchmark-imported-body]');
+    if (!markup) throw new Error('Article markup missing');
+    return markup;
   }
 
   function createReader(dialog) {
-    const options = [...dialog.querySelectorAll('[data-benchmark-reading-select]')];
     const title = dialog.querySelector('[data-benchmark-reading-article-title]');
     const date = dialog.querySelector('[data-benchmark-reading-date]');
     const kind = dialog.querySelector('[data-benchmark-reading-kind]');
@@ -231,14 +397,8 @@
 
     async function loadBody(url, request) {
       try {
-        const response = await fetch(url, { signal: request.signal, mode: 'same-origin' });
-        if (!response.ok) throw new Error('Article unavailable');
-        const html = await response.text();
+        const articleBody = await fetchArticleMarkup(url, request);
         if (request.signal.aborted || !dialog.open) return;
-        const page = document.createElement('template');
-        page.innerHTML = html;
-        const articleBody = page.content.querySelector('[data-benchmark-imported-body]');
-        if (!articleBody) throw new Error('Article body missing');
         body.replaceChildren(...articleBody.childNodes);
       } catch {
         if (request.signal.aborted || !dialog.open) return;
@@ -262,88 +422,93 @@
 
     return function renderReading(article) {
       bodyRequest?.abort();
-      const summary = article.querySelector('[data-benchmark-summary]');
-      const link = article.querySelector('[data-benchmark-source]');
-      const published = article.querySelector('time');
-      title.textContent = article.querySelector('h3').textContent;
-      date.textContent = published?.textContent || '';
-      date.dateTime = published?.dateTime || '';
-      date.hidden = !published;
-      original.hidden = !link;
-      if (link) original.href = link.getAttribute('href');
-      else original.removeAttribute('href');
-
+      title.textContent = article?.title || '没有匹配的文章';
+      setArticleDate(date, article?.date || '');
+      setArticleLink(original, article?.original);
       body.replaceChildren();
-      if (article.dataset.benchmarkBodyUrl) {
-        kind.textContent = '采集正文';
-        startLoading(article.dataset.benchmarkBodyUrl);
-      } else if (summary) {
-        kind.textContent = '文章预览';
-        body.append(summary.cloneNode(true));
-      } else {
-        kind.textContent = '';
+      kind.textContent = '';
+      if (article?.body || article?.summary) {
+        kind.textContent = article.body ? '采集正文' : '文章预览';
+        startLoading(article.body || article.summary);
+      } else if (article) {
         const message = document.createElement('p');
-        message.textContent = link ? '请打开微信原文阅读正文。' : '暂无可读正文。';
+        message.textContent = article.original ? '请打开微信原文阅读正文。' : '暂无可读正文。';
         body.append(message);
-      }
-      for (const option of options) {
-        if (option.dataset.benchmarkReadingSelect === article.id) option.setAttribute('aria-current', 'true');
-        else option.removeAttribute('aria-current');
       }
       content.scrollTop = 0;
     };
   }
 
   function setupReader(historySection) {
-    const links = [...historySection.querySelectorAll('[data-benchmark-article-link]')];
-    if (!links.length) return;
+    const index = articleIndex(document.querySelector('[data-benchmark-article-catalog]'));
+    if (!index) return;
 
-    const articles = [...historySection.querySelectorAll('[data-benchmark-article]')];
     const dialog = document.querySelector('[data-benchmark-reading-dialog]');
-    const body = dialog.querySelector('[data-benchmark-reading-body]');
+    const previews = historySection.querySelector('.benchmark-previews');
+    const inline = previews.firstElementChild;
+    const summary = inline.querySelector('[data-benchmark-reading-body]');
+    const initialSummaries = new Map([...previews.children].map(preview => [preview.id, preview.querySelector('[data-benchmark-reading-body]').innerHTML]));
+    const read = inline.querySelector('[data-benchmark-read]');
     const renderReading = createReader(dialog);
+    const modal = setupArticleList(dialog, index, (article, option) => {
+      renderReading(article);
+      if (option) setHash(article.id);
+    });
     setupProfileToggle(dialog);
+    let active;
     let openedFrom;
+    let summaryRequest;
 
-    function selectArticle(id) {
+    function setHash(id) {
       if (window.location.hash !== `#${id}`) window.history.pushState(null, '', `#${id}`);
-      showArticle();
     }
 
-    function showArticle() {
-      const selected = links.find(link => link.hash === window.location.hash) || links[0];
-      for (const link of links) {
-        if (link === selected) link.setAttribute('aria-current', 'true');
-        else link.removeAttribute('aria-current');
-      }
-      for (const article of articles) article.hidden = `#${article.id}` !== selected.hash;
-      if (dialog.open) renderReading(articles[links.indexOf(selected)]);
+    function renderInline(article) {
+      summaryRequest?.abort();
+      inline.hidden = !article;
+      if (!article) return;
+      inline.id = article.id;
+      inline.querySelector('h3').textContent = article.title;
+      setArticleDate(inline.querySelector('time'), article.date);
+      setArticleLink(inline.querySelector('[data-benchmark-reading-collected]'), article.body);
+      setArticleLink(inline.querySelector('[data-benchmark-reading-original]'), article.original);
+      // The saved first-page summaries were rendered and sanitized by Hugo.
+      summary.innerHTML = initialSummaries.get(article.id) || '';
+      if (!article.summary || initialSummaries.has(article.id)) return;
+      const request = new AbortController();
+      summaryRequest = request;
+      fetchArticleMarkup(article.summary, request).then(markup => {
+        if (!request.signal.aborted) summary.replaceChildren(...markup.childNodes);
+      }).catch(() => {});
     }
 
-    function openReading(id, trigger) {
+    function openReading(article, trigger) {
       openedFrom = trigger;
       dialog.showModal();
-      selectArticle(id);
+      setHash(article.id);
+      modal.open(article.id);
     }
 
-    historySection.addEventListener('click', event => {
-      const link = event.target.closest('[data-benchmark-article-link]');
-      if (link && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
-        event.preventDefault();
-        openReading(link.hash.slice(1), link);
-      }
-      const button = event.target.closest('[data-benchmark-read]');
-      if (button) openReading(button.closest('[data-benchmark-article]').id, button);
+    const list = setupArticleList(historySection, index, (article, option) => {
+      active = article;
+      renderInline(article);
+      if (option) openReading(article, option);
     });
-    bindArticleOptions(dialog, articles, article => selectArticle(article.id));
+    previews.replaceChildren(inline);
+    read.hidden = false;
+    read.addEventListener('click', () => openReading(active, read));
     dialog.addEventListener('close', () => {
-      body.replaceChildren();
-      const selected = links.find(link => link.getAttribute('aria-current') === 'true');
-      (openedFrom?.getClientRects().length ? openedFrom : selected)?.focus();
+      modal.cancel();
+      const id = window.location.hash.slice(1);
+      if (id && id !== active?.id) list.reveal(id);
+      (openedFrom?.isConnected ? openedFrom : list.selectedOption())?.focus();
     });
-    for (const button of historySection.querySelectorAll('[data-benchmark-read]')) button.hidden = false;
-    window.addEventListener('hashchange', showArticle);
-    showArticle();
+    window.addEventListener('hashchange', () => {
+      const id = window.location.hash.slice(1);
+      if (dialog.open) modal.reveal(id);
+      else list.reveal(id);
+    });
+    list.open(/^#article-\d+$/.test(window.location.hash) ? window.location.hash.slice(1) : undefined);
   }
 
   function decodeBase64(value) {

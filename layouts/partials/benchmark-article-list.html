@@ -1,0 +1,28 @@
+<div class="{{ if .modal }}benchmark-reading-index{{ else }}benchmark-article-list{{ end }}" data-benchmark-article-panel>
+  <div class="benchmark-article-tools" data-benchmark-article-tools hidden>
+    <label class="benchmark-search benchmark-reading-search">{{ partial "icon" "magnifying-glass" }}<span class="sr-only">搜索历史文章</span><input type="search" placeholder="搜索历史文章" data-benchmark-article-search></label>
+    <label class="benchmark-select benchmark-article-sort"><span class="sr-only">文章排序</span><select data-benchmark-article-sort>
+      <option value="reads">阅读量从高到低</option>
+      <option value="newest">时间从新到旧</option>
+      <option value="oldest">时间从旧到新</option>
+    </select></label>
+  </div>
+  <div class="{{ if .modal }}benchmark-reading-list{{ end }}" data-benchmark-article-scroll>
+    <nav aria-label="历史文章列表" data-benchmark-article-options>
+      {{ if not .modal }}{{ range .initial }}{{ partial "benchmark-article-option" (dict "article" .) }}{{ end }}{{ end }}
+    </nav>
+    <p class="benchmark-account-status" role="status" data-benchmark-article-empty hidden>没有匹配的文章。</p>
+    {{ if .modal }}
+      <div data-benchmark-article-archive hidden>
+        {{ partial "benchmark-archive-download" (dict "available" .downloads "message" "站内展示文章样本，完整归档可下载到本地查看。") }}
+      </div>
+    {{ end }}
+  </div>
+  <nav class="benchmark-article-pagination" aria-label="历史文章分页" data-benchmark-article-pagination hidden>
+    <button type="button" class="page-arrow" data-benchmark-article-prev aria-label="上一页">{{ partial "icon" "caret-left" }}</button>
+    <span role="status" tabindex="-1" data-benchmark-article-page></span>
+    <button type="button" class="page-arrow" data-benchmark-article-next aria-label="下一页">{{ partial "icon" "caret-right" }}</button>
+  </nav>
+  <p class="benchmark-article-notice" role="status" data-benchmark-article-notice hidden></p>
+  <template data-benchmark-article-option>{{ partial "benchmark-article-option" (dict "modal" .modal) }}</template>
+</div>

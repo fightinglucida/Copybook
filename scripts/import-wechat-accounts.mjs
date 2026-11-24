@@ -7,7 +7,7 @@ import { basename, dirname, extname, isAbsolute, join, relative, resolve, sep } 
 import { fileURLToPath } from 'node:url';
 import { parse as parseYaml } from 'yaml';
 import { encryptDownloads } from './wechat-downloads.mjs';
-import { openAccountMetrics, summarizeAccount } from './wechat-account-metrics.mjs';
+import { summarizeAccount } from './wechat-account-metrics.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const source = join(root, 'content', 'gzh', 'mp_accounts');
@@ -220,19 +220,18 @@ function readAccountFiles(account) {
   return { profile, legacy, title };
 }
 
-function readAccount(account, stage, database) {
+function readAccount(account, stage) {
   const filesAtRoot = files(account);
   const { profile, legacy, title } = readAccountFiles(account);
   const options = readJson(join(account, 'hugo-account.json'));
   const trend = readJson(join(account, 'read_trend_30d.json'));
   const folder = basename(account);
-  const savedMetrics = readJson(join(account, 'account_metrics.json'));
-  const snapshot = Array.isArray(savedMetrics.articles) ? savedMetrics : database?.read(title, folder) || savedMetrics;
+  const snapshot = readJson(join(account, 'account_metrics.json'));
   const avatar = filesAtRoot.find(file => /^avatar\./i.test(basename(file)) && imageExtensions.has(extname(file).toLowerCase()));
+
   const markdown = filesAtRoot.filter(file => extname(file).toLowerCase() === '.md');
   for (const entry of entries(account).filter(entry => entry.isDirectory())) {
-    const folder = join(account, entry.name);
-    markdown.push(...files(folder).filter(file => extname(file).toLowerCase() === '.md'));
+    markdown.push(...files(join(account, entry.name)).filter(file => extname(file).toLowerCase() === '.md'));
   }
 
   const local = markdown.sort().map(file => articleFromFile(file, account, stage));
@@ -261,6 +260,10 @@ function readAccount(account, stage, database) {
     })) : [],
   } : undefined;
   const metrics = summarizeAccount(snapshotArticles || articles, trendData, articles.length, Boolean(snapshotArticles));
+  const exportedCount = dataCount(options.total_articles);
+  if (!snapshotArticles && exportedCount !== undefined) {
+    metrics.total.articles = Math.max(metrics.total.articles, exportedCount);
+  }
   const originalCount = dataCount(snapshot.account?.original_article_count ?? profile.original_article_count);
   const lastCollected = text(snapshot.account?.last_collected_at || profile.last_collected_at);
   if (originalCount !== undefined) metrics.original_articles = originalCount;
@@ -289,27 +292,7 @@ function readAccount(account, stage, database) {
   return { slug, data, frontMatter };
 }
 
-function exportMetrics(accounts, database) {
-  if (!database) throw new Error('需要采集数据库才能导出账号统计。');
-  let count = 0;
-  for (const account of accounts) {
-    const { title } = readAccountFiles(account);
-    const metrics = database.read(title, basename(account));
-    if (!metrics) continue;
-    const target = join(account, 'account_metrics.json');
-    const temp = `${target}.${process.pid}.tmp`;
-    try {
-      writeFileSync(temp, `${JSON.stringify(metrics, null, 2)}\n`, { flag: 'wx' });
-      renameSync(temp, target);
-    } finally {
-      if (existsSync(temp)) rmSync(temp);
-    }
-    count++;
-  }
-  console.log(`公众号目录：已导出 ${count} 个账号的统计数据。`);
-}
-
-function importAccounts(accounts, database) {
+function importAccounts(accounts) {
   if (existsSync(outputParent) && realpathSync(outputParent) !== resolve(realpathSync(root), '.local')) {
     throw new Error('.local 需要位于项目目录内。');
   }
@@ -323,7 +306,7 @@ function importAccounts(accounts, database) {
     const titles = new Set();
     for (const account of accounts) {
       try {
-        const { slug, data, frontMatter } = readAccount(account, stage, database);
+        const { slug, data, frontMatter } = readAccount(account, stage);
         const title = nameKey(frontMatter.title);
         if (manifest[slug] || titles.has(title)) throw new Error('发现同名账号或重复的账号页面路径。');
         titles.add(title);
@@ -350,16 +333,10 @@ function importAccounts(accounts, database) {
   }
 }
 
-let database;
 try {
   const accounts = entries(source).filter(entry => entry.isDirectory()).map(entry => join(source, entry.name));
-  const exportRequested = process.argv.includes('--snapshot-metrics');
-  if (accounts.length || exportRequested) database = await openAccountMetrics(root);
-  if (exportRequested) exportMetrics(accounts, database);
-  else importAccounts(accounts, database);
+  importAccounts(accounts);
 } catch (error) {
   console.error(`公众号目录导入失败：${error.message}`);
   process.exitCode = 1;
-} finally {
-  database?.close();
 }

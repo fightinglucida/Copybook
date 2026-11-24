@@ -8,8 +8,7 @@
     "wechat:encrypt": "node scripts/encrypt-wechat-downloads.mjs",
     "prebuild": "npm run wechat:sync",
     "preserve": "npm run wechat:sync",
-    "wechat:sync": "node scripts/import-wechat-accounts.mjs",
-    "wechat:metrics": "node scripts/import-wechat-accounts.mjs --snapshot-metrics"
+    "wechat:sync": "node scripts/import-wechat-accounts.mjs"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.0.0",

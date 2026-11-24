@@ -1,0 +1,42 @@
+{{ if ge (len .points) 2 }}
+  {{ $last := sub (len .points) 1 }}
+  {{ $ticks := slice 0 (div $last 4) (div $last 2) (div (mul $last 3) 4) $last }}
+  {{ $peak := 0 }}
+  {{ range .points }}{{ $peak = math.Max $peak (.reads | default 0) }}{{ end }}
+  {{ $scale := math.Max 1 $peak }}
+  {{ $series := slice }}
+  {{ $coordinates := slice }}
+  {{ range $i, $point := .points }}
+    {{ $x := add 54.0 (div (mul 340.0 $i) $last) }}
+    {{ $y := sub 148.0 (div (mul 132.0 ($point.reads | default 0)) $scale) }}
+    {{ $series = $series | append (dict "x" $x "y" $y "point" $point) }}
+    {{ $coordinates = $coordinates | append (printf "%.1f,%.1f" $x $y) }}
+  {{ end }}
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 180" color="#1583ff" role="img" aria-label="近 30 天每日阅读量折线图">
+    <defs>
+      <linearGradient id="benchmark-trend-fill" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%" stop-color="currentColor" stop-opacity=".27" />
+        <stop offset="100%" stop-color="currentColor" stop-opacity=".02" />
+      </linearGradient>
+    </defs>
+    {{ range seq 0 4 }}
+      {{ $y := add 16 (mul 33 .) }}
+      {{ $value := math.Round (div (mul $peak (sub 4 .)) 4.0) }}
+      <line class="benchmark-trend-grid" stroke="#e0e9f4" x1="54" y1="{{ $y }}" x2="394" y2="{{ $y }}" />
+      {{ if or $peak (eq . 4) }}<text fill="#586b80" font-family="sans-serif" font-size="12" x="47" y="{{ add $y 4 }}" text-anchor="end">{{ if ge $value 10000 }}{{ lang.FormatNumber 1 (div $value 10000.0) }}万{{ else }}{{ lang.FormatNumber 0 $value }}{{ end }}</text>{{ end }}
+    {{ end }}
+    <polygon points="54,148 {{ delimit $coordinates " " }} 394,148" fill="url(#benchmark-trend-fill)" />
+    <polyline points="{{ delimit $coordinates " " }}" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+    {{ range $i, $entry := $series }}
+      {{ $point := $entry.point }}
+      {{ if $point.articles }}
+        <circle class="benchmark-trend-point" fill="#fff" stroke="currentColor" stroke-width="1.5" cx="{{ $entry.x }}" cy="{{ $entry.y }}" r="3.1">
+          <title>{{ $point.date }} · 阅读 {{ if isset $point "reads" }}{{ lang.FormatNumber 0 $point.reads }}{{ else }}暂无{{ end }} · 发文 {{ $point.articles }} 篇</title>
+        </circle>
+      {{ end }}
+      {{ if and (in $ticks $i) $point.date }}
+        <text fill="#586b80" font-family="sans-serif" font-size="12" x="{{ $entry.x }}" y="169" text-anchor="middle">{{ substr $point.date 5 }}</text>
+      {{ end }}
+    {{ end }}
+  </svg>
+{{ end }}

@@ -1,0 +1,9 @@
+{{- $article := .article | default dict -}}
+{{ if .modal }}<button type="button" data-benchmark-reading-select="{{ $article.id }}">{{ else }}<a href="#{{ $article.id }}" data-benchmark-reading-select="{{ $article.id }}" data-benchmark-article-link>{{ end }}
+  <strong>{{ $article.title }}</strong>
+  <span class="benchmark-reading-item-meta">
+    <time datetime="{{ $article.date }}"{{ if not $article.date }} hidden{{ end }}>{{ $article.date }}</time>
+    <span data-benchmark-option-reading{{ if not $article.reading }} hidden{{ end }}>阅读 {{ $article.reading }}</span>
+    <span data-benchmark-option-likes{{ if not $article.likes }} hidden{{ end }}>点赞 {{ $article.likes }}</span>
+  </span>
+{{ if .modal }}</button>{{ else }}</a>{{ end }}

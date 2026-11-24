@@ -2,6 +2,32 @@
 {{- $labels := $params.labels | default slice -}}
 {{- $avatar := "" -}}
 {{- with $params.avatar -}}{{- $avatar = . | relURL -}}{{- end -}}
+{{- $metrics := $params.account_metrics | default dict -}}
+{{- $trend := $metrics.trend | default dict -}}
+{{- $summary := $trend | default ($metrics.recent_30 | default dict) -}}
+{{- $chartURL := "" -}}
+{{- if ge (len ($trend.points | default slice)) 2 -}}
+  {{- $path := printf "gzh/trends/%s.svg" .File.ContentBaseName -}}
+  {{- $chart := resources.FromString $path (partial "benchmark-trend-chart" $trend) | fingerprint -}}
+  {{- $chartURL = $chart.RelPermalink -}}
+{{- end -}}
+{{- $reads := index $summary "reads" -}}
+{{- $readsText := "—" -}}
+{{- if ne $reads nil -}}
+  {{- $readsText = lang.FormatNumber 0 $reads -}}
+  {{- if ge $reads 10000 -}}{{- $readsText = printf "%s万" (lang.FormatNumber 1 (div $reads 10000.0) | strings.TrimSuffix ".0") -}}{{- end -}}
+{{- end -}}
+{{- $posts := index $summary "articles" -}}
+{{- $coverage := index $summary "read_coverage" -}}
+{{- $period := "暂无统计区间" -}}
+{{- if and $summary.from $summary.to -}}{{- $period = printf "%s 至 %s" $summary.from $summary.to -}}{{- end -}}
+{{- $postsText := "—" -}}
+{{- if ne $posts nil -}}{{- $postsText = lang.FormatNumber 0 $posts -}}{{- end -}}
+{{- $total := index ($metrics.total | default dict) "articles" -}}
+{{- $totalText := "—" -}}
+{{- if and (ne $total nil) (ge $total ($posts | default 0)) -}}{{- $totalText = lang.FormatNumber 0 $total -}}{{- end -}}
+{{- $coverageText := "—" -}}
+{{- if ne $coverage nil -}}{{- $coverageText = lang.FormatNumber 0 $coverage -}}{{- end -}}
 {{- return (dict
   "href" .RelPermalink
   "title" .Title
@@ -14,5 +40,6 @@
   "count" (partial "benchmark-article-count" $params)
   "readable" (len ($params.articles | default slice))
   "date" ($params.archive_to | default (.Date.Format "2006-01-02"))
+  "stats" (dict "chart" $chartURL "reads" $readsText "posts" $postsText "total" $totalText "period" $period "coverage" $coverageText)
   "downloadable" (not (not $params.downloads_encrypted))
 ) -}}

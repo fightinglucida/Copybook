@@ -1,6 +1,7 @@
 {{ define "main" }}
 {{ $params := partial "benchmark-params" . }}
 {{ $articles := $params.articles | default slice }}
+{{ $history := partial "benchmark-article-index" (dict "page" . "articles" $articles) }}
 {{ $downloads := $params.downloads_encrypted }}
 {{ $description := $params.description | default .Description }}
 <article class="benchmark-detail">
@@ -25,21 +26,17 @@
     </header>
     {{ if $articles }}
       <div class="benchmark-reader">
-        <nav class="benchmark-article-list" aria-label="历史文章列表">
-          {{ range $index, $article := $articles }}
-            <a href="#article-{{ add $index 1 }}" data-benchmark-article-link><strong>{{ $article.title | default "微信文章" }}</strong>{{ with $article.date }}<time datetime="{{ . }}">{{ . }}</time>{{ end }}</a>
-          {{ end }}
-        </nav>
+        {{ partial "benchmark-article-list" (dict "initial" $history.initial) }}
         <div class="benchmark-previews">
-          {{ range $index, $article := $articles }}
-            {{ $bodyURL := partial "benchmark-article-body" (dict "page" $ "id" $article.body) }}
-            <section class="benchmark-preview benchmark-prose" id="article-{{ add $index 1 }}" data-benchmark-article{{ with $bodyURL }} data-benchmark-body-url="{{ . }}"{{ end }}>
-              {{ with $article.date }}<time datetime="{{ . }}">{{ . }}</time>{{ end }}
-              <h3>{{ $article.title | default "微信文章" }}</h3>
-              {{ with $article.preview }}<div data-benchmark-summary>{{ $.RenderString (dict "display" "block") . }}</div>{{ end }}
+          {{ range $history.firstPage }}
+            {{ $article := .row }}
+            <section class="benchmark-preview benchmark-prose" id="{{ $article.id }}" data-benchmark-inline-article>
+              <time data-benchmark-reading-date datetime="{{ $article.date }}"{{ if not $article.date }} hidden{{ end }}>{{ $article.date }}</time>
+              <h3 data-benchmark-reading-article-title>{{ $article.title }}</h3>
+              <div data-benchmark-reading-body>{{ .summaryHTML }}</div>
               <button type="button" class="button benchmark-reading-trigger" data-benchmark-read hidden>{{ partial "icon" "book-open" }}弹窗阅读</button>
-              {{ with $bodyURL }}<a class="benchmark-source" href="{{ . }}">查看采集正文</a>{{ end }}
-              {{ with $article.source_url }}<a class="benchmark-source" data-benchmark-source href="{{ . }}" target="_blank" rel="noopener noreferrer">打开微信原文 {{ partial "icon" "arrow-up-right" }}</a>{{ end }}
+              <a class="benchmark-source" data-benchmark-reading-collected{{ with $article.body }} href="{{ . }}"{{ else }} hidden{{ end }}>查看采集正文</a>
+              <a class="benchmark-source" data-benchmark-reading-original{{ with $article.original }} href="{{ . }}"{{ else }} hidden{{ end }} target="_blank" rel="noopener noreferrer">打开微信原文 {{ partial "icon" "arrow-up-right" }}</a>
             </section>
           {{ end }}
         </div>
@@ -47,6 +44,7 @@
     {{ else }}<p class="benchmark-empty">暂无可预览的历史文章。</p>{{ end }}
   </section>
 </article>
+{{ if $articles }}<script type="application/json" data-benchmark-article-catalog data-index-url="{{ $history.indexURL }}" data-total="{{ $history.total }}" data-page-size="{{ $history.size }}">{{ $history.initial | jsonify | safeJS }}</script>{{ end }}
 <dialog class="benchmark-dialog benchmark-reading-dialog" aria-labelledby="benchmark-reading-title" data-benchmark-reading-dialog>
   <header class="benchmark-reading-heading">
     <div class="benchmark-reading-account">
@@ -76,27 +74,7 @@
       {{ partial "benchmark-account-metrics" $params.account_metrics }}
     </aside>
     {{ if $articles }}
-    <div class="benchmark-reading-index">
-      {{ if ge (len $articles) 12 }}
-        <label class="benchmark-search benchmark-reading-search">{{ partial "icon" "magnifying-glass" }}<span class="sr-only">搜索历史文章</span><input type="search" placeholder="搜索历史文章" data-benchmark-article-search></label>
-      {{ end }}
-      <div class="benchmark-reading-list">
-        <nav aria-label="弹窗历史文章列表">
-          {{ range $index, $article := $articles }}
-            <button type="button" data-benchmark-reading-select="article-{{ add $index 1 }}">
-              <strong>{{ $article.title | default "微信文章" }}</strong>
-              <span class="benchmark-reading-item-meta">
-                {{ with $article.date }}<time datetime="{{ . }}">{{ . }}</time>{{ end }}
-                {{ with $article.read_count_text }}<span>阅读 {{ . }}</span>{{ else }}{{ if isset $article "read_count" }}<span>阅读 {{ lang.FormatNumber 0 $article.read_count }}</span>{{ end }}{{ end }}
-                {{ with $article.like_count_text }}<span>点赞 {{ . }}</span>{{ else }}{{ if isset $article "like_count" }}<span>点赞 {{ lang.FormatNumber 0 $article.like_count }}</span>{{ end }}{{ end }}
-              </span>
-            </button>
-          {{ end }}
-          <p class="benchmark-account-status" role="status" data-benchmark-article-empty hidden>没有匹配的文章。</p>
-        </nav>
-        {{ partial "benchmark-archive-download" (dict "available" $downloads "message" "站内展示文章样本，完整归档可下载到本地查看。") }}
-      </div>
-    </div>
+    {{ partial "benchmark-article-list" (dict "modal" true "downloads" $downloads) }}
     <div class="benchmark-reading-content" tabindex="0" data-benchmark-reading-content>
       <article class="benchmark-reading-article benchmark-prose">
         <div class="benchmark-reading-meta"><time data-benchmark-reading-date hidden></time><span data-benchmark-reading-kind></span></div>

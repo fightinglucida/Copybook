@@ -1,3 +1,4 @@
+{{- $stats := .stats | default dict -}}
 <a class="benchmark-card" href="{{ .href }}" data-benchmark-card>
   <div class="benchmark-card-heading">
     <span class="benchmark-avatar" data-tone="{{ .avatarTone }}" aria-hidden="true">
@@ -6,11 +7,23 @@
     </span>
     <div class="benchmark-card-title">
       <h2 title="{{ .title }}">{{ .title }}</h2>
-      {{ if or .topic .placeholder }}<span class="benchmark-card-topic">{{ .topic }}</span>{{ end }}
+      {{ if or .description .placeholder }}<p class="benchmark-card-description" title="{{ .description }}">{{ .description }}</p>{{ end }}
     </div>
-    {{ partial "icon" "caret-right" }}
+    {{ if or .topic .placeholder }}<span class="benchmark-card-topic" title="{{ .topic }}">{{ .topic }}</span>{{ end }}
   </div>
-  {{ if or .description .placeholder }}<p class="benchmark-card-description" title="{{ .description }}">{{ .description }}</p>{{ end }}
+  <div class="benchmark-card-trend">
+    {{ if or $stats.chart .placeholder }}<img data-benchmark-trend-image{{ with $stats.chart }} src="{{ . }}"{{ end }} width="420" height="180" alt="近30天每日阅读量趋势" loading="lazy"{{ if .placeholder }} hidden{{ end }}>{{ end }}
+    {{ if or (not $stats.chart) .placeholder }}<span data-benchmark-trend-empty>暂无阅读趋势</span>{{ end }}
+  </div>
+  <dl class="benchmark-metric-grid benchmark-card-metrics">
+    <div><dt>近30天阅读</dt><dd data-benchmark-stat="reads">{{ $stats.reads }}</dd></div>
+    <div><dt>近30天发文</dt><dd data-benchmark-stat="posts">{{ $stats.posts }}</dd></div>
+    <div><dt>文章总数</dt><dd data-benchmark-stat="total">{{ $stats.total }}</dd></div>
+  </dl>
+  <div class="benchmark-card-period">
+    <span data-benchmark-stat="period">{{ $stats.period }}</span>
+    <span>有效阅读数据 <span data-benchmark-stat="coverage">{{ $stats.coverage }}</span> 篇</span>
+  </div>
   <div class="benchmark-card-footer">
     <span><strong>{{ .count }}</strong> 篇收录</span>
     {{ if or .downloadable .placeholder }}<span data-benchmark-card-download>{{ partial "icon" "download-simple" }}可下载</span>{{ end }}

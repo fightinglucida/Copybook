@@ -1,0 +1,45 @@
+{{- $entries := slice -}}
+{{- $total := len .articles -}}
+{{- $size := 12 -}}
+{{- range $position, $article := .articles -}}
+  {{- $id := printf "article-%d" (add $position 1) -}}
+  {{- $reads := -1 -}}
+  {{- $reading := $article.read_count_text | default "" -}}
+  {{- if isset $article "read_count" -}}
+    {{- $reads = $article.read_count -}}
+    {{- $reading = $reading | default (lang.FormatNumber 0 $reads) -}}
+  {{- end -}}
+  {{- $likes := $article.like_count_text | default "" -}}
+  {{- if isset $article "like_count" -}}{{- $likes = $likes | default (lang.FormatNumber 0 $article.like_count) -}}{{- end -}}
+  {{- $summary := "" -}}
+  {{- $summaryHTML := "" -}}
+  {{- with $article.preview -}}
+    {{- $summaryHTML = $.page.RenderString (dict "display" "block") . -}}
+    {{- $path := printf "gzh-summary/%s/%s.html" $.page.File.ContentBaseName $id -}}
+    {{- $asset := resources.FromString $path (printf "<div data-benchmark-imported-body>%s</div>" $summaryHTML) | fingerprint -}}
+    {{- $summary = $asset.RelPermalink -}}
+  {{- end -}}
+  {{- $row := dict "id" $id "title" ($article.title | default "微信文章") "date" ($article.date | default "")
+    "reading" $reading "likes" $likes "original" ($article.source_url | default "")
+    "body" (partial "benchmark-article-body" (dict "page" $.page "id" $article.body)) "summary" $summary -}}
+  {{- /* In a reading-count tie, preserve the original archive order and hash IDs. */ -}}
+  {{- $rank := add (mul $reads (add $total 1)) (sub $total $position) -}}
+  {{- $entries = $entries | append (dict "rank" $rank "row" $row "summaryHTML" $summaryHTML) -}}
+{{- end -}}
+{{- $initial := slice -}}
+{{- $firstPage := slice -}}
+{{- $rows := slice -}}
+{{- range $position, $entry := sort $entries "rank" "desc" -}}
+  {{- $rows = $rows | append $entry.row -}}
+  {{- if lt $position $size -}}
+    {{- $initial = $initial | append $entry.row -}}
+    {{- $firstPage = $firstPage | append $entry -}}
+  {{- end -}}
+{{- end -}}
+{{- $indexURL := "" -}}
+{{- if gt $total $size -}}
+  {{- $path := printf "gzh-articles/%s.json" .page.File.ContentBaseName -}}
+  {{- $asset := resources.FromString $path (jsonify $rows) | fingerprint -}}
+  {{- $indexURL = $asset.RelPermalink -}}
+{{- end -}}
+{{- return (dict "initial" $initial "firstPage" $firstPage "indexURL" $indexURL "total" $total "size" $size) -}}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="250" viewBox="0 0 640 250" role="img" aria-labelledby="title desc">
+  <title id="title">有的是房近30天阅读走势</title>
+  <desc id="desc">按文章发布日期汇总每日阅读量，统计区间2026-10-27至2026-11-25</desc>
+  <defs>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1583ff" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#1583ff" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+  <style>
+    .grid{stroke:#e8eef5;stroke-width:1} .axis-label{fill:#8996a8;font:11px "Microsoft YaHei",sans-serif}
+    .area{fill:url(#area)} .line{fill:none;stroke:#1583ff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .point{fill:#fff;stroke:#1583ff;stroke-width:2} .empty{fill:#94a3b8;font:13px "Microsoft YaHei",sans-serif}
+  </style>
+  <rect width="640" height="250" rx="10" fill="#fbfdff"/>
+  <line x1="76" y1="24.0" x2="598" y2="24.0" class="grid"/><line x1="76" y1="68.0" x2="598" y2="68.0" class="grid"/><line x1="76" y1="112.0" x2="598" y2="112.0" class="grid"/><line x1="76" y1="156.0" x2="598" y2="156.0" class="grid"/><line x1="76" y1="200.0" x2="598" y2="200.0" class="grid"/><text x="64" y="28.0" text-anchor="end" class="axis-label">2,388</text><text x="64" y="72.0" text-anchor="end" class="axis-label">1,791</text><text x="64" y="116.0" text-anchor="end" class="axis-label">1,194</text><text x="64" y="160.0" text-anchor="end" class="axis-label">597</text><text x="64" y="204.0" text-anchor="end" class="axis-label">0</text>
+  <line x1="76" y1="200" x2="598" y2="200" stroke="#dce5ef"/>
+  <polygon points="76,200 76.0,77.9 94.0,200.0 112.0,61.4 130.0,109.3 148.0,200.0 166.0,200.0 184.0,200.0 202.0,131.4 220.0,118.3 238.0,200.0 256.0,200.0 274.0,200.0 292.0,200.0 310.0,200.0 328.0,200.0 346.0,128.4 364.0,24.0 382.0,141.5 400.0,200.0 418.0,200.0 436.0,200.0 454.0,200.0 472.0,139.4 490.0,72.7 508.0,85.3 526.0,200.0 544.0,200.0 562.0,79.3 580.0,200.0 598.0,114.1 598,200" class="area"/>
+  <polyline points="76.0,77.9 94.0,200.0 112.0,61.4 130.0,109.3 148.0,200.0 166.0,200.0 184.0,200.0 202.0,131.4 220.0,118.3 238.0,200.0 256.0,200.0 274.0,200.0 292.0,200.0 310.0,200.0 328.0,200.0 346.0,128.4 364.0,24.0 382.0,141.5 400.0,200.0 418.0,200.0 436.0,200.0 454.0,200.0 472.0,139.4 490.0,72.7 508.0,85.3 526.0,200.0 544.0,200.0 562.0,79.3 580.0,200.0 598.0,114.1" class="line"/>
+  <circle cx="76.0" cy="77.9" r="3.2" class="point"><title>2026-10-27：阅读 1,657，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="112.0" cy="61.4" r="3.2" class="point"><title>2026-10-29：阅读 1,881，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="130.0" cy="109.3" r="3.2" class="point"><title>2026-10-30：阅读 1,231，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="202.0" cy="131.4" r="3.2" class="point"><title>2026-11-03：阅读 931，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="220.0" cy="118.3" r="3.2" class="point"><title>2026-11-04：阅读 1,108，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="346.0" cy="128.4" r="3.2" class="point"><title>2026-11-11：阅读 972，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="364.0" cy="24.0" r="3.2" class="point"><title>2026-11-12：阅读 2,388，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="382.0" cy="141.5" r="3.2" class="point"><title>2026-11-13：阅读 794，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="472.0" cy="139.4" r="3.2" class="point"><title>2026-11-18：阅读 822，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="490.0" cy="72.7" r="3.2" class="point"><title>2026-11-19：阅读 1,727，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="508.0" cy="85.3" r="3.2" class="point"><title>2026-11-20：阅读 1,556，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="562.0" cy="79.3" r="3.2" class="point"><title>2026-11-23：阅读 1,638，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="598.0" cy="114.1" r="3.2" class="point"><title>2026-11-25：阅读 1,165，发文 1 篇，有效阅读数据 1 篇</title></circle><text x="76.0" y="233" text-anchor="middle" class="axis-label">10-27</text><text x="202.0" y="233" text-anchor="middle" class="axis-label">11-03</text><text x="328.0" y="233" text-anchor="middle" class="axis-label">11-10</text><text x="454.0" y="233" text-anchor="middle" class="axis-label">11-17</text><text x="598.0" y="233" text-anchor="middle" class="axis-label">11-25</text>
+</svg>

@@ -36,7 +36,13 @@
 
 `download_password` 会以明文保存在源码配置中。若源码仓库公开，请把字段留空，并在本机或部署平台的构建环境设置 `WECHAT_BENCHMARK_PASSWORD`。
 
-`account_profile.json` 是构建输入，可能包含采集端写入的明文分享地址。向公开仓库提交账号前，把真实地址保存在该账号目录下由 Git 忽略的 `downloads.json` 中，并清空 `account_profile.json` 的网盘链接字段。运行 `npm run wechat:encrypt -- <downloads.json 路径>`，将生成的密文作为 `downloads_encrypted` 写入同目录的 `hugo-account.json`，保留其中已有的账号设置。`download_providers` 可填写 `baidu`、`quark` 或 `other`，用于分别显示对应入口。省略时使用统一的「网盘下载」入口。
+把账号子文件夹复制进来后，在 Copybook 项目目录运行一次批量加密，再提交到 GitHub。
+
+```powershell
+npm run wechat:encrypt
+```
+
+命令会扫描全部账号，把明文分享地址保存到 Git 忽略的 `downloads.json`，将密文和网盘类型写入 `hugo-account.json`，并清空账号资料里的明文链接。分类、标签等已有设置会保留。已加密且账号资料未带入明文链接的账号会跳过。只想读取指定网盘配置并输出密文时，可以用 `npm run wechat:encrypt -- <downloads.json 路径>`。
 
 构建优先使用已经保存的密文。更换分享链接或通用口令时，使用本地的 `downloads.json` 重新加密，并更新 `hugo-account.json` 中的密文和网盘类型。公开仓库的构建可直接使用密文。
 

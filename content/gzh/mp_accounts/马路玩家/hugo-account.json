@@ -1,4 +1,8 @@
 {
   "topic": "汽车",
-  "labels": []
+  "labels": [],
+  "downloads_encrypted": "v1.0TDvxa12fDJ7Bj2qpi/vug==.U5wlLAuCqXYt9ywU.n8sIXWMOfUyXOBIYYjWwR6qd+AqFGn9errbuWMnL0wRw3jQH4ciz+daipc4ODygfkubM7qInxEDN2M0DdQg6/bkOSF9NdKLwzuEmgtgUopW0Wf5VvdxzOj7Yeor5jZo/pseSDBXMcFapJ9o7miPJfIl67BUp23TK1fePUh/OV2RJLnsSZTF+FGgIQw==",
+  "download_providers": [
+    "baidu"
+  ]
 }

@@ -1,10 +1,4 @@
 {
   "topic": "汽车",
-  "labels": [
-    "汽车选购"
-  ],
-  "downloads_encrypted": "v1.tmRFxQjI6RFMdWeS5KxalQ==.DNH6aUmDtJJkx0l4.1DfGfcv58Q7y/tP0h9f8GTVsLyvEZh4W/kgRg5mHw8PgWIWk3o8q2TWQ6t24kQKIcfSx7heZPCtHFTA14tnuYLRVp84hckfNm/E65aRqnuNJ12n8kuqfQdID9a2jBlRpHBevx4pEoud+QpuMf4ghcYVpx2pdWjSCKFNQTcZgVwqsBJm7kQ/wNwAPxw==",
-  "download_providers": [
-    "baidu"
-  ]
+  "labels": []
 }

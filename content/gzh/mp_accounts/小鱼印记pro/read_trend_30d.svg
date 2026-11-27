@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="250" viewBox="0 0 640 250" role="img" aria-labelledby="title desc">
+  <title id="title">小鱼印记pro近30天阅读走势</title>
+  <desc id="desc">按文章发布日期汇总每日阅读量，统计区间2026-10-21至2026-11-19</desc>
+  <defs>
+    <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1583ff" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#1583ff" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+  <style>
+    .grid{stroke:#e8eef5;stroke-width:1} .axis-label{fill:#8996a8;font:11px "Microsoft YaHei",sans-serif}
+    .area{fill:url(#area)} .line{fill:none;stroke:#1583ff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .point{fill:#fff;stroke:#1583ff;stroke-width:2} .empty{fill:#94a3b8;font:13px "Microsoft YaHei",sans-serif}
+  </style>
+  <rect width="640" height="250" rx="10" fill="#fbfdff"/>
+  <line x1="76" y1="24.0" x2="598" y2="24.0" class="grid"/><line x1="76" y1="68.0" x2="598" y2="68.0" class="grid"/><line x1="76" y1="112.0" x2="598" y2="112.0" class="grid"/><line x1="76" y1="156.0" x2="598" y2="156.0" class="grid"/><line x1="76" y1="200.0" x2="598" y2="200.0" class="grid"/><text x="64" y="28.0" text-anchor="end" class="axis-label">10万</text><text x="64" y="72.0" text-anchor="end" class="axis-label">7.5万</text><text x="64" y="116.0" text-anchor="end" class="axis-label">5万</text><text x="64" y="160.0" text-anchor="end" class="axis-label">2.5万</text><text x="64" y="204.0" text-anchor="end" class="axis-label">0</text>
+  <line x1="76" y1="200" x2="598" y2="200" stroke="#dce5ef"/>
+  <polygon points="76,200 76.0,143.7 94.0,140.2 112.0,200.0 130.0,200.0 148.0,24.0 166.0,110.2 184.0,161.3 202.0,119.0 220.0,200.0 238.0,200.0 256.0,200.0 274.0,200.0 292.0,200.0 310.0,200.0 328.0,200.0 346.0,200.0 364.0,200.0 382.0,200.0 400.0,200.0 418.0,200.0 436.0,200.0 454.0,200.0 472.0,200.0 490.0,200.0 508.0,200.0 526.0,200.0 544.0,199.4 562.0,200.0 580.0,200.0 598.0,199.1 598,200" class="area"/>
+  <polyline points="76.0,143.7 94.0,140.2 112.0,200.0 130.0,200.0 148.0,24.0 166.0,110.2 184.0,161.3 202.0,119.0 220.0,200.0 238.0,200.0 256.0,200.0 274.0,200.0 292.0,200.0 310.0,200.0 328.0,200.0 346.0,200.0 364.0,200.0 382.0,200.0 400.0,200.0 418.0,200.0 436.0,200.0 454.0,200.0 472.0,200.0 490.0,200.0 508.0,200.0 526.0,200.0 544.0,199.4 562.0,200.0 580.0,200.0 598.0,199.1" class="line"/>
+  <circle cx="76.0" cy="143.7" r="3.2" class="point"><title>2026-10-21：阅读 3.2万，发文 2 篇，有效阅读数据 2 篇</title></circle><circle cx="94.0" cy="140.2" r="3.2" class="point"><title>2026-10-22：阅读 3.4万，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="148.0" cy="24.0" r="3.2" class="point"><title>2026-10-25：阅读 10万，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="166.0" cy="110.2" r="3.2" class="point"><title>2026-10-26：阅读 5.1万，发文 2 篇，有效阅读数据 2 篇</title></circle><circle cx="184.0" cy="161.3" r="3.2" class="point"><title>2026-10-27：阅读 2.2万，发文 2 篇，有效阅读数据 2 篇</title></circle><circle cx="202.0" cy="119.0" r="3.2" class="point"><title>2026-10-28：阅读 4.6万，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="544.0" cy="199.4" r="3.2" class="point"><title>2026-11-16：阅读 362，发文 1 篇，有效阅读数据 1 篇</title></circle><circle cx="598.0" cy="199.1" r="3.2" class="point"><title>2026-11-19：阅读 486，发文 1 篇，有效阅读数据 1 篇</title></circle><text x="76.0" y="233" text-anchor="middle" class="axis-label">10-21</text><text x="202.0" y="233" text-anchor="middle" class="axis-label">10-28</text><text x="328.0" y="233" text-anchor="middle" class="axis-label">11-04</text><text x="454.0" y="233" text-anchor="middle" class="axis-label">11-11</text><text x="598.0" y="233" text-anchor="middle" class="axis-label">11-19</text>
+</svg>

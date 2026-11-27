@@ -1,191 +1,191 @@
 {
-  "anchor_date": "2026-09-08",
-  "date_from": "2026-08-10",
-  "date_to": "2026-09-08",
+  "anchor_date": "2026-11-25",
+  "date_from": "2026-10-27",
+  "date_to": "2026-11-25",
   "points": [
     {
-      "date": "2026-08-10",
-      "read_count": 27495,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-11",
-      "read_count": 16147,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-12",
-      "read_count": 42140,
+      "date": "2026-10-27",
+      "read_count": 7378,
       "article_count": 3,
       "metric_count": 3
     },
     {
-      "date": "2026-08-13",
-      "read_count": 801,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-14",
-      "read_count": 918,
+      "date": "2026-10-28",
+      "read_count": 1595,
       "article_count": 3,
       "metric_count": 3
     },
     {
-      "date": "2026-08-15",
-      "read_count": 55452,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-16",
-      "read_count": 905,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-17",
-      "read_count": 54107,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-18",
-      "read_count": 338,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-19",
-      "read_count": 885,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-20",
-      "read_count": 1187,
+      "date": "2026-10-29",
+      "read_count": 8012,
       "article_count": 3,
       "metric_count": 3
     },
     {
-      "date": "2026-08-21",
-      "read_count": 16173,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-22",
-      "read_count": 234,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-23",
-      "read_count": 127,
-      "article_count": 1,
-      "metric_count": 1
-    },
-    {
-      "date": "2026-08-24",
-      "read_count": 704,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-25",
-      "read_count": 129,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-26",
-      "read_count": 7724,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-27",
-      "read_count": 27,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-28",
-      "read_count": 292,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-29",
-      "read_count": 1378,
-      "article_count": 2,
-      "metric_count": 2
-    },
-    {
-      "date": "2026-08-30",
-      "read_count": 75207,
+      "date": "2026-10-30",
+      "read_count": 54545,
       "article_count": 3,
       "metric_count": 3
     },
     {
-      "date": "2026-08-31",
-      "read_count": 1102,
+      "date": "2026-10-31",
+      "read_count": 653,
       "article_count": 3,
       "metric_count": 3
     },
     {
-      "date": "2026-09-01",
-      "read_count": 184,
+      "date": "2026-11-01",
+      "read_count": 2018,
       "article_count": 3,
       "metric_count": 3
     },
     {
-      "date": "2026-09-02",
-      "read_count": 315,
+      "date": "2026-11-02",
+      "read_count": 109000,
       "article_count": 3,
       "metric_count": 3
     },
     {
-      "date": "2026-09-03",
-      "read_count": 1457,
+      "date": "2026-11-03",
+      "read_count": 17792,
       "article_count": 3,
       "metric_count": 3
     },
     {
-      "date": "2026-09-04",
-      "read_count": 12712,
+      "date": "2026-11-04",
+      "read_count": 9185,
       "article_count": 3,
       "metric_count": 3
     },
     {
-      "date": "2026-09-05",
-      "read_count": 516,
+      "date": "2026-11-05",
+      "read_count": 675,
       "article_count": 3,
       "metric_count": 3
     },
     {
-      "date": "2026-09-06",
-      "read_count": 778,
+      "date": "2026-11-06",
+      "read_count": 363,
       "article_count": 3,
       "metric_count": 3
     },
     {
-      "date": "2026-09-07",
-      "read_count": 733,
+      "date": "2026-11-07",
+      "read_count": 373,
       "article_count": 3,
       "metric_count": 3
     },
     {
-      "date": "2026-09-08",
-      "read_count": 465,
+      "date": "2026-11-08",
+      "read_count": 9836,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-09",
+      "read_count": 2099,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-10",
+      "read_count": 1622,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-11",
+      "read_count": 62269,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-12",
+      "read_count": 29183,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-13",
+      "read_count": 12552,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-14",
+      "read_count": 11650,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-15",
+      "read_count": 2908,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-16",
+      "read_count": 782,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-17",
+      "read_count": 3321,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-18",
+      "read_count": 579,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-19",
+      "read_count": 8775,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-20",
+      "read_count": 777,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-21",
+      "read_count": 3238,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-22",
+      "read_count": 375,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-23",
+      "read_count": 7045,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-24",
+      "read_count": 729,
+      "article_count": 3,
+      "metric_count": 3
+    },
+    {
+      "date": "2026-11-25",
+      "read_count": 260,
       "article_count": 3,
       "metric_count": 3
     }
   ],
-  "total_reads": 320632,
-  "article_count": 72,
-  "metric_count": 72,
-  "generated_at": "2026-11-24T10:28:27+08:00"
+  "total_reads": 369589,
+  "article_count": 90,
+  "metric_count": 90,
+  "generated_at": "2026-11-25T18:46:04+08:00"
 }
